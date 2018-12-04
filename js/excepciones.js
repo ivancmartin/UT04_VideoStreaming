@@ -19,7 +19,7 @@ MyBaseExceptions.prototype.toString = function(){
 //InvalidAccesConstructorException: heradado de MyBaseExceptions y su constructor
 function InvalidAccesConstructorException(){
     this.name = "InvalidAccesConstructor";
-    this.message = "Error: El constructor no puede ser llamado como una función";
+    this.message = "El constructor no puede ser llamado como una función";
 } 
 InvalidAccesConstructorException.prototype = new MyBaseExceptions();
 InvalidAccesConstructorException.prototype.constructor = InvalidAccesConstructorException;
@@ -40,3 +40,18 @@ function InvalidDateException(param){
 InvalidDateException.prototype = new MyBaseExceptions();
 InvalidDateException.prototype.constructor = InvalidDateException;
 
+//InvalidDateException: comprobar si la fecha introducida es correcta.
+function InvalidValueException(){
+    this.name = "InvalidValueException";
+    this.message = "Error: el valor introducido no es correcta";
+}
+InvalidValueException.prototype = new MyBaseExceptions();
+InvalidValueException.prototype.constructor = InvalidValueException;
+
+//ExistValueException: el valor ya existe en el array.
+function ExistValueException(param){
+    this.name = "ExistValueException";
+    this.message = "Error: el valor " + param + " introducido ya existe en el array";
+}
+ExistValueException.prototype = new MyBaseExceptions();
+ExistValueException.prototype.constructor = ExistValueException;

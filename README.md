@@ -26,6 +26,30 @@ archivos:
         * InvalidAccesConstructorException
         * EmptyValuesException: error de paramaetros vacíos
         * InvalidDateException: error fecha inválida
-        * toString(): devuelve una cadena con formato de los atributos de este objeto 
-        
+         
+
+# v0.0.2      
+revisión de la función testPerson(): comprobación de los metodos setters y getters.   
+
+# v0.0.3
+ - objetos.js(js/objetos.js). revisiones:
+    * pBorn:  comprobado
     
+ - objetos.js(js/objetos.js). clases añadidas: 
+    + Category: atributos:
+        * pName
+        * pLastName1
+        * pLastName2
+        * pBorn
+        * pPicture 
+        * getters y setters para cada opcion
+        * toString(): devuelve una cadena con formato de los atributos de este objeto
+        
+    + Category: atributos:
+        * cName
+        * cDescription 
+        * toString(): devuelve una cadena con formato de los atributos de este objeto
+        
+- excepciones.js(js/excepciones.js):
+        * ExistValueException
+        
