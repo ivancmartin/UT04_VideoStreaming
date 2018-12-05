@@ -45,8 +45,8 @@ function Person(name,lastName1,lastName2,born,picture){
             return pName;
         },
         set: function(value){
-            name = typeof name !== 'undefined' ? name : "";
-            if (name === "") throw new EmptyValuesException("name");
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("name");
             pName = value;
         }
     });
@@ -56,8 +56,8 @@ function Person(name,lastName1,lastName2,born,picture){
             return pLastName1;
         },
         set: function(value){
-            lastName1 = typeof lastName1 !== 'undefined' ? lastName1 : "";
-            if (lastName1 === "") throw new EmptyValuesException("lastName1");
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("lastName1");
             pLastName1 = value;
         }
     });
@@ -67,7 +67,7 @@ function Person(name,lastName1,lastName2,born,picture){
             return pLastName2;
         },
         set: function(value){
-            lastName2 = typeof lastName2 !== 'undefined' ? lastName2 : "";
+            value = typeof value !== 'undefined' ? value : "";
             pLastName2 = value;
         }
     });
@@ -77,9 +77,9 @@ function Person(name,lastName1,lastName2,born,picture){
             return pBorn;
         },
         set: function(value){
-            if(!(born instanceof Date)) throw new InvalidAccesConstructorException();
-            born = typeof born !== 'undefined' ? born : "";
-            if (born === "") throw new EmptyValuesException("born");
+            if(!(value instanceof Date)) throw new InvalidAccesConstructorException();
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("born");
             pBorn = value;
         }
     });
@@ -89,7 +89,7 @@ function Person(name,lastName1,lastName2,born,picture){
             return pPicture;
         },
         set: function(value){
-            picture = typeof picture !== 'undefined' ? picture : "";
+            value = typeof value !== 'undefined' ? value : "";
             pPicture = value;
         }
     });
@@ -122,8 +122,8 @@ function Category(name,description){
             return cName;
         },
         set: function(value){
-            name = typeof name !== 'undefined' ? name : "";
-            if (name === "") throw new EmptyValuesException("name");
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("name");
             cName = value;
         }
     });
@@ -133,7 +133,7 @@ function Category(name,description){
             return cDescription;
         },
         set: function(value){
-            description = typeof description !== 'undefined' ? description : "";
+            value = typeof value !== 'undefined' ? value : "";
             cDescription = value;
         }
     });
@@ -149,7 +149,9 @@ Category.prototype.toString = function(){
 // objeto Resource: inicio
 function Resource(duration,link,audios,subtitles){
     
-    if(!(this instanceof Resource)) throw new InvalidAccesConstructorException();
+    //La función se invoca con el operador new
+	if (!(this instanceof Resource)) 
+        throw new InvalidAccesConstructorException();
 
     duration = typeof duration !== 'undefined' ? duration : "";
     if (duration === "") throw new EmptyValuesException("duration");
@@ -171,8 +173,8 @@ function Resource(duration,link,audios,subtitles){
             return rDuration;
         },
         set: function(value){
-            duration = typeof duration !== 'undefined' ? duration : "";
-            if (duration === "") throw new EmptyValuesException("duration");
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("duration");
             rDuration = value;
         }
     });
@@ -182,8 +184,8 @@ function Resource(duration,link,audios,subtitles){
             return rLink;
         },
         set: function(value){
-            link = typeof link !== 'undefined' ? link : "";
-            if (link === "") throw new EmptyValuesException("link");
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("link");
             rLink = value;
         }
     });
@@ -237,21 +239,22 @@ function Production(title,nationality,publication,synopsis,image) {
     if (publication === "") throw new EmptyValuesException("publication");
 
     synopsis = typeof synopsis !== 'undefined' ? synopsis : "";
+
     image = typeof image !== 'undefined' ? image : "";
 
-    pTitle = title.trim();
-    pNationality = nationality.trim();
-    pPublication = publication;
-    pSynopsis = synopsis.trim();
-    pImage = image.trim();
+    var pTitle = title.trim();
+    var pNationality = nationality.trim();
+    var pPublication = publication;
+    var pSynopsis = synopsis.trim();
+    var pImage = image.trim();
 
     Object.defineProperty(this,'title',{
         get: function(){
             return pTitle;
         },
         set: function(value){
-            title = typeof title !== 'undefined' ? title : "";
-            if (title === "") throw new EmptyValuesException("title");
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("title");
             pTitle = value;
         }
     });
@@ -261,8 +264,8 @@ function Production(title,nationality,publication,synopsis,image) {
             return pNationality;
         },
         set: function(value){
-            nationality = typeof nationality !== 'undefined' ? nationality : "";
-            if (nationality === "") throw new EmptyValuesException("nationality");
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("nationality");
             pNationality = value;
         }
     });
@@ -272,9 +275,9 @@ function Production(title,nationality,publication,synopsis,image) {
             return pPublication;
         },
         set: function(value){
-            if(!(publication instanceof Date)) throw new InvalidAccesConstructorException();
-            publication = typeof publication !== 'undefined' ? publication : "";
-            if (publication === "") throw new EmptyValuesException("publication");
+            if(!(value instanceof Date)) throw new InvalidAccesConstructorException();
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("publication");
             pPublication = value;
         }
     });
@@ -284,8 +287,8 @@ function Production(title,nationality,publication,synopsis,image) {
             return pSynopsis;
         },
         set: function(value){
-            synopsis = typeof synopsis !== 'undefined' ? synopsis : "";
-            if (synopsis === "") throw new EmptyValuesException("synopsis");
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("synopsis");
             pSynopsis = value;
         }
     });
@@ -295,18 +298,109 @@ function Production(title,nationality,publication,synopsis,image) {
             return pImage;
         },
         set: function(value){
-            image = typeof image !== 'undefined' ? image : "";
-            if (image === "") throw new EmptyValuesException("image");
+            value = typeof value !== 'undefined' ? value : "";
+            if (value === "") throw new EmptyValuesException("image");
             pImage = value;
+        }
+    });
+}
+//metodos a parte de los métodos
+Production.prototype = {};
+Production.prototype.constructor = Production;
+Production.prototype.toString = function(){
+    return "título: " + this.title + " Nacionalidad: " + this.nationality + " publication: " + this.publication + "sinopsis: " + this.synopsis + " ruta de la imagen: " + this.image;
+};
+//clase abstracta Production: fin
+
+//clase Movie: inicio
+function Movie(title,nationality,publication,synopsis,image,resource,locations) {
+    
+    //if(!(this instanceof Movie)) throw new InvalidAccesConstructorException();
+
+    Production.call(this,title,nationality,publication,synopsis,image);
+
+    //console.log("recurso: " + resource.toString());
+
+    if(!(resource instanceof Resource)) throw new InvalidValueException();
+    resource = typeof resource  !== 'undefined' ? resource : 'undefined';
+    
+    locations = typeof locations !== 'undefined' ? locations : [];
+
+    var mResource = resource;
+    var mLocations = locations;
+
+    
+
+    Object.defineProperty(this,resource,{
+        get:function(){
+            console.log("recurso: " + mResource.toString());
+            return mResource;
+        },
+        set:function(value){
+            value = typeof value  !== 'undefined' ? value : 0;
+            if(!(value instanceof Resource)) throw new InvalidValueException();
+            mResource = value;
+        }
+    });
+
+    Object.defineProperty(this,locations,{
+        get:function(){
+            return mLocations;
+        },
+        set:function(value){
+            if(!value) throw new EmptyValuesException('location');
+            if(mLocations.indexOf(value) !== -1) throw new ExistValueException(value);
+            mLocations.push(value);
         }
     });
 
 }
-//clase abstracta Production: inicio
+//metodos a parte de los métodos
+Movie.prototype = Object.create(Production.prototype);
+Movie.prototype.constructor = Movie;
+Movie.prototype.toString = function(){
+    return Production.prototype.toString.call(this) + " recurso: " + this.resource + " localizaciones: " + this.locations;
+};
+//clase Movie: fin
 
-function Movie(resource,location) {
-    
+//clase coordinate: inicio
+function Coordinate(latitude,longitude){
+
+    if(!(this instanceof Coordinate)) throw new InvalidAccesConstructorException();
+
+    latitude = typeof latitude !== 'undefined' ? latitude : 0;
+    if(isNaN(latitude)) throw new InvalidValueException();
+
+    longitude = typeof longitude !== 'undefined' ? longitude : 0;
+    if(isNaN(longitude)) throw new InvalidValueException();
+
+    var cLatitude = latitude;
+    var cLongitude = longitude;
+
+    Object.defineProperty(this,latitude,{
+        get:function(){
+            return cLatitude;
+        },
+        set:function(value){
+            latitude = typeof value !== 'undefined' ? value : "";
+            if(isNaN(latidude)) throw new InvalidValueException();
+            cLatitude = latitude;
+        }
+    });
+
+    Object.defineProperty(this,longitude,{
+        get:function(){
+            return cLongitude;
+        },
+        set:function(value){
+            value = typeof value !== 'undefined' ? value : "";
+            if(isNaN(value)) throw new InvalidValueException();
+            cLongitude = longitude;
+        }
+    });
+
 }
+//clase coordinate: fin
 
 function testPerson(){
     
@@ -408,7 +502,20 @@ function testPerson(){
     } catch (error) {
         console.log(error.toString());
     }
-  
+    
+    console.log("test sobre Coordinate y Movies");
+    //test sobre Coordinate y Movies
+    var coordenadas = new Coordinate(444,446);
+    var coordenadas2 = new Coordinate(202,665);
 
+    var localizaciones = [coordenadas,coordenadas2];
+    var fecha2 = new Date("January 1, 2000");
+
+    // recurso ha utilizar: 
+    var resurce2 = new Resource(10,"../video.vwm",audios,subtitulos);
+    var peli1 = new Movie("HP","UK",fecha2,"La peli de HP","../images/hp_movie.jpg",resurce2,localizaciones)
+    console.log(peli1.toString());
+    peli1.resource = resurce2 ; 
+    console.log(peli1.toString());
 }
 window.onload = testPerson;
