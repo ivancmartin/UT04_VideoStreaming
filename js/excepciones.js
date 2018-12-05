@@ -55,3 +55,11 @@ function ExistValueException(param){
 }
 ExistValueException.prototype = new MyBaseExceptions();
 ExistValueException.prototype.constructor = ExistValueException;
+
+//AbstractClassException: es una clase abstracta.
+function AbstractClassException(param){
+    this.name = "AbstractClassException";
+    this.message = "Error: el valor " + param + " es una clase abstracta, no puede instanciarse";
+}
+AbstractClassException.prototype = new MyBaseExceptions();
+AbstractClassException.prototype.constructor = AbstractClassException;

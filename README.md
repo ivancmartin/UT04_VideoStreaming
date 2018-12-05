@@ -52,4 +52,7 @@ revisión de la función testPerson(): comprobación de los metodos setters y ge
         
 - excepciones.js(js/excepciones.js):
         * ExistValueException
+
+# v0.0.4
+En revisión
         
