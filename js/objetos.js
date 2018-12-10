@@ -308,7 +308,7 @@ function Production(title,nationality,publication,synopsis,image) {
 Production.prototype = {};
 Production.prototype.constructor = Production;
 Production.prototype.toString = function(){
-    return "título: " + this.title + " Nacionalidad: " + this.nationality + " publication: " + this.publication + "sinopsis: " + this.synopsis + " ruta de la imagen: " + this.image;
+    return "título: " + this.title + "\nNacionalidad: " + this.nationality + "\npublication: " + this.publication + "\nsinopsis: " + this.synopsis + "\nruta de la imagen: " + this.image;
 };
 //clase abstracta Production: fin
 
@@ -322,18 +322,22 @@ function Movie(title,nationality,publication,synopsis,image,resource,locations) 
     //console.log("recurso: " + resource.toString());
 
     if(!(resource instanceof Resource)) throw new InvalidValueException();
-    resource = typeof resource  !== 'undefined' ? resource : 'undefined';
+    resource = typeof resource  !== null ? resource : 'undefined';
     
-    locations = typeof locations !== 'undefined' ? locations : [];
+    locations = typeof locations !== null ? locations : [];
 
     var mResource = resource;
-    var mLocations = locations;
 
+    //array para almacenar las coordenadas
+    var mLocations = [];
+
+    for (let i = 0; i < locations.length; i++) {
+        if(locations[i] instanceof Coordinate)
+            mLocations.push(locations[i]);
+    }
     
-
-    Object.defineProperty(this,resource,{
+    Object.defineProperty(this,'resource',{
         get:function(){
-            console.log("recurso: " + mResource.toString());
             return mResource;
         },
         set:function(value){
@@ -343,12 +347,13 @@ function Movie(title,nationality,publication,synopsis,image,resource,locations) 
         }
     });
 
-    Object.defineProperty(this,locations,{
+    Object.defineProperty(this,'locations',{
         get:function(){
             return mLocations;
         },
         set:function(value){
             if(!value) throw new EmptyValuesException('location');
+            if(!(value instanceof Coordinate))  throw new InvalidValueException();
             if(mLocations.indexOf(value) !== -1) throw new ExistValueException(value);
             mLocations.push(value);
         }
@@ -359,9 +364,199 @@ function Movie(title,nationality,publication,synopsis,image,resource,locations) 
 Movie.prototype = Object.create(Production.prototype);
 Movie.prototype.constructor = Movie;
 Movie.prototype.toString = function(){
-    return Production.prototype.toString.call(this) + " recurso: " + this.resource + " localizaciones: " + this.locations;
+    return Production.prototype.toString.call(this) + "\nrecurso: " + this.resource + "\nlocalizaciones: " + this.locations;
 };
 //clase Movie: fin
+
+//clase Movie: serie
+function Serie(title,nationality,publication,synopsis,image,season) {
+
+    Production.call(this,title,nationality,publication,synopsis,image);
+
+    season = typeof season !== "" ? season : 'undefined';
+    if(season === undefined ) throw new InvalidValueException();
+
+    //array para almacenar las coordenadas
+    var seasons = [];
+
+    if (Array.isArray(season)) {
+        for (let i = 0; i < season.length; i++) {
+           // console.log(seasons.indexOf(season[i]) === -1);
+            if((season[i] instanceof Season) && (seasons.indexOf(season[i]) === -1)){
+                seasons.push(season[i]);
+            }   
+        }   
+    }else{
+        seasons.push(season);
+    }
+
+    Object.defineProperty(this,'seasons',{
+        get:function(){
+            return seasons;
+        },
+        set:function(value){
+            if(!value) throw new EmptyValuesException('season');
+            if(seasons.indexOf(value) !== -1) throw new ExistValueException(value);
+            seasons.push(value);
+        }
+    });
+}
+//metodos a parte de los métodos
+Serie.prototype = Object.create(Production.prototype);
+Serie.prototype.constructor = Serie;
+Serie.prototype.toString = function(){
+    return Production.prototype.toString.call(this) + "\ntemporadas: " + this.seasons;
+};
+//clase season: serie
+
+//clase season: inicio
+function Season(title,episodes) {
+    
+    if(!(this instanceof Season)) throw new InvalidAccesConstructorException();
+    
+    title = title !== 'undefined'? title : undefined;
+    if (title === undefined || title === "") 
+        throw new EmptyValuesException("title");
+
+    var sTitle = title;
+    var sEpisodes = [];
+    
+    if (Array.isArray(episodes)) {
+        
+        console.log(episodes.length > 0);
+
+            for (let i = 0; i < episodes.length; i++) {
+
+                if(!(episodes[i].episode instanceof Resource))
+                    throw new InvalidValueException();
+                
+                for (let j = 0; j < episodes[i].scenarios.length; j++) {
+                    if(!(episodes[i].scenarios[j] instanceof Coordinate))
+                        throw new InvalidValueException();
+                }
+                
+                sEpisodes.push(episodes[i]);
+                
+            };
+        
+    }else{
+
+        if(!(episodes.episode instanceof Resource)) throw new InvalidValueException();
+        
+        if(!(episodes.scenarios instanceof Coordinate)) throw new InvalidValueException();
+
+        sEpisodes.push(episodes);
+    }
+
+    Object.defineProperty(this,'title',{
+        get:function(){
+            return sTitle;
+        },
+        set:function(value){
+            value =  value !== 'undefined'? value : "";
+            if (value === "") throw new EmptyValuesException("title");
+            sTitle = value;
+        }
+    });
+
+    Object.defineProperty(this,'episodes',{
+        get:function(){
+            return sEpisodes;
+        },
+        set:function(stitle,sepisode,scenario){
+            var value = value !== 'undefined'? value : "";
+                if (value === "") throw new EmptyValuesException("title");
+            
+            if(!(episodes.episode instanceof Resource)) throw new InvalidValueException();
+        
+            if(!(episodes.scenarios instanceof Coordinate)) throw new InvalidValueException();
+
+            value = {
+                title: stitle,
+                episode: sepisode, 
+                scenarios: scenario
+            }
+
+            sEpisodes.push(value);
+        }
+    });
+
+}
+//metodos a parte de los métodos //comprobar más tarde
+Season.prototype = {};
+Season.prototype.constructor = Season;
+Season.prototype.toString = function(){
+    return "titulo: " + this.title + "\nEpisodios: " + this.episodes;
+};
+//clase season: fin
+
+//clase user: inicio
+function User(name,email,password){
+    
+    //si no es un objeto definido como new, no lo crea
+    if(!(this instanceof User)) throw new InvalidAccesConstructorException();
+
+	//Validación de parámetros obligatorios
+	if (name === 'undefined' || name === "") throw new EmptyValuesException("name");
+	if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]$/.test (name) !== true)
+		throw new InvalidValueException();		
+
+	if (email === 'undefined' || email === '') throw new EmptyValuesException("email");	
+	if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]\@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test (email) !== true)
+        throw new InvalidValueException();	
+
+	password = typeof password !== 'undefined' ? password : "";
+	if (password === "") throw new EmptyValuesException("password");
+
+    //atributos de la clase
+    var uName = name.trim();
+    var uEmail = email.trim();
+    var uPassword = password.trim();
+
+    //recoger y dar los valores al objeto (getters y setters)
+    Object.defineProperty(this,'name',{
+        get: function(){
+            return uName;
+        },
+        set: function(value){
+            if (value === 'undefined' || value === "") throw new EmptyValuesException("name");
+            if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]$/.test (value) !== true)
+                throw new InvalidValueException();		
+            uName = value;
+        }
+    });
+
+    Object.defineProperty(this,'email',{
+        get: function(){
+            return uEmail;
+        },
+        set: function(value){
+            if (value === 'undefined' || value === "") throw new EmptyValuesException("uEmail");
+            if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]\@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test (value) !== true)
+                throw new InvalidValueException();		
+            uEmail = value;
+        }
+    });
+
+    Object.defineProperty(this,'password',{
+        get: function(){
+            return uPassword;
+        },
+        set: function(value){
+            value = typeof value !== 'undefined' ? value : "";
+	        if (value === "") throw new EmptyValuesException("password");		
+            uPassword = value;
+        }
+    });
+};
+//metodos a parte de los métodos
+User.prototype = {};
+User.prototype.constructor = User;
+User.prototype.toString = function(){
+    return  "Nombre: " + this.name + "\nEmail: " + this.email + "\nPassword: " + this.password ;
+};
+
+//clase user: fin
 
 //clase coordinate: inicio
 function Coordinate(latitude,longitude){
@@ -376,146 +571,34 @@ function Coordinate(latitude,longitude){
 
     var cLatitude = latitude;
     var cLongitude = longitude;
-
-    Object.defineProperty(this,latitude,{
+    
+    Object.defineProperty(this,'latitude',{
         get:function(){
             return cLatitude;
         },
         set:function(value){
-            latitude = typeof value !== 'undefined' ? value : "";
+            latitude = typeof value !== 'undefined' ? value : 0;
             if(isNaN(latidude)) throw new InvalidValueException();
-            cLatitude = latitude;
+            cLatitude = value;
         }
     });
 
-    Object.defineProperty(this,longitude,{
+    Object.defineProperty(this,'longitude',{
         get:function(){
             return cLongitude;
         },
         set:function(value){
-            value = typeof value !== 'undefined' ? value : "";
+            value = typeof value !== 'undefined' ? value : 0;
             if(isNaN(value)) throw new InvalidValueException();
-            cLongitude = longitude;
+            cLongitude = value;
         }
     });
 
 }
+//metodos a parte de los métodos
+Coordinate.prototype = {};
+Coordinate.prototype.constructor = Coordinate;
+Coordinate.prototype.toString = function(){
+    return  "\nlatitud: " + this.latitude + " longitud: " + this.longitude ;
+};
 //clase coordinate: fin
-
-function testPerson(){
-    
-    //test sobre Person
-    console.log("test sobre Person");
-
-    var fecha = new Date("July 21, 1983");
-
-    // ERROR: objeto creado sin parametros
-    try {
-        var Persona1 ;
-        console.log(Persona1 = new Person());    
-    } catch (error) {
-        console.log(error.toString());
-    }
-
-    console.log("Declaración de Persona 1:");
-    var Persona1 ;
-    
-    Persona1 = new Person("   iván     ","cañizares","",fecha,"ruta");
-    console.log(Persona1.toString());
-
-    console.log("ejemplo de uso con set: set name = ruben");
-    console.log(Persona1.name = 'ruben');
-    console.log(Persona1.toString());
-
-    console.log("ejemplo de uso con get: get name ");
-    console.log(Persona1.name);
-
-    // test sobre Category
-    console.log("test sobre Category");
-    
-    // ERROR: objeto creado sin parametros
-    try {
-        var categoria1 ;
-        categoria1 = new Category();    
-    } catch (error) {
-        console.log(error.toString());
-    }
-
-    categoria1  = new Category("categoria1"); 
-    console.log(categoria1.toString());
-
-    console.log("ejemplo de uso con set: set name = cat1");
-    console.log(categoria1.name = 'cat1');
-    console.log(categoria1.toString());
-
-    console.log("ejemplo de uso con get: get name ");
-    console.log(categoria1.name);
-
-    //test sobre Resource
-    console.log("test sobre Resource");
-
-    var resurce1 ;
-    var audios ;
-    var subtitulos = ["español"];
-
-    try {
-        console.log("comprobación de error: constructor vacio");
-        resurce1 = new Resource();    
-    } catch (error) {
-        console.log(error.toString());
-    }
-    
-    resurce1 = new Resource(10,"../video.vwm","",subtitulos); 
-    console.log(resurce1.toString());
-
-    var audios = ["español"];
-    resurce1 = new Resource(10,"../video.vwm",audios,subtitulos);  
-    console.log(resurce1.toString());
-
-    try {
-        console.log("Introducimos un array de audios (uno a uno) hasta que uno esté repetido");
-        var audios2 = ["ingles","Frances","español"];
-        for (let index = 0; index < audios2.length; index++){
-            console.log("introducimos:" + index + " : " + (resurce1.audios = audios2[index])); 
-            console.log("resultado: " + resurce1.toString());   
-        }    
-    } catch (error) {
-        console.log(error.toString());
-    }
-    
-    console.log("introducimos un nuevo subtitulo:" + ( resurce1.subtitles = "ingles"));
-    console.log(resurce1.toString());
-
-    try {
-        console.log("comprobación de error: el valor introducido ya existe(ingles)");
-        console.log("introducimos un nuevo subtitulo:" + ( resurce1.subtitles = "ingles"));    
-    } catch (error) {
-        console.log(error.toString());
-    }
-
-    console.log("recogemos los subtitulos: " + (resurce1.audios)); 
-
-    //test sobre  Production
-    console.log("test sobre Production");
-    try {
-        var produccion = new Production();
-    } catch (error) {
-        console.log(error.toString());
-    }
-    
-    console.log("test sobre Coordinate y Movies");
-    //test sobre Coordinate y Movies
-    var coordenadas = new Coordinate(444,446);
-    var coordenadas2 = new Coordinate(202,665);
-
-    var localizaciones = [coordenadas,coordenadas2];
-    var fecha2 = new Date("January 1, 2000");
-
-    // recurso ha utilizar: 
-    var resurce2 = new Resource(10,"../video.vwm",audios,subtitulos);
-    var peli1 = new Movie("HP","UK",fecha2,"La peli de HP","../images/hp_movie.jpg",resurce2,localizaciones)
-    console.log(peli1.toString());
-    peli1.resource = resurce2 ; 
-    console.log(peli1.toString());
-}
-window.onload = testPerson;

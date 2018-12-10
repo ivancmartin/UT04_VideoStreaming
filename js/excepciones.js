@@ -63,3 +63,30 @@ function AbstractClassException(){
 }
 AbstractClassException.prototype = new MyBaseExceptions();
 AbstractClassException.prototype.constructor = AbstractClassException;
+
+
+// **** excepciones sobre VS ****
+
+//ExistValueException: el valor NO existe en el array.
+function NoExistCategoryException(param){
+    this.name = "NoExistCategoryException";
+    this.message = "Error: el valor " + param + " NO existe en el array";
+}
+NoExistCategoryException.prototype = new MyBaseExceptions();
+NoExistCategoryException.prototype.constructor = NoExistCategoryException;
+
+//ExistValueException: el valor ya existe en el array.
+function ExistUserNameException(param){
+    this.name = "ExistUserNameException";
+    this.message = "Error: ya existe un usuario con el nombre: " + param ;
+}
+ExistUserNameException.prototype = new MyBaseExceptions();
+ExistUserNameException.prototype.constructor = ExistUserNameException;
+
+//ExistValueException: el valor ya existe en el array.
+function ExistUserEmailException(param){
+    this.name = "ExistUserEmailException";
+    this.message = "Error: ya existe un usuario con el email: " + param ;
+}
+ExistUserEmailException.prototype = new MyBaseExceptions();
+ExistUserEmailException.prototype.constructor = ExistUserEmailException;
