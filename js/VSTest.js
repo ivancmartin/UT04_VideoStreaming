@@ -18,10 +18,14 @@ var categoria2  = new Category("categoria 2","descripcion: categoria 2");
 var categoria3  = new Category("categoria 3","descripcion: categoria 3");
 var categoria4  = new Category("categoria 1","descripcion: categoria 1");
 
-console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria1));
-console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria2));
-console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria3));
-console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria4));
+try {
+    console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria1));
+    console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria2));
+    console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria3));
+    console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria4));
+} catch (err) {
+    console.log(err.toString());
+};
 
 console.log("añadimos la MISMA categoria: ");
 try {
@@ -86,6 +90,7 @@ var fecha = new Date("January 1, 2000");
 
 //la clase series reconoce si tiene una temporada ya repetida
 var serie1 = new Serie("GOT","UK",fecha,"La serie GOT","../images/hp_movie.jpg",temporadas);
+var serie2 = new Serie("The Simpsons","USA",fecha,"La serie de 'The Simpsons'","../images/hp_movie.jpg",temporadas);
 var peli1 = new Movie("HP","ESP",fecha,"La peli de HP","../images/hp_movie.jpg",recurso,localizaciones);
 
 try {
@@ -153,7 +158,69 @@ while (director.done !== true){
     director = directores.next();
 }
 
-console.log("** asignaciones con categorías **");
+console.log("** asignaciones de categorías **");
 
-vSistem.assignCategory(categoria1,serie1);
-vSistem.assignCategory(categoria1,serie1);
+try {
+    console.log("asignamos a la categotia: '" + categoria1.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.assignCategory(categoria1,serie1));
+    console.log("asignamos a la categotia: '" + categoria1.name + "' a la produccion: '"  + serie2.title + "' total array: " + vSistem.assignCategory(categoria1,serie2));
+    console.log("asignamos a la categotia: '" + categoria2.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.assignCategory(categoria2,serie1));
+    //console.log("asignamos a la categotia: '" + categoria2.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.assignCategory(categoria2,serie1));
+    console.log("asignamos a la categotia: '" + categoria3.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.assignCategory(categoria3,serie1));
+} catch (err) {
+    console.log(err.toString());
+}
+
+//recorremos el iterador y mostramos los valores
+var categorias = vSistem.categories;
+var categoria = categorias.next();
+while (categoria.done !== true){
+    console.log ("" + categoria.value);
+    categoria = categorias.next();
+}
+
+console.log("** desasignaciones de categorías **");
+
+var serieAux = new Serie("GOT","UK",fecha,"La serie GOT","../images/hp_movie.jpg",temporadas); 
+
+try {
+    console.log("desasignamos a la categotia: '" + categoria1.name + "' a la produccion: '"  + serieAux.title + "' total array: " + vSistem.deassignCategory(categoria1,serie1));
+    console.log("desasignamos a la categotia: '" + categoria1.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.deassignCategory(categoria1,serie1));
+} catch (err) {
+    console.log(err.toString());
+}
+
+console.log("** asignaciones de actores **");
+try {
+    console.log("asignamos el actor: '" + actor1.name + "' a la produccion: '"  + serie1.title + " as 'El Personaje' " + "' total array: " + vSistem.assignActor(actor1,serie1,"El Personaje",false));
+    console.log("asignamos el actor: '" + actor1.name + "' a la produccion: '"  + serie2.title + " as 'Homer Simpson' " + "' total array: " + vSistem.assignActor(actor1,serie2,"Homer Simpson",true));    
+} catch (err) {
+    console.log(err.toString());
+}
+
+console.log("** desasignaciones de actores **");
+
+try {
+    console.log("desasignamos el actor: '" + actor1.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.desassignActor(actor1,serie1));    
+    console.log("desasignamos el actor: '" + actor1.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.desassignActor(actor1,serie1));    
+} catch (err) {
+    console.log(err.toString());
+}
+
+console.log("** asignaciones de Directores **");
+
+try {
+    console.log("asignamos el director: '" + director1.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.assignDirector(director1,serie1));
+    console.log("asignamos el director: '" + director1.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.assignDirector(director1,serie1));
+} catch (err) {
+    console.log(err.toString());
+}
+
+console.log("** desasignaciones de Directores **");
+
+try {
+    console.log("desasignamos el director: '" + director1.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.desassignDirector(director1,serie1));
+    console.log("desasignamos el director: '" + director1.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.desassignDirector(director1,serie1));
+
+} catch (err) {
+    console.log(err.toString());
+}
