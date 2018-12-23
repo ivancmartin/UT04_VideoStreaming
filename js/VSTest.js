@@ -17,7 +17,9 @@ var categoria1  = new Category("categoria 1","descripcion: categoria 1");
 var categoria2  = new Category("categoria 2","descripcion: categoria 2");
 var categoria3  = new Category("categoria 3","descripcion: categoria 3");
 var categoria4  = new Category("categoria 1","descripcion: categoria 1");
+var categoriaAux  = new Category("categoria 2","descripcion: categoria 2");
 
+console.log("** añadimos categorías hasta que una categoría esté repetida **");
 try {
     console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria1));
     console.log("añadimos una categoria; Tamaño actual del array: " + vSistem.addCategory(categoria2));
@@ -27,22 +29,24 @@ try {
     console.log(err.toString());
 };
 
-console.log("añadimos la MISMA categoria: ");
+console.log("Eliminamos una categoria (categoria2); Tamaño actual del array:" + vSistem.removeCategory(categoria2));
+
+console.log("Eliminamos una categoria que no exista: ");
 try {
-    console.log(vSistem.addCategory(categoria1));
+    console.log("Eliminamos una categoria (categoria2); Tamaño actual del array:" + vSistem.removeCategory(categoriaAux));
 } catch (err) {
     console.log(err.toString());
-}
-
-console.log("Eliminamos una categoria (categoria2); Tamaño actual del array:" + vSistem.removeCategory(categoria2));
+};
 
 //recorremos el iterador y mostramos los valores
 var categorias = vSistem.categories;
 var categoria = categorias.next();
+console.log("recorremos las categorías:");
 while (categoria.done !== true){
     console.log ("" + categoria.value);
     categoria = categorias.next();
 }
+
 
 console.log("** operaciones con usuarios **");
 
@@ -50,18 +54,24 @@ var usuario1 = new User("ivan","ivan@gmail.com","contrasenia");
 var usuario2 = new User("ruben","ruben@gmail.com","contrasenia2");
 var usuario3 = new User("maria","maria@gmail.com","contrasenia");
 var usuario4 = new User("Bea","bea@gmail.com","contrasenia");
+var usuarioAux = new User("Bea","bea@gmail.com","contrasenia");
 
+console.log("añadimos usuarios al array hasta que uno esté repetido:");
 try {
     console.log("añadimos un usuario; Tamaño actual del array: " + vSistem.addUser(usuario1));
     console.log("añadimos un usuario; Tamaño actual del array: " + vSistem.addUser(usuario2));
     console.log("añadimos un usuario; Tamaño actual del array: " + vSistem.addUser(usuario3));
     console.log("añadimos un usuario; Tamaño actual del array: " + vSistem.addUser(usuario4));
+    console.log("añadimos un usuario; Tamaño actual del array: " + vSistem.addUser(usuarioAux));
 } catch (err) {
     console.log(err.toString());
 }
 
+console.log("Eliminamos un usuario (usuario4); Tamaño actual del array:" + vSistem.removeUser(usuario4));    
+
 try {
-    console.log("Eliminamos un usuario (usuario3); Tamaño actual del array:" + vSistem.removeUser(usuario3));    
+    console.log("Eliminamos un usuario (usuario4) que ya no existe");
+    vSistem.removeUser(usuarioAux);    
 } catch (err) {
     console.log(err.toString());
 }
@@ -74,6 +84,7 @@ while (usuario.done !== true){
     usuario = usuarios.next();
 }
 
+
 console.log("** Operaciones con producciones **")
 
 var subtitulos = ["español","Ingles"];
@@ -82,20 +93,26 @@ var recurso = new Resource(10,"../video.vwm",audios,subtitulos);
 var coordenadas1 = new Coordinate(444,446);
 var localizaciones = [coordenadas1,coordenadas1];
 
-var temporadas = [
-    {title: "temporada 1", episode:recurso, scenarios:coordenadas1 },
-    {title: "temporada 2", episode:recurso, scenarios:coordenadas1 }
+var episodios = [
+    {title: "episodio1 temporada 1", episode:recurso, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} },
+    {title: "episodio2 temporada 1", episode:recurso, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} }
 ]; 
+
+var season1 = new Season("temp 1",episodios);
+var season2 = new Season("temp 2",episodios);
+
 var fecha = new Date("January 1, 2000");
 
 //la clase series reconoce si tiene una temporada ya repetida
-var serie1 = new Serie("GOT","UK",fecha,"La serie GOT","../images/hp_movie.jpg",temporadas);
-var serie2 = new Serie("The Simpsons","USA",fecha,"La serie de 'The Simpsons'","../images/hp_movie.jpg",temporadas);
+var serie1 = new Serie("GOT","UK",fecha,"La serie GOT","../images/hp_movie.jpg",season1);
+var serie2 = new Serie("The Simpsons","USA",fecha,"La serie de 'The Simpsons'","../images/hp_movie.jpg",season1);
 var peli1 = new Movie("HP","ESP",fecha,"La peli de HP","../images/hp_movie.jpg",recurso,localizaciones);
 
 try {
-    console.log("añadimos una serie; Tamaño actual del array: " + vSistem.addProduction(serie1));
+    
+    console.log("añadimos una serie; Tamaño actual del array: " + vSistem.addProduction(serie2));
     console.log("añadimos una pelicula; Tamaño actual del array: " + vSistem.addProduction(peli1));
+    console.log("añadimos una serie; Tamaño actual del array: " + vSistem.addProduction(serie1));
     
     //console.log("Eliminamos una categoria (peli1); Tamaño actual del array:" + vSistem.removeProduction(peli1));
 } catch (err) {
@@ -106,10 +123,10 @@ try {
 var producciones = vSistem.productions;
 var produccion = producciones.next();
 while (produccion.done !== true){
-    console.log ("" + produccion.value);
+    console.log (produccion.value.toString() );
     produccion = producciones.next();
 }
-
+/*
 console.log("** operaciones con actores(Person) **");
 var fecha1 = new Date("December 3, 1985");
 var fecha2 = new Date("September 25, 1968");
@@ -224,3 +241,4 @@ try {
 } catch (err) {
     console.log(err.toString());
 }
+*/

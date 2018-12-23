@@ -23,7 +23,6 @@ var VideoSystem = (function(){
                     return sName;
                 },
                 set: function(value){        
-                    
                     var value = typeof value !== 'undefined' ? value : "";
                     if (value === "") throw new EmptyValuesException("name");
                     sName = value;
@@ -43,20 +42,14 @@ var VideoSystem = (function(){
                 }
             });
 
-            //devuelve la primera coincidencia del valor name de un objeto Categoria
-            this.firstIndexNameCategory = function(category){
-                return sCategory.findIndex(
-                    function(sCategory){
-                        //console.log(category.name + " " + sCategory.name);
-                        return (sCategory.name === category.name);
-                    });		
-            }
-
             //añadir categoría
             this.addCategory = function(category){
-                if(!(category instanceof Category) || category === null) throw new InvalidAccesConstructorException();
-                var index = vSistem.firstIndexNameCategory(category);
-                //console.log("indice: " + index);
+                if(!(category instanceof Category) || category === null) throw new InvalidTypeOfException();
+                
+                //devuelve la primera coincidencia del valor name de un objeto Categoria
+                var index = sCategory.findIndex( categories => categories.name === category.name);
+
+                //si el indice es diferente de -1 es que eiste y por lo tanto no se puede añadir porque estaría repetido
                 if( index !== -1) throw new ExistValueException(category);
                 sCategory.push(category);
                 
@@ -65,13 +58,15 @@ var VideoSystem = (function(){
 
             //borrar categoría
             this.removeCategory = function(category){
-                if(!(category instanceof Category) || category === null) throw new InvalidAccesConstructorException();
-                var index = vSistem.firstIndexNameCategory(category); //recogemos el indice que coincida
-                console.log(index);
+                if(!(category instanceof Category) || category === null) throw new InvalidTypeOfException();
+                
+                //devuelve la primera coincidencia del valor name de un objeto Categoria
+                var index = sCategory.findIndex( categories => categories.name === category.name);
 
                 //si no exsiste salta una excepción                
                 if (index === -1) throw new NoExistCategoryException(category);
 
+                //si existe, la borramos
                 sCategory.splice(index,1)
                 
                 return sCategory.length;
@@ -90,31 +85,15 @@ var VideoSystem = (function(){
                 }
             });
 
-            //devuelve la primera coincidencia del valor name de un objeto User
-            this.firstIndexname = function(user){
-				return sUser.findIndex(
-                    function(sUser) {
-                        return (sUser.name === user.name)
-                    });		
-            }
-            
-            //devuelve la primera coincidencia del valor email de un objeto User
-            this.firstIndexEmail = function(user){
-				return sUser.findIndex(
-                    function(sUser) {
-                        return (sUser.email === user.email)
-                    });		
-            }
-
             //añadir un usuario
             this.addUser = function(user){
-                if(!(user instanceof User) || user === null) throw new InvalidAccesConstructorException();
+                if(!(user instanceof User) || user === null) throw new InvalidTypeOfException();
+
+                //devuelve la primera coincidencia del valor name de un objeto User
+                var indexName = sUser.findIndex( usuario => usuario.name === user.name);
                 
-                var indexName = vSistem.firstIndexname(user);
-                //console.log(indexName);
-                
-                var indexEmail = vSistem.firstIndexEmail(user);
-                //console.log(indexEmail);
+                //devuelve la primera coincidencia del valor email de un objeto User
+                var indexEmail = sUser.findIndex( usuario => usuario.email === user.email);
 
                 if(indexName !== -1 ) throw new ExistUserNameException(user.name);
                 if(indexEmail !== -1 ) throw new ExistUserEmailException(user.email);
@@ -127,7 +106,8 @@ var VideoSystem = (function(){
             //borrar un usuario
             this.removeUser = function(user){
                 if(!(user instanceof User) || user === null) throw new InvalidAccesConstructorException();
-                var index = sUser.indexOf(user); //recogemos el indice que coincida
+                //devuelve la primera coincidencia del valor name de un objeto User
+                var index = sUser.findIndex( usuario => usuario.name === user.name);
                 
                 //si no exsiste salata una excepción                
                 if (index === -1) throw new NoExistValueException(user);
@@ -150,29 +130,23 @@ var VideoSystem = (function(){
                 }
             });
 
-            this.firstIndexTitleProduction = function(production){
-                return sProductions.findIndex(
-                    function(sProductions){
-                        //console.log(production.name + " " + sProductions.name);
-                        return (sProductions.title === production.title);
-                    });		
-            }
-
             //añadir produccion
             this.addProduction = function(production){
+
                 if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
-                var index = vSistem.firstIndexTitleProduction(production);
+                //devuelve la primera coincidencia del valor title de un objeto Production
+                var index = sProductions.findIndex( produccion => produccion.title === production.title);
                 
-                if(index !== -1) throw new ExistValueException(production);
+                if(index !== -1) throw new ExistValueException(production.title);
                     sProductions.push(production);
-                
                 return sProductions.length;
             }
 
             //borrar produccion
             this.removeProduction = function(production){
                 if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
-                var index = vSistem.firstIndexTitleProduction(production);//recogemos el indice que coincida
+                //devuelve la primera coincidencia del valor title de un objeto Production
+                var index = sProductions.findIndex( production => production.title === production.title);
                 
                 //si no exsiste salata una excepción                
                 if (index === -1) throw new NoExistValueException(production);
@@ -604,7 +578,6 @@ var VideoSystem = (function(){
         var vSystem = new VideoSystem();
         Object.freeze(vSystem);
         return vSystem;
-        
     }return{
         getInstance: function(){
             if(!instantiated){

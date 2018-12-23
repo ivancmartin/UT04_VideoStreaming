@@ -1,47 +1,68 @@
 "use strict";
 
 function testPerson(){
-     //test sobre Person
-     console.log("*** test sobre Person ***");
+    //test sobre Person
+    console.log("*** test sobre Person ***");
 
-     var fecha = new Date("July 21, 1983");
- 
-     // ERROR: objeto creado sin parametros
-     try {
-         var Persona1 ;
-         console.log(Persona1 = new Person());    
-     } catch (error) {
-         console.log(error.toString());
-     }
- 
-     console.log("Declaración de Persona 1:");
-     var Persona1 ;
+    var fecha = new Date("July 21, 1983");
+    var Persona1 ;
+
+    // ERROR: objeto creado sin parametros
+    try {
+        console.log("ERROR: objeto creado sin parametros");
+        console.log(Persona1 = new Person());    
+    } catch (error) {
+        console.log(error.toString());
+    }
      
-     Persona1 = new Person("   iván     ","cañizares","",fecha,"ruta");
-     console.log(Persona1.toString());
- 
-     console.log("ejemplo de uso con set: set name = ruben");
-     console.log(Persona1.name = 'ruben');
-     console.log(Persona1.toString());
- 
-     console.log("ejemplo de uso con get: get name ");
-     console.log(Persona1.name);
-};
+    try {
+        console.log("ERROR: objeto creado sin Fecha");
+        console.log(Persona1 = new Person("iván","cañizares","martín","",""));    
+    } catch (error) {
+        console.log(error.toString());
+    }
 
-function testCategory(){
+    try {
+        console.log("ERROR: objeto creado con un valor erroneo para 'born' ");
+        console.log(Persona1 = new Person("iván","cañizares","martín","fecha",""));    
+    } catch (error) {
+        console.log(error.toString());
+    }
+
+    console.log("Declaración de Persona 1:");
+    
+    Persona1 = new Person("Iván","Cañizares","Martín",fecha,"");
+    console.log(Persona1.toString());
+
+    console.log("ejemplo de uso con set: set name = Rubén");
+    console.log(Persona1.name = 'Rubén');
+    console.log(Persona1.toString());
+
+    console.log("ejemplo de uso con get: get name ");
+    console.log(Persona1.name);
+
     // test sobre Category
-    console.log("test sobre Category");
+    console.log("*** test sobre Category ***");
     
     // ERROR: objeto creado sin parametros
     try {
+        console.log("ERROR: objeto creado sin parametros");
         var categoria1 ;
         categoria1 = new Category();    
     } catch (error) {
         console.log(error.toString());
     }
 
-    categoria1  = new Category("categoria1","description"); 
-    console.log(categoria1.toString());
+    try {
+        console.log("ERROR: objeto creado sin nombre");
+        var categoria1 ;
+        categoria1 = new Category("","");    
+    } catch (error) {
+        console.log(error.toString());
+    }
+
+    categoria1 = new Category("categoria1","description1"); 
+    console.log("categoría creada: " + categoria1.toString());
 
     console.log("ejemplo de uso con set: set name = cat1");
     console.log(categoria1.name = 'cat1');
@@ -49,15 +70,13 @@ function testCategory(){
 
     console.log("ejemplo de uso con get: get name ");
     console.log(categoria1.name);
-};
 
-function testResource(){
     //test sobre Resource
     console.log("*** test sobre Resource ***");
 
     var resurce1 ;
-    var audios ;
-    var subtitulos = ["español"];
+    var audios = "español" ;
+    var subtitulos = ["español","español"];
 
     try {
         console.log("comprobación de error: constructor vacio");
@@ -66,16 +85,20 @@ function testResource(){
         console.log(error.toString());
     }
     
-    resurce1 = new Resource(10,"../video.vwm","",subtitulos); 
-    console.log(resurce1.toString());
+    try {
+        console.log("comprobación de error: el valor de Duration no es un número");
+        resurce1 = new Resource("ss10","../video.vwm","",subtitulos);     
+    } catch (error) {
+        console.log(error.toString());
+    }
 
-    var audios = ["español"];
+    console.log("Declaración de objeto Resource");
     resurce1 = new Resource(10,"../video.vwm",audios,subtitulos);  
     console.log(resurce1.toString());
 
     try {
         console.log("Introducimos un array de audios (uno a uno) hasta que uno esté repetido");
-        var audios2 = ["ingles","Frances","español"];
+        var audios2 = ["ingles","frances","español"];
         for (let index = 0; index < audios2.length; index++){
             console.log("introducimos:" + index + " : " + (resurce1.audios = audios2[index])); 
             console.log("resultado: " + resurce1.toString());   
@@ -83,7 +106,8 @@ function testResource(){
     } catch (error) {
         console.log(error.toString());
     }
-    
+    console.log("resultado: " + resurce1.toString()); 
+
     console.log("introducimos un nuevo subtitulo:" + ( resurce1.subtitles = "ingles"));
     console.log(resurce1.toString());
 
@@ -94,26 +118,23 @@ function testResource(){
         console.log(error.toString());
     }
 
-    console.log("recogemos los subtitulos: " + (resurce1.audios)); 
+    console.log("recogemos los subtitulos: " + (resurce1.subtitles)); 
 
-    console.log("* recogemos un subtitulo: " + (resurce1.audios[0])); 
-};
+    console.log("recogemos un subtitulo: " + (resurce1.subtitles[0])); 
 
-function testCoordinate(){
-    console.log("test sobre Coordinate");
+    console.log("*** test sobre Coordinate ***");
     //test sobre Coordinate
     var coordenadas = new Coordinate(444,446);
     var coordenadas2 = new Coordinate(202,665);
     console.log(coordenadas.toString());
-}
 
-function testMovie(){
     //test sobre  Movie
     console.log("*** test sobre Movie ***");
 
     // recursos ha utilizar: 
     var coordenadas = new Coordinate(444,446);
     var coordenadas2 = new Coordinate(202,665);
+    var coordenadas3 = new Coordinate(202,665);
     var localizaciones = [coordenadas,coordenadas2];
 
     var audios = ["ingles","Frances","español"];
@@ -125,20 +146,20 @@ function testMovie(){
     var persona1 = new Person("iván","cañizares","",fecha2,"ruta");
 
     var peli1 = new Movie("HP","UK",fecha2,"La peli de HP","../images/hp_movie.jpg",resurce2,localizaciones);
-    console.log(peli1.toString());
+    console.log("Resultado: " + peli1.toString());
 
     console.log("* Introduciendo nuevos valores");
-    var localizaciones1 = [persona1]; 
     var fecha3 = new Date("February 5, 2000");
-    var resurce3 = new Resource(60,"../video2.vwm","audios",subtitulos);
+    var resurce3 = new Resource(60,"../video2.vwm",audios,subtitulos);
 
     peli1.publication = fecha3;
-    peli1.resource = resurce3 ; 
+    peli1.resource = resurce3; 
 
+    var localizaciones2 = [coordenadas,coordenadas2,coordenadas3];
     try {
         //error al meter un objeto que no es una instancia de Coordinate
-        for (let i = 0; i < localizaciones1.length; i++) {
-            peli1.locations = localizaciones1[i] ;
+        for (let i = 0; i < localizaciones2.length; i++) {
+            peli1.locations = localizaciones2[i] ;
         }
     } catch (error) {
         console.log(error.toString());
@@ -148,9 +169,6 @@ function testMovie(){
 
     //corregir, los parametros resource y locations deben ser opcionales: var peli1 = new Movie("HP","UK",fecha2,"La peli de HP","../images/hp_movie.jpg","",localizaciones);
 
-}
-
-function testSeason(){
     //test sobre  season
     console.log("*** test sobre season ***");
 
@@ -161,20 +179,16 @@ function testSeason(){
     var coordenadas1 = new Coordinate(444,446);
 
     var episodios = [
-        {title: "temporada 1", episode:resurce1, scenarios:coordenadas1},
-        {title: "temporada 2", episode:resurce1, scenarios:coordenadas1 }
+        {title: "episodio1 temporada 1", episode:resurce1, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios}},
+        {title: "episodio2 temporada 1", episode:resurce1, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} }
     ]; 
 
-    var season1 = new Season("temp 1",{title: "temporada 1", episode:resurce1, scenarios:coordenadas1});
+    var season1 = new Season("temp 1",episodios);
     
     console.log(season1.toString());
 
-    season1.episodes = "titulo",resurce1,coordenadas1;
-
     console.log(season1.toString()); //comprobar más tarde
-}
 
-function testSerie(){
     //test sobre  serie
     console.log("*** test sobre serie ***");
 
@@ -184,28 +198,16 @@ function testSerie(){
     
     var coordenadas1 = new Coordinate(444,446);
 
-    var temps = [
-        {title: "temporada 1", episode:resurce1, scenarios:coordenadas1 },
-        {title: "temporada 2", episode:resurce1, scenarios:coordenadas1 }
-    ]; 
-
     var fecha = new Date("January 1, 2000");
 
-    //la clase series reconoce si tieene una temporada ya repetida
-    var serie1 = new Serie("GOT","UK",fecha,"La serie GOT","../images/hp_movie.jpg",temps);
+    //la clase series reconoce si tiene una temporada ya repetida
+    var serie1 = new Serie("Jojo","Japan",fecha,"Las aventuras de Jotaro Joestar","../videos/jojos/jojo.jpg",season1);
     console.log(serie1.toString());
 
-    
-    //var episode1 = {title:"",episode:"",escenario:""};
-
-    //console.log(episode1);
-}
-
-function testUsers(){
     //test sobre  user
     console.log("*** test sobre User ***");
     var usuario = new User("ivan","ivan@gmail.com","asdf");
     console.log(usuario.toString());
 }
 
-window.onload = testUsers;
+window.onload = testPerson;

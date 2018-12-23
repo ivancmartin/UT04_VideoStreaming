@@ -1,52 +1,52 @@
 "use strict";
-//!importante: 1º letra en mayuscula?
-// borrar un idioma o cualquier elemento de un array
-
-function PersonaException(param){};
-PersonaException.prototype = new MyBaseExceptions();
-PersonaException.prototype.constructor = PersonaException; 
-
 //archivo donde se guardaran los objetos simples
+
 // objeto persona: inicio
-function Person(name,lastName1,lastName2,born,picture){
+function Person(name = "",lastName1 = "",lastName2 = "",born = Date,picture = ""){
     
     //si no es un objeto definido como new, no lo crea
     if(!(this instanceof Person)) throw new InvalidAccesConstructorException();
 
     //comprobar patrones
-    var pattern = /[A-z,á,é,í,ó,ú,ñ,Ñ]{1,20}/gm;
+    var pattern = /^[A-z,Á,á,É,é,Í,í,Ó,ó,Ú,ú,ñ,Ñ]{1,20}/;
 
     //comprobamos que el valor de los atributos nombre,lastName1 y born no estén vacíos
-    name = typeof name !== 'undefined' ? name : "";
-    if (name === "") throw new EmptyValuesException("name");
+    name = typeof name !== 'undefined' ? name.trim() : "";
+    if (name === "" ) throw new EmptyValuesException("name");
 
-    lastName1 = typeof lastName1 !== 'undefined' ? lastName1 : "";
+    //comprobamos que sea una cadena compuesta únicamente por letras
+    if(!pattern.test(name)) throw new InvalidTypeOfException(name);
+
+    lastName1 = typeof lastName1 !== 'undefined' ? lastName1.trim() : "";
     if (lastName1 === "") throw new EmptyValuesException("lastName1");
     
-    lastName2 = typeof lastName2 !== 'undefined' ? lastName2 : "";
+    lastName2 = typeof lastName2 !== 'undefined' ? lastName2.trim() : "";
 
-    if(!(born instanceof Date)) throw new InvalidAccesConstructorException();
-    born = typeof born !== 'undefined' ? born : "";
-    if (born === "") throw new EmptyValuesException("born");
+    born = typeof born !== undefined ? born : "";
+    if(born === "") throw new EmptyValuesException("born");
+    if(!(born instanceof Date)) throw new InvalidTypeOfException();
 
-    picture = typeof picture !== 'undefined' ? picture : "";
+    picture = typeof picture !== 'undefined' ? picture.trim() : "";
 
     //atributos de la clase
-    var pName = name.trim();
+    var pName = name;
     var pLastName1 = lastName1;
     var pLastName2 =  lastName2;
     var pBorn = born;
     var pPicture = picture; 
 
     //recoger y dar los valores al objeto (getters y setters)
-    // !importante: revisar/introducir patrones para comprobar las cadenas de las variables name, lastName1, lastName2 y picture
     Object.defineProperty(this,'name',{
         get: function(){
             return pName;
         },
         set: function(value){
             value = typeof value !== 'undefined' ? value : "";
-            if (value === "") throw new EmptyValuesException("name");
+            if (value === "" ) throw new EmptyValuesException("name");
+
+            //comprobamos que sea una cadena compuesta únicamente por letras
+            if(!pattern.test(value)) throw new InvalidStringException(value);
+
             pName = value;
         }
     });
@@ -57,7 +57,12 @@ function Person(name,lastName1,lastName2,born,picture){
         },
         set: function(value){
             value = typeof value !== 'undefined' ? value : "";
+
             if (value === "") throw new EmptyValuesException("lastName1");
+            //comprobamos que sea una cadena compuesta únicamente por letras
+
+            if(!pattern.test(value)) throw new InvalidStringException(value);
+
             pLastName1 = value;
         }
     });
@@ -68,6 +73,10 @@ function Person(name,lastName1,lastName2,born,picture){
         },
         set: function(value){
             value = typeof value !== 'undefined' ? value : "";
+            //comprobamos que sea una cadena compuesta únicamente por letras
+
+            if(!pattern.test(value)) throw new InvalidStringException(value);
+
             pLastName2 = value;
         }
     });
@@ -77,9 +86,10 @@ function Person(name,lastName1,lastName2,born,picture){
             return pBorn;
         },
         set: function(value){
-            if(!(value instanceof Date)) throw new InvalidAccesConstructorException();
             value = typeof value !== 'undefined' ? value : "";
             if (value === "") throw new EmptyValuesException("born");
+            if(!(value instanceof Date)) throw new InvalidAccesConstructorException();
+            
             pBorn = value;
         }
     });
@@ -105,14 +115,20 @@ Person.prototype.toString = function(){
 // objeto persona: fin
 
 // objeto Category: inicio
-function Category(name,description){
+function Category(name = "",description = ""){
     
     if(!(this instanceof Category)) throw new InvalidAccesConstructorException();
 
-    name = typeof name !== 'undefined' ? name : "";
-    if (name === "") throw new EmptyValuesException("name");
+    var pattern = /^[A-z,Á,á,É,é,Í,í,Ó,ó,Ú,ú,ñ,Ñ]{1,20}/;
 
-    description = typeof description !== 'undefined' ? description : "";
+    //comprobamos que el valor de los atributos nombre este vacío
+    name = typeof name !== 'undefined' ? name.trim() : "";
+    if (name === "" ) throw new EmptyValuesException("name");
+
+    //comprobamos que sea una cadena compuesta únicamente por letras
+    if(!pattern.test(name)) throw new InvalidTypeOfException(name);
+
+    description = typeof description !== 'undefined' ? description.trim() : "";
 
     var cName = name;
     var cDescription = description;
@@ -122,8 +138,14 @@ function Category(name,description){
             return cName;
         },
         set: function(value){
-            value = typeof value !== 'undefined' ? value : "";
-            if (value === "") throw new EmptyValuesException("name");
+            //comprobamos que el valor de los atributos nombre este vacío
+            value = typeof value !== 'undefined' ? value.trim() : "";
+            if (value === "" ) throw new EmptyValuesException('name');
+
+            //comprobamos que sea una cadena compuesta únicamente por letras
+            if(!pattern.test(value)) throw new InvalidTypeOfException(value);
+
+            description = typeof description !== 'undefined' ? description.trim() : "";
             cName = value;
         }
     });
@@ -133,7 +155,13 @@ function Category(name,description){
             return cDescription;
         },
         set: function(value){
-            value = typeof value !== 'undefined' ? value : "";
+            //comprobamos que el valor de los atributos nombre este vacío
+            value = typeof value !== 'undefined' ? value.trim() : "";
+            if (value === "" ) throw new EmptyValuesException('name');
+
+            //comprobamos que sea una cadena compuesta únicamente por letras
+            if(!pattern.test(value)) throw new InvalidTypeOfException(value);
+
             cDescription = value;
         }
     });
@@ -142,31 +170,49 @@ function Category(name,description){
 Category.prototype = {};
 Category.prototype.constructor = Category;
 Category.prototype.toString = function(){
-    return "Nombre: " + this.name + " Descripcion: " + this.description; 
+    return "Nombre: " + this.name + ", Descripcion: " + this.description; 
 };
 // objeto Category: fin
 
 // objeto Resource: inicio
-function Resource(duration,link,audios,subtitles){
+function Resource(duration ,link = "",audios,subtitles){
     
     //La función se invoca con el operador new
-	if (!(this instanceof Resource)) 
-        throw new InvalidAccesConstructorException();
+	if (!(this instanceof Resource)) throw new InvalidAccesConstructorException();
 
     duration = typeof duration !== 'undefined' ? duration : "";
     if (duration === "") throw new EmptyValuesException("duration");
-
+    if (isNaN(duration)) throw new InvalidTypeOfException("duration");
+    
     link = typeof link !== 'undefined' ? link : "";
     if (link === "") throw new EmptyValuesException("link");
 
-    audios = typeof audios !== 'undefined' ? audios : [];
-
-    subtitles = typeof subtitles !== 'undefined' ? subtitles : [];
-
     var rDuration = duration;
     var rLink = link;
-    var rAudios = audios;
-    var rSubtitles = subtitles;
+
+    var rAudios = [];
+    var rSubtitles = [];
+
+    audios = typeof audios !== 'undefined' ? audios : "";
+    subtitles = typeof subtitles !== 'undefined' ? subtitles : "";
+ 
+    //si es un aray, comprueba los valores uno a uno, si no introduce el valor directamente
+    if(Array.isArray(audios)){
+        for (let i = 0; i < audios.length; i++) {
+            if(audios[i] !== "") rAudios.push(audios[i]);
+        }
+    }else{
+        rAudios.push(audios);
+    };
+
+    //si es un aray, comprueba los valores uno a uno, si no introduce el valor directamente
+    if(Array.isArray(subtitles)){
+        for (let i = 0; i < subtitles.length; i++) {
+            if(rSubtitles.findIndex( subtitle => subtitle === subtitles[i])) rSubtitles.push(subtitles[i]);
+        }
+    }else{
+        rSubtitles.push(subtitles);
+    };
 
     Object.defineProperty(this,'duration',{
         get: function(){
@@ -175,6 +221,7 @@ function Resource(duration,link,audios,subtitles){
         set: function(value){
             value = typeof value !== 'undefined' ? value : "";
             if (value === "") throw new EmptyValuesException("duration");
+            if (isNaN(value)) throw new InvalidTypeOfException("duration");
             rDuration = value;
         }
     });
@@ -196,7 +243,8 @@ function Resource(duration,link,audios,subtitles){
         },
         set: function(value){
             if(!value) throw new EmptyValuesException('audios');
-            if(rAudios.indexOf(value) !== -1) throw new ExistValueException(value);
+            //ejemplo recogido de: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/findIndex
+            if((rAudios.findIndex( audios => audios === value) !== -1)) throw new ExistValueException(value);
             rAudios.push(value);
         }
     });
@@ -207,7 +255,7 @@ function Resource(duration,link,audios,subtitles){
         },
         set: function(value){
             if(!value) throw new EmptyValuesException('subtitles');
-            if(rSubtitles.indexOf(value) !== -1) throw new ExistValueException(value);
+            if((rSubtitles.findIndex( subtitles => subtitles === value) !== -1)) throw new ExistValueException(value);
             rSubtitles.push(value);
         }
     });
@@ -217,43 +265,43 @@ function Resource(duration,link,audios,subtitles){
 Resource.prototype = {};
 Resource.prototype.constructor = Resource;
 Resource.prototype.toString = function(){
-    return "duracion: " + this.duration + " link: " + this.link + " audios: " + this.audios + " subtitulos: " + this.subtitles; 
+    return "duracion: " + this.duration + ", link: " + this.link + ", audios: " + this.audios + ", subtitulos: " + this.subtitles; 
 };
 // objeto Resource: fin
 
 //clase abstracta Production: inicio
-function Production(title,nationality,publication,synopsis,image) {
+function Production(title = "",nationality,publication,synopsis,image){
     
     if(!(this instanceof Production)) throw new InvalidAccesConstructorException();
 
     //comprobamos que no se pueda instanciar
     if(this.constructor === Production) throw new AbstractClassException();
 
-    title = typeof title !== 'undefined' ? title : "";
+    title = typeof title !== 'undefined' ? title.trim(): "";
     if (title === "") throw new EmptyValuesException("title");
 
-    nationality = typeof nationality !== 'undefined' ? nationality : "";
+    nationality = typeof nationality !== 'undefined' ? nationality.trim() : "";
 
-    if(!(publication instanceof Date)) throw new InvalidAccesConstructorException();
     publication = typeof publication !== 'undefined' ? publication : "";
     if (publication === "") throw new EmptyValuesException("publication");
+    if(!(publication instanceof Date)) throw new InvalidTypeOfException();
 
-    synopsis = typeof synopsis !== 'undefined' ? synopsis : "";
+    synopsis = typeof synopsis !== 'undefined' ? synopsis.trim() : "";
 
-    image = typeof image !== 'undefined' ? image : "";
+    image = typeof image !== 'undefined' ? image.trim() : "";
 
-    var pTitle = title.trim();
-    var pNationality = nationality.trim();
+    var pTitle = title;
+    var pNationality = nationality;
     var pPublication = publication;
-    var pSynopsis = synopsis.trim();
-    var pImage = image.trim();
+    var pSynopsis = synopsis;
+    var pImage = image;
 
     Object.defineProperty(this,'title',{
         get: function(){
             return pTitle;
         },
         set: function(value){
-            value = typeof value !== 'undefined' ? value : "";
+            value = typeof value !== 'undefined' ? value.trim() : "";
             if (value === "") throw new EmptyValuesException("title");
             pTitle = value;
         }
@@ -264,7 +312,7 @@ function Production(title,nationality,publication,synopsis,image) {
             return pNationality;
         },
         set: function(value){
-            value = typeof value !== 'undefined' ? value : "";
+            value = typeof value !== 'undefined' ? value.trim() : "";
             if (value === "") throw new EmptyValuesException("nationality");
             pNationality = value;
         }
@@ -287,7 +335,7 @@ function Production(title,nationality,publication,synopsis,image) {
             return pSynopsis;
         },
         set: function(value){
-            value = typeof value !== 'undefined' ? value : "";
+            value = typeof value !== 'undefined' ? value.trim() : "";
             if (value === "") throw new EmptyValuesException("synopsis");
             pSynopsis = value;
         }
@@ -298,7 +346,7 @@ function Production(title,nationality,publication,synopsis,image) {
             return pImage;
         },
         set: function(value){
-            value = typeof value !== 'undefined' ? value : "";
+            value = typeof value !== 'undefined' ? value.trim() : "";
             if (value === "") throw new EmptyValuesException("image");
             pImage = value;
         }
@@ -314,35 +362,33 @@ Production.prototype.toString = function(){
 
 //clase Movie: inicio
 function Movie(title,nationality,publication,synopsis,image,resource,locations) {
-    
-    //if(!(this instanceof Movie)) throw new InvalidAccesConstructorException();
 
     Production.call(this,title,nationality,publication,synopsis,image);
 
-    //console.log("recurso: " + resource.toString());
-
-    if(!(resource instanceof Resource)) throw new InvalidValueException();
-    resource = typeof resource  !== null ? resource : 'undefined';
+    resource = typeof resource  !== 'undefined' ? resource : "";
+    if (resource !== "") 
+        if(!(resource instanceof Resource)) throw new InvalidTypeOfException();    
     
-    locations = typeof locations !== null ? locations : [];
-
     var mResource = resource;
-
-    //array para almacenar las coordenadas
+    
     var mLocations = [];
 
-    for (let i = 0; i < locations.length; i++) {
-        if(locations[i] instanceof Coordinate)
-            mLocations.push(locations[i]);
-    }
-    
+    if(Array.isArray(locations)){
+        for (let i = 0; i < locations.length; i++){
+            if(locations[i] instanceof Coordinate) mLocations.push(locations[i]);
+        }
+    }else{
+        mLocations.push(locations);
+    };
+
     Object.defineProperty(this,'resource',{
         get:function(){
             return mResource;
         },
         set:function(value){
-            value = typeof value  !== 'undefined' ? value : 0;
-            if(!(value instanceof Resource)) throw new InvalidValueException();
+            value = typeof value  !== 'undefined' ? value : "";
+            if (value !== "") 
+                if(!(value instanceof Resource)) throw new InvalidTypeOfException(); 
             mResource = value;
         }
     });
@@ -352,13 +398,11 @@ function Movie(title,nationality,publication,synopsis,image,resource,locations) 
             return mLocations;
         },
         set:function(value){
-            if(!value) throw new EmptyValuesException('location');
-            if(!(value instanceof Coordinate))  throw new InvalidValueException();
-            if(mLocations.indexOf(value) !== -1) throw new ExistValueException(value);
+            if(!(value instanceof Coordinate)) throw new InvalidTypeOfException();
+            if((mLocations.findIndex(location => location === value) !== -1)) throw new ExistValueException(value);
             mLocations.push(value);
         }
     });
-
 }
 //metodos a parte de los métodos
 Movie.prototype = Object.create(Production.prototype);
@@ -374,30 +418,28 @@ function Serie(title,nationality,publication,synopsis,image,season) {
     Production.call(this,title,nationality,publication,synopsis,image);
 
     season = typeof season !== "" ? season : 'undefined';
-    if(season === undefined ) throw new InvalidValueException();
+    if(season === undefined ) throw new InvalidTypeOfException();
 
     //array para almacenar las coordenadas
-    var seasons = [];
+    var Sseasons = [];
 
     if (Array.isArray(season)) {
-        for (let i = 0; i < season.length; i++) {
-           // console.log(seasons.indexOf(season[i]) === -1);
-            if((season[i] instanceof Season) && (seasons.indexOf(season[i]) === -1)){
-                seasons.push(season[i]);
+        for (let i = 0; i < season.length; i++){
+            if((season[i] instanceof Season)){
+                Sseasons.push(season[i]);
             }   
         }   
     }else{
-        seasons.push(season);
+        Sseasons.push(season);
     }
 
     Object.defineProperty(this,'seasons',{
         get:function(){
-            return seasons;
+            return Sseasons;
         },
         set:function(value){
             if(!value) throw new EmptyValuesException('season');
-            if(seasons.indexOf(value) !== -1) throw new ExistValueException(value);
-            seasons.push(value);
+            if(Sseasons.findIndex( seasons => seasons === value)) Sseasons.push(value);
         }
     });
 }
@@ -422,17 +464,16 @@ function Season(title,episodes) {
     var sEpisodes = [];
     
     if (Array.isArray(episodes)) {
-        
-        console.log(episodes.length > 0);
 
+            //recorremos el array de objetos literales (episodes)
             for (let i = 0; i < episodes.length; i++) {
 
                 if(!(episodes[i].episode instanceof Resource))
-                    throw new InvalidValueException();
+                    throw new InvalidTypeOfException();
                 
                 for (let j = 0; j < episodes[i].scenarios.length; j++) {
                     if(!(episodes[i].scenarios[j] instanceof Coordinate))
-                        throw new InvalidValueException();
+                        throw new InvalidTypeOfException();
                 }
                 
                 sEpisodes.push(episodes[i]);
@@ -441,9 +482,9 @@ function Season(title,episodes) {
         
     }else{
 
-        if(!(episodes.episode instanceof Resource)) throw new InvalidValueException();
+        if(!(episodes.episode instanceof Resource)) throw new InvalidTypeOfException();
         
-        if(!(episodes.scenarios instanceof Coordinate)) throw new InvalidValueException();
+        if(!(episodes.scenarios instanceof Coordinate)) throw new InvalidTypeOfException();
 
         sEpisodes.push(episodes);
     }
@@ -467,9 +508,9 @@ function Season(title,episodes) {
             var value = value !== 'undefined'? value : "";
                 if (value === "") throw new EmptyValuesException("title");
             
-            if(!(episodes.episode instanceof Resource)) throw new InvalidValueException();
+            if(!(episodes.episode instanceof Resource)) throw new InvalidTypeOfException();
         
-            if(!(episodes.scenarios instanceof Coordinate)) throw new InvalidValueException();
+            if(!(episodes.scenarios instanceof Coordinate)) throw new InvalidTypeOfException();
 
             value = {
                 title: stitle,
@@ -499,11 +540,11 @@ function User(name,email,password){
 	//Validación de parámetros obligatorios
 	if (name === 'undefined' || name === "") throw new EmptyValuesException("name");
 	if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]$/.test (name) !== true)
-		throw new InvalidValueException();		
+		throw new InvalidTypeOfException();		
 
 	if (email === 'undefined' || email === '') throw new EmptyValuesException("email");	
 	if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]\@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test (email) !== true)
-        throw new InvalidValueException();	
+        throw new InvalidTypeOfException();	
 
 	password = typeof password !== 'undefined' ? password : "";
 	if (password === "") throw new EmptyValuesException("password");
@@ -521,7 +562,7 @@ function User(name,email,password){
         set: function(value){
             if (value === 'undefined' || value === "") throw new EmptyValuesException("name");
             if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]$/.test (value) !== true)
-                throw new InvalidValueException();		
+                throw new InvalidTypeOfException();		
             uName = value;
         }
     });
@@ -533,7 +574,7 @@ function User(name,email,password){
         set: function(value){
             if (value === 'undefined' || value === "") throw new EmptyValuesException("uEmail");
             if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]\@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test (value) !== true)
-                throw new InvalidValueException();		
+                throw new InvalidTypeOfException();		
             uEmail = value;
         }
     });
@@ -564,10 +605,10 @@ function Coordinate(latitude,longitude){
     if(!(this instanceof Coordinate)) throw new InvalidAccesConstructorException();
 
     latitude = typeof latitude !== 'undefined' ? latitude : 0;
-    if(isNaN(latitude)) throw new InvalidValueException();
+    if(isNaN(latitude)) throw new InvalidTypeOfException();
 
     longitude = typeof longitude !== 'undefined' ? longitude : 0;
-    if(isNaN(longitude)) throw new InvalidValueException();
+    if(isNaN(longitude)) throw new InvalidTypeOfException();
 
     var cLatitude = latitude;
     var cLongitude = longitude;
@@ -578,7 +619,7 @@ function Coordinate(latitude,longitude){
         },
         set:function(value){
             latitude = typeof value !== 'undefined' ? value : 0;
-            if(isNaN(latidude)) throw new InvalidValueException();
+            if(isNaN(latidude)) throw new InvalidTypeOfException();
             cLatitude = value;
         }
     });
@@ -589,12 +630,12 @@ function Coordinate(latitude,longitude){
         },
         set:function(value){
             value = typeof value !== 'undefined' ? value : 0;
-            if(isNaN(value)) throw new InvalidValueException();
+            if(isNaN(value)) throw new InvalidTypeOfException();
             cLongitude = value;
         }
     });
-
 }
+
 //metodos a parte de los métodos
 Coordinate.prototype = {};
 Coordinate.prototype.constructor = Coordinate;
