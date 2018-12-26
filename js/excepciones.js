@@ -83,6 +83,23 @@ function NoExistCategoryException(param){
 NoExistCategoryException.prototype = new MyBaseExceptions();
 NoExistCategoryException.prototype.constructor = NoExistCategoryException;
 
+//NoExistProductionException: el valor NO existe en el array.
+function NoExistProductionException(param){
+    this.name = "NoExistProductionException";
+    this.message = "el valor " + param + " NO existe en el array";
+}
+NoExistProductionException.prototype = new MyBaseExceptions();
+NoExistProductionException.prototype.constructor = NoExistProductionException;
+
+
+//NoExistPersonnException: el valor NO existe en el array.
+function NoExistPersonnException(param){
+    this.name = "NoExistPersonnException";
+    this.message = "el valor " + param + " NO existe en el array";
+}
+NoExistPersonnException.prototype = new MyBaseExceptions();
+NoExistPersonnException.prototype.constructor = NoExistPersonnException;
+
 //ExistCategoryException: el valor existe en el array.
 function ExistCategoryException(param){
     this.name = "ExistCategoryException";
@@ -91,7 +108,7 @@ function ExistCategoryException(param){
 ExistCategoryException.prototype = new MyBaseExceptions();
 ExistCategoryException.prototype.constructor = ExistCategoryException;
 
-//ExistValueException: el valor ya existe en el array.
+
 function ExistUserNameException(param){
     this.name = "ExistUserNameException";
     this.message = "ya existe un usuario con el nombre: " + param ;
@@ -99,7 +116,7 @@ function ExistUserNameException(param){
 ExistUserNameException.prototype = new MyBaseExceptions();
 ExistUserNameException.prototype.constructor = ExistUserNameException;
 
-//ExistValueException: el valor ya existe en el array.
+
 function ExistUserEmailException(param){
     this.name = "ExistUserEmailException";
     this.message = "ya existe un usuario con el email: " + param ;
@@ -107,7 +124,7 @@ function ExistUserEmailException(param){
 ExistUserEmailException.prototype = new MyBaseExceptions();
 ExistUserEmailException.prototype.constructor = ExistUserEmailException;
 
-//ExistValueException: el valor ya existe en el array.
+
 function EmptyArrayException(param){
     this.name = "EmptyArrayException";
     this.message = "el " + param + " esta vacío: ";

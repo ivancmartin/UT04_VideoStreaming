@@ -43,28 +43,28 @@ var VideoSystem = (function(){
             });
 
             //añadir categoría
-            this.addCategory = function(category){
-                if(!(category instanceof Category) || category === null) throw new InvalidTypeOfException();
+            this.addCategory = function(value){
+                if(!(value instanceof Category) || value === null) throw new InvalidTypeOfException();
                 
                 //devuelve la primera coincidencia del valor name de un objeto Categoria
-                var index = sCategory.findIndex( categories => categories.name === category.name);
+                var index = sCategory.findIndex( categories => categories.name === value.name);
 
                 //si el indice es diferente de -1 es que eiste y por lo tanto no se puede añadir porque estaría repetido
-                if( index !== -1) throw new ExistValueException(category);
-                sCategory.push(category);
+                if( index !== -1) throw new ExistValueException(value);
+                sCategory.push(value);
                 
                 return sCategory.length;
             }
 
             //borrar categoría
-            this.removeCategory = function(category){
-                if(!(category instanceof Category) || category === null) throw new InvalidTypeOfException();
+            this.removeCategory = function(value){
+                if(!(value instanceof Category) || value === null) throw new InvalidTypeOfException();
                 
                 //devuelve la primera coincidencia del valor name de un objeto Categoria
-                var index = sCategory.findIndex( categories => categories.name === category.name);
+                var index = sCategory.findIndex( categories => categories.name === value.name);
 
                 //si no exsiste salta una excepción                
-                if (index === -1) throw new NoExistCategoryException(category);
+                if (index === -1) throw new NoExistCategoryException(value);
 
                 //si existe, la borramos
                 sCategory.splice(index,1)
@@ -86,31 +86,31 @@ var VideoSystem = (function(){
             });
 
             //añadir un usuario
-            this.addUser = function(user){
-                if(!(user instanceof User) || user === null) throw new InvalidTypeOfException();
+            this.addUser = function(value){
+                if(!(value instanceof User) || value === null) throw new InvalidTypeOfException();
 
                 //devuelve la primera coincidencia del valor name de un objeto User
-                var indexName = sUser.findIndex( usuario => usuario.name === user.name);
+                var indexName = sUser.findIndex( usuario => usuario.name === value.name);
                 
                 //devuelve la primera coincidencia del valor email de un objeto User
-                var indexEmail = sUser.findIndex( usuario => usuario.email === user.email);
+                var indexEmail = sUser.findIndex( usuario => usuario.email === value.email);
 
-                if(indexName !== -1 ) throw new ExistUserNameException(user.name);
-                if(indexEmail !== -1 ) throw new ExistUserEmailException(user.email);
+                if(indexName !== -1 ) throw new ExistUserNameException(value.name);
+                if(indexEmail !== -1 ) throw new ExistUserEmailException(value.email);
 
-                sUser.push(user);
+                sUser.push(value);
                 
                 return sUser.length;
             }
 
             //borrar un usuario
-            this.removeUser = function(user){
-                if(!(user instanceof User) || user === null) throw new InvalidAccesConstructorException();
+            this.removeUser = function(value){
+                if(!(value instanceof User) || value === null) throw new InvalidAccesConstructorException();
                 //devuelve la primera coincidencia del valor name de un objeto User
-                var index = sUser.findIndex( usuario => usuario.name === user.name);
+                var index = sUser.findIndex( usuario => usuario.name === value.name);
                 
-                //si no exsiste salata una excepción                
-                if (index === -1) throw new NoExistValueException(user);
+                //si no exsiste saltará una excepción                
+                if (index === -1) throw new NoExistValueException(value);
 
                 sUser.splice(index,1)
                 
@@ -131,25 +131,25 @@ var VideoSystem = (function(){
             });
 
             //añadir produccion
-            this.addProduction = function(production){
+            this.addProduction = function(value){
 
-                if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
+                if(!(value instanceof Production) || value === null) throw new InvalidAccesConstructorException();
                 //devuelve la primera coincidencia del valor title de un objeto Production
-                var index = sProductions.findIndex( produccion => produccion.title === production.title);
+                var index = sProductions.findIndex( produccion => produccion.title === value.title);
                 
-                if(index !== -1) throw new ExistValueException(production.title);
-                    sProductions.push(production);
+                if(index !== -1) throw new ExistValueException(value.title);
+                    sProductions.push(value);
                 return sProductions.length;
             }
 
             //borrar produccion
-            this.removeProduction = function(production){
-                if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
+            this.removeProduction = function(value){
+                if(!(value instanceof Production) || value === null) throw new InvalidAccesConstructorException();
                 //devuelve la primera coincidencia del valor title de un objeto Production
-                var index = sProductions.findIndex( production => production.title === production.title);
+                var index = sProductions.findIndex( production => production.title === value.title);
                 
                 //si no exsiste salata una excepción                
-                if (index === -1) throw new NoExistValueException(production);
+                if (index === -1) throw new NoExistValueException(value);
 
                 sProductions.splice(index,1)
                 
@@ -170,21 +170,27 @@ var VideoSystem = (function(){
             });
 
             //añadir actor
-            this.addActor = function(actor){
-                if(!(actor instanceof Person) || actor === null) throw new InvalidAccesConstructorException();
-                if(sActors.indexOf(actor) !== -1) throw new ExistValueException(actor);
-                sActors.push(actor);
+            this.addActor = function(value){
+                if(!(value instanceof Person) || value === null) throw new InvalidAccesConstructorException();
+
+                //devuelve la primera coincidencia del valor name de un objeto Person
+                var index = sActors.findIndex( actor => actor.name === value.name);
+                
+                if(index !== -1) throw new ExistValueException(value.name);
+                sActors.push(value);
                 
                 return sActors.length;
             }
 
             //borrar actor
-            this.removeActor = function(actor){
-                if(!(actor instanceof Person) || actor === null) throw new InvalidAccesConstructorException();
-                var index = sActors.indexOf(actor); //recogemos el indice que coincida
+            this.removeActor = function(value){
+                if(!(value instanceof Person) || value === null) throw new InvalidAccesConstructorException();
+                
+                //devuelve la primera coincidencia del valor name de un objeto Person
+                var index = sActors.findIndex( actor => actor.name === value.name);
                 
                 //si no exsiste salata una excepción                
-                if (index === -1) throw new NoExistValueException(actor);
+                if (index === -1) throw new NoExistPersonnException(value.name);
 
                 sActors.splice(index,1)
                 
@@ -205,21 +211,26 @@ var VideoSystem = (function(){
             });
 
             //añadir Director
-            this.addDirector = function(director){
-                if(!(director instanceof Person) || director === null) throw new InvalidAccesConstructorException();
-                if(sDirectors.indexOf(director) !== -1) throw new ExistValueException(director);
-                sDirectors.push(director);
+            this.addDirector = function(value){
+                if(!(value instanceof Person) || value === null) throw new InvalidAccesConstructorException();
+                
+                //devuelve la primera coincidencia del valor name de un objeto Person
+                var index = sDirectors.findIndex( director => director.name === value.name);
+                if(index !== -1) throw new ExistValueException(value.name);
+                
+                sDirectors.push(value);
                 
                 return sDirectors.length;
             }
 
             //borrar Director
-            this.removeDirector = function(director){
-                if(!(director instanceof Person) || director === null) throw new InvalidAccesConstructorException();
-                var index = sDirectors.indexOf(director); //recogemos el indice que coincida
+            this.removeDirector = function(value){
+                if(!(value instanceof Person) || value === null) throw new InvalidAccesConstructorException();
                 
+                //devuelve la primera coincidencia del valor name de un objeto Person
+                var index = sDirectors.findIndex( director => director.name === value.name);
                 //si no exsiste salata una excepción                
-                if (index === -1) throw new NoExistValueException(director);
+                if (index === -1) throw new NoExistPersonnException(value.name);
 
                 sDirectors.splice(index,1)
                 
@@ -234,21 +245,25 @@ var VideoSystem = (function(){
                 if(!(category instanceof Category) || category === null) throw new InvalidAccesConstructorException();
                 if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
                 
-                //console.log("Existe categoria?: " + (sCategory.indexOf(category) !== -1));
-                //console.log("Existe Produccion?: " + (sProductions.indexOf(production) !== -1));
+                //console.log("Existe categoria?: " + sCategory.findIndex( cat => cat.name === category.name) );
+                //console.log("Existe Produccion?: " + sProductions.findIndex( pro => pro.title === production.title));
 
                 //si la categoria no existe, se crea
-                if(sCategory.indexOf(category) === -1) vSistem.addCategory(category);
-                // si la produccion no existe, se crea
-                if(sProductions.indexOf(production) === -1) vSistem.addProduction(production);
+                var auxIndexCat = sCategory.findIndex( cat => cat.name === category.name);
+                if(auxIndexCat === -1) (vSistem.addCategory(category));
 
-                var indexCat = (sCategory.indexOf(category));
-                //var indexPro = (sProductions.indexOf(production));
+                // si la produccion no existe, se crea
+                var auxIndexPro = sProductions.findIndex( pro => pro.title === production.title);
+                if(auxIndexPro === -1) vSistem.addProduction(production);
+
+                //recogemos de nuevo las direcciones de los valores en los arrays
+                var indexCat = sCategory.findIndex( cat => cat.name === category.name);
+                var indexPro = sProductions.findIndex( pro => pro.title === production.title);
 
                 //console.log("cate index: " + indexCat);
                 //console.log("pro index: " + indexPro);
 
-                //preguntar
+                //si no está definido el valor del atributo productions como array dentro del indice concreto, le damos el valor de array 
                 //console.log(typeof sCategory[indexCat].productions === 'undefined');
                 if(typeof sCategory[indexCat].productions === 'undefined' ) {
                     sCategory[indexCat].productions = [];
@@ -260,10 +275,18 @@ var VideoSystem = (function(){
                 var i = 0;
                 var encontrado = false;
                 
+                //si el array tiene longitud 0, lo introducimos directamente
                 if(sCategory[indexCat].productions.length === 0){
                     //console.log("push directo");
+
+                    //al declarar el array para almacenar las producciones hay que utilizar el splice para sustituir el primer valor
                     sCategory[indexCat].productions.splice(production,1);
                 }else{
+                    //si el array tiene valores, comparamos cada valor para evitar que se repitan
+
+                    //var indexCatPro = sCategory[indexCat].productions.findIndex( pro => pro.title === production.title);
+                    //console.log(indexCatPro);
+
                     while(i < sCategory[indexCat].productions.length && !encontrado){
                         //console.log("i " + i);
                         //console.log("El titulo de la produccion existe?: " + (sCategory[indexCat].productions[i].title === (production.title)));
@@ -276,6 +299,8 @@ var VideoSystem = (function(){
                 }
                 //console.log("**Longitud del array: " + sCategory[indexCat].productions.length);
                 //console.log("encontrado: " + encontrado);
+
+                //si el valor No existe, lo introducimos
                 if(!encontrado) {
                     sCategory[indexCat].productions.push(production)
                 }else{
@@ -290,8 +315,8 @@ var VideoSystem = (function(){
             //desasignamos una categoria a una produccion
             this.deassignCategory = function(category,production){
                 
-                if(!(category instanceof Category) || category === null) throw new InvalidAccesConstructorException();
-                if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
+                if(!(category instanceof Category) || category === null) throw new InvalidTypeOfException();
+                if(!(production instanceof Production) || production === null) throw new InvalidTypeOfException();
                 
                 //console.log("Existe categoria?: " + (sCategory.indexOf(category) !== -1));
                 //console.log("Existe Produccion?: " + (sProductions.indexOf(production) !== -1));
@@ -300,8 +325,8 @@ var VideoSystem = (function(){
                 //if(sCategory.indexOf(category) === -1) vSistem.addCategory(category);
                 // si la produccion no existe, se crea
                 //if(sProductions.indexOf(production) === -1) vSistem.addProduction(production);
-
-                var indexCat = (sCategory.indexOf(category));
+                var indexCat = sCategory.findIndex( cat => cat.name === category.name);
+                //var indexCat = (sCategory.indexOf(category));
                 //var indexPro = (sProductions.indexOf(production));
 
                 //console.log("cate index: " + indexCat);
@@ -309,7 +334,7 @@ var VideoSystem = (function(){
 
                 //console.log(sCategory[indexCat].productions.length);
                 
-                //comprobamos que la produccion no tenga asociada esa categoria en concreto 
+                //comprobamos que la produccion tenga asociada esa categoria en concreto 
                 var i = 0;
                 var encontrado = false;
                 
@@ -342,99 +367,105 @@ var VideoSystem = (function(){
             //asignamos un actor a una produccion
             this.assignDirector = function(director,production){
                 
-                if(!(director instanceof Person) || actor === null) throw new InvalidAccesConstructorException();
+                if(!(director instanceof Person) || director === null) throw new InvalidAccesConstructorException();
                 if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
-                
-                //console.log("Existe categoria?: " + (sCategory.indexOf(category) !== -1));
-                //console.log("Existe Produccion?: " + (sProductions.indexOf(production) !== -1));
 
-                //si la categoria no existe, se crea
-                if(sDirectors.indexOf(director) === -1) vSistem.addDirector(director);
+                //console.log("Existe director?: " + sDirectors.findIndex( dir => dir.name === director.name));
+                //console.log("Existe Produccion?: " + sProductions.findIndex( pro => pro.title === production.title));
+
+                //si el director no existe, se crea
+                var auxIndexDir = sDirectors.findIndex( dir => dir.name === director.name);
+                if(auxIndexDir === -1) (vSistem.addDirector(director));
+
                 // si la produccion no existe, se crea
-                if(sProductions.indexOf(production) === -1) vSistem.addProduction(production);
+                var auxIndexPro = sProductions.findIndex( pro => pro.title === production.title);
+                if(auxIndexPro === -1) vSistem.addProduction(production);
 
-                var indexDirector = (sDirectors.indexOf(director));
-                var indexPro = (sProductions.indexOf(production));
+                //recogemos de nuevo las direcciones de los valores en los arrays
+                var indexDir = sDirectors.findIndex( dir => dir.name === director.name);
+                //var indexPro = sProductions.findIndex( pro => pro.title === production.title);
 
-                //console.log("sActors index: " + indexActor);
-                //console.log("indexPro index: " + indexPro);
+                //console.log("Dir index: " + indexDir);
+                //console.log("pro index: " + indexPro);
 
-                //preguntar
-                //console.log(typeof sProductions[indexPro].actors === 'undefined');
-                if(typeof sProductions[indexPro].directors === 'undefined' ) {
-                    sProductions[indexPro].directors = [];
+                //si no está definido el valor del atributo productions como array dentro del indice concreto, le damos el valor de array 
+                //console.log(typeof sDirectors[indexDir].productions === 'undefined');
+                if(typeof sDirectors[indexDir].productions === 'undefined' ) {
+                    sDirectors[indexDir].productions = [];
                 }
                 
-                //console.log(sProductions[indexPro].actors.length);
+                //console.log(sDirectors[indexDir].productions.length);
                 
                 //comprobamos que la produccion no tenga asociada esa categoria en concreto 
                 var i = 0;
                 var encontrado = false;
                 
-                if(sProductions[indexPro].directors.length === 0){
+                //si el array tiene longitud 0, lo introducimos directamente
+                if(sDirectors[indexDir].productions.length === 0){
                     //console.log("push directo");
-                    sProductions[indexPro].directors.splice(director,1);
+
+                    //al declarar el array para almacenar las producciones hay que utilizar el splice para sustituir el primer valor
+                    sDirectors[indexDir].productions.splice(production,1);
                 }else{
-                    while(i <sProductions[indexPro].directors.length && !encontrado){
+                    //si el array tiene valores, comparamos cada valor para evitar que se repitan
+
+                    //var indexCatPro = sDirectors[indexDir].productions.findIndex( pro => pro.title === production.title);
+                    //console.log(indexCatPro);
+
+                    while(i < sDirectors[indexDir].productions.length && !encontrado){
                         //console.log("i " + i);
-                        //console.log("El titulo de la produccion existe?: " + (sCategory[indexPro].productions[i].title === (production.title)));
-                        //console.log(sCategory[indexPro].productions[i].title + " vs " + production.title);
-                        if (sProductions[indexPro].directors[i].name === (director.name)){
+                        //console.log("El titulo de la produccion existe?: " + (sDirectors[indexDir].productions[i].title === (production.title)));
+                        //console.log(sDirectors[indexDir].productions[i].title + " vs " + production.title);
+                        if (sDirectors[indexDir].productions[i].title === (production.title)){
                             encontrado = true;
                         }
                         i++;    
                     }
                 }
-                //console.log("**Longitud del array: " + sCategory[indexPro].productions.length);
+                //console.log("**Longitud del array: " + sDirectors[indexDir].productions.length);
                 //console.log("encontrado: " + encontrado);
+
+                //si el valor No existe, lo introducimos
                 if(!encontrado) {
-                    sProductions[indexPro].directors.push(director);
+                    sDirectors[indexDir].productions.push(production)
                 }else{
-                    throw new ExistCategoryException(director.name);
+                    throw new ExistCategoryException(production.title);
                 }
 
-                //console.log("Longitud del array: " + sCategory[indexPro].productions.length);
-                return sProductions[indexPro].directors.length;   
+                //console.log("Longitud del array: " + sDirectors[indexDir].productions.length);
+                return sDirectors[indexDir].productions.length;
+                
             }
 
             //desasignamos un actor a una produccion
             this.desassignDirector = function(director,production){
                 
-                if(!(director instanceof Person) || director === null) throw new InvalidAccesConstructorException();
-                if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
+                if(!(director instanceof Person) || director === null) throw new InvalidTypeOfException();
+                if(!(production instanceof Production) || production === null) throw new InvalidTypeOfException();
                 
                 //console.log("Existe categoria?: " + (sCategory.indexOf(category) !== -1));
                 //console.log("Existe Produccion?: " + (sProductions.indexOf(production) !== -1));
 
-                //si la categoria no existe, se crea
-                //if(sActors.indexOf(actor) === -1) vSistem.addActor(actor);
-                // si la produccion no existe, se crea
-                //if(sProductions.indexOf(production) === -1) vSistem.addProduction(production);
-
-                var indexDirector = (sDirectors.indexOf(director));
-                var indexPro = (sProductions.indexOf(production));
+                //recogemos de nuevo las direcciones de los valores en los arrays
+                var indexDir = sDirectors.findIndex( dir => dir.name === director.name);
+                //var indexPro = sProductions.findIndex( pro => pro.title === production.title);
 
                 //console.log("sActors index: " + indexActor);
                 //console.log("indexPro index: " + indexPro);
 
-                //preguntar
-                //console.log(typeof sProductions[indexPro].actors === 'undefined');
-                
-                
-                //console.log(sProductions[indexPro].actors.length);
                 
                 //comprobamos que la produccion no tenga asociada esa categoria en concreto 
                 var i = 0;
                 var encontrado = false;
                 
-                if(typeof sProductions[indexPro].directors.length === 0 ) {
+                if(typeof sDirectors[indexDir].productions.length === 0 ) {
                     throw new EmptyArrayException();
                 }else{
-                    while(i <sProductions[indexPro].directors.length && !encontrado){
+                    while(i < sDirectors[indexDir].productions.length && !encontrado){
                         //console.log("i " + i);
-                        //console.log("El titulo de la produccion existe?: " + (sCategory[indexPro].productions[i].title === (production.title)));
-                        //console.log(sCategory[indexPro].productions[i].title + " vs " + production.title);
-                        if (sProductions[indexPro].directors[i].name === (director.name)){
+                        //console.log("El titulo de la produccion existe?: " + (sDirectors[indexDir].productions[i].title === (production.title)));
+                        //console.log(sDirectors[indexDir].productions[i].title + " vs " + production.title);
+                        if (sDirectors[indexDir].productions[i].title === (production.title)){
                             encontrado = true;
                         }
                         i++;    
@@ -443,13 +474,13 @@ var VideoSystem = (function(){
                 //console.log("**Longitud del array: " + sCategory[indexPro].productions.length);
                 //console.log("encontrado: " + encontrado);
                 if(encontrado) {
-                    sProductions[indexPro].directors.splice(director,1);
+                    sDirectors[indexDir].productions.splice(director,1);
                 }else{
                     throw new NoExistCategoryException(director.name);
                 }
 
                 //console.log("Longitud del array: " + sCategory[indexPro].productions.length);
-                return sProductions[indexPro].directors.length;   
+                return sDirectors[indexDir].productions.length;   
             }
 
             //asignamos un actor a una produccion
@@ -458,51 +489,55 @@ var VideoSystem = (function(){
                 if(!(actor instanceof Person) || actor === null) throw new InvalidAccesConstructorException();
                 if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
                 
-                //console.log("Existe categoria?: " + (sCategory.indexOf(category) !== -1));
-                //console.log("Existe Produccion?: " + (sProductions.indexOf(production) !== -1));
+                var auxIndexActor = sActors.findIndex( act => act.name === actor.name);
+                var AuxIndexPro = sProductions.findIndex( pro => pro.title === production.title);
+
+                //console.log("Existe actor?: " + auxIndexActor);
+                //console.log("Existe Produccion?: " + AuxIndexPro);
 
                 //si la categoria no existe, se crea
-                if(sActors.indexOf(actor) === -1) vSistem.addActor(actor);
+                if(auxIndexActor === -1) vSistem.addActor(actor);
                 // si la produccion no existe, se crea
-                if(sProductions.indexOf(production) === -1) vSistem.addProduction(production);
+                if(AuxIndexPro === -1) vSistem.addProduction(production);
 
-                var indexActor = (sActors.indexOf(actor));
-                var indexPro = (sProductions.indexOf(production));
+                var indexActor = sActors.findIndex( act => act.name === actor.name);
+                //var indexPro = sProductions.findIndex( pro => pro.title === production.title);
 
                 //console.log("sActors index: " + indexActor);
                 //console.log("indexPro index: " + indexPro);
 
                 //preguntar
-                //console.log(typeof sProductions[indexPro].actors === 'undefined');
-                if(typeof sProductions[indexPro].actors === 'undefined' ) {
-                    sProductions[indexPro].actors = [];
+                //console.log(typeof sActors[indexActor].productions === 'undefined');
+                if(typeof sActors[indexActor].productions === 'undefined' ) {
+                    sActors[indexActor].productions = [];
                 }
                 
-                //console.log(sProductions[indexPro].actors.length);
+                //console.log(sActors[indexActor].productions.length);
                 
                 //comprobamos que la produccion no tenga asociada esa categoria en concreto 
                 var i = 0;
                 var encontrado = false;
                 
-                if(sProductions[indexPro].actors.length === 0){
-                    //console.log("push directo");
-                    sProductions[indexPro].actors.splice(actor,1);
+                if(sActors[indexActor].productions.length === 0){
+                   //console.log("push directo");
+                   sActors[indexActor].productions.splice(actor,1);
+                   //console.log(sActors[indexActor].productions)
                 }else{
-                    while(i <sProductions[indexPro].actors.length && !encontrado){
+                    while(i < sActors[indexActor].productions.length && !encontrado){
                         //console.log("i " + i);
-                        //console.log("El titulo de la produccion existe?: " + (sCategory[indexPro].productions[i].title === (production.title)));
-                        //console.log(sCategory[indexPro].productions[i].title + " vs " + production.title);
-                        if (sProductions[indexPro].actors[i].actor.name === (actor.name)){
+                        //console.log("El titulo de la produccion existe?: " + (sActors[indexActor].productions[i].title === (production.title)));
+                        //console.log(sActors[indexActor].productions[i].production.title + " vs " + production.title);
+                        if (sActors[indexActor].productions[i].production.title === (production.title)){
                             encontrado = true;
                         }
                         i++;    
                     }
                 }
-                //console.log("**Longitud del array: " + sCategory[indexPro].productions.length);
+                //console.log("**Longitud del array: " + sCategory[indexActor].productions.length);
                 //console.log("encontrado: " + encontrado);
                 if(!encontrado) {
-                    sProductions[indexPro].actors.push({   
-                        actor: actor,
+                    sActors[indexActor].productions.push({   
+                        production: production,
                         character: character,
                         main :main
                     });
@@ -510,63 +545,33 @@ var VideoSystem = (function(){
                     throw new ExistCategoryException(production.title);
                 }
 
-                //console.log("Longitud del array: " + sCategory[indexPro].productions.length);
-                return sProductions[indexPro].actors.length;   
+                //console.log("Longitud del array: " + sCategory[indexActor].productions.length);
+                return sActors[indexActor].productions.length;   
             }
 
             //asignamos un actor a una produccion
             this.desassignActor = function(actor,production){
-                
+
                 if(!(actor instanceof Person) || actor === null) throw new InvalidAccesConstructorException();
                 if(!(production instanceof Production) || production === null) throw new InvalidAccesConstructorException();
                 
-                //console.log("Existe categoria?: " + (sCategory.indexOf(category) !== -1));
-                //console.log("Existe Produccion?: " + (sProductions.indexOf(production) !== -1));
+                var indexActor = sActors.findIndex( act => act.name === actor.name);
 
-                //si la categoria no existe, se crea
-                //if(sActors.indexOf(actor) === -1) vSistem.addActor(actor);
-                // si la produccion no existe, se crea
-                //if(sProductions.indexOf(production) === -1) vSistem.addProduction(production);
-
-                //var indexActor = (sActors.indexOf(actor));
-                var indexPro = (sProductions.indexOf(production));
-
-                //console.log("sActors index: " + indexActor);
-                //console.log("indexPro index: " + indexPro);
-
-                //preguntar
-                //console.log(typeof sProductions[indexPro].actors === 'undefined');
+                //var indexPro = sActors.findIndex( pro => pro[indexActor].productions.production.title === production.title);
+                var indexActorProduction = sActors[indexActor].productions.findIndex( pro => pro.production.title === production.title);
                 
-                
-                //console.log(sProductions[indexPro].actors.length);
-                
-                //comprobamos que la produccion no tenga asociada esa categoria en concreto 
-                var i = 0;
-                var encontrado = false;
-                
-                if(typeof sProductions[indexPro].actors.length === 0 ) {
-                    throw new EmptyArrayException();
+                if(indexActorProduction > -1) {
+                    sActors[indexActor].productions.splice(indexActorProduction,1)
                 }else{
-                    while(i <sProductions[indexPro].actors.length && !encontrado){
-                        //console.log("i " + i);
-                        //console.log("El titulo de la produccion existe?: " + (sCategory[indexPro].productions[i].title === (production.title)));
-                        //console.log(sCategory[indexPro].productions[i].title + " vs " + production.title);
-                        if (sProductions[indexPro].actors[i].actor.name === (actor.name)){
-                            encontrado = true;
-                        }
-                        i++;    
-                    }
-                }
-                //console.log("**Longitud del array: " + sCategory[indexPro].productions.length);
-                //console.log("encontrado: " + encontrado);
-                if(encontrado) {
-                    sProductions[indexPro].actors.splice(actor,1);
-                }else{
-                    throw new NoExistCategoryException(actor.name);
-                }
+                    throw new NoExistPersonnException(production.title);
+                };
 
-                //console.log("Longitud del array: " + sCategory[indexPro].productions.length);
-                return sProductions[indexPro].actors.length;   
+                console.log("Existe actor?: " + indexActor);
+                //console.log("Existe Produccion?: " + indexPro);
+
+                
+                return sActors[indexActor].productions.length;   
+                
             }
 
         }
