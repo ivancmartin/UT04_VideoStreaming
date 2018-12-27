@@ -216,18 +216,11 @@ try {
     console.log("asignamos a la categotia: '" + categoria1.name + "' a la produccion: '"  + serie2.title + "' total array: " + vSistem.assignCategory(categoria1,serie2));
     //console.log("asignamos a la categotia(valor repetido): '" + categoria1.name + "' a la produccion: '"  + serie2.title + "' total array: " + vSistem.assignCategory(categoria1,serie2));
     console.log("asignamos a la categotia: '" + categoria2.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.assignCategory(categoria2,serie1));
+    console.log("asignamos a la categotia: '" + categoria2.name + "' a la produccion: '"  + serie2.title + "' total array: " + vSistem.assignCategory(categoria2,serie2));
     console.log("asignamos a la categotia: '" + categoria3.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.assignCategory(categoria3,serie1));
     console.log("asignamos a la categotia: '" + categoriaAux.name + "' a la produccion: '"  + serieAux.title + "' total array: " + vSistem.assignCategory(categoriaAux,serieAux));
 } catch (err) {
     console.log(err.toString());
-}
-
-console.log("recorremos las categorías:");
-var categorias = vSistem.categories;
-var categoria = categorias.next();
-while (categoria.done !== true){
-    console.log ("" + categoria.value);
-    categoria = categorias.next();
 }
 
 console.log("** desasignaciones de categorías **");
@@ -244,11 +237,13 @@ try {
 console.log("** asignaciones de Directores **");
 try {
     console.log("asignamos la produccion: '" +  serie1.title + "' al director: '"  + director1.name + "' total array: " + vSistem.assignDirector(director1,serie1));
+    console.log("asignamos la produccion: '" +  serie1.title + "' al director: '"  + director1.name + "' total array: " + vSistem.assignDirector(director1,serie2));
     console.log("asignamos la produccion: '" +  serie1.title + "' al director: '"  + directorAux.name + "' total array: " + vSistem.assignDirector(directorAux,serie1));
     console.log("asignamos la produccion(valor repetido): '" + serie1.title + "' al director: '"  +   directorAux.name + "' total array: " + vSistem.assignDirector(director2,serie1));
 } catch (err) {
     console.log(err.toString());
 }
+
 
 console.log("** desasignaciones de Directores **");
 try {
@@ -259,8 +254,8 @@ try {
     console.log(err.toString());
 }
 
-console.log("** asignaciones de actores **");
 
+console.log("** asignaciones de actores **");
 
 try {
     console.log("asignamos el actor: '" + actor1.name + "' a la produccion: '"  + serie1.title + " as 'El Personaje' " + "' total array: " + vSistem.assignActor(actor1,serie1,"El Personaje",false) + "\n" );
@@ -271,6 +266,7 @@ try {
     console.log(err.toString());
 }
 
+
 console.log("** desasignaciones de actores **");
 
 try {
@@ -279,4 +275,41 @@ try {
     console.log("desasignamos el actor: '" + actriz1.name + "' a la produccion: '"  + serie1.title + "' total array: " + vSistem.desassignActor(actriz1,serie1));
 } catch (err) {
     console.log(err.toString());
+}
+
+console.log("** iteradores más complejos **");
+
+console.log("recorremos las producciones de una categoria(categoria2):");
+var producciones = vSistem.getProductionsCategory(categoria2);
+var produccion = producciones.next();
+while (produccion.done !== true){
+    console.log ("" + produccion.value);
+    produccion = producciones.next();
+}
+
+console.log("recorremos las producciones de un actor(actriz1): " + actriz1.name);
+var actores = vSistem.getProductionsActor(actriz1);
+var actor = actores.next();
+while (actor.done !== true){
+    console.log("**************************************");
+    console.log ("Papel en la producción: " + actor.character + "\nProdución:\n" + actor.production);
+    actor = actores.next();
+}
+
+console.log("recorremos las producciones de un director(director1): " + director1.name);
+var directores = vSistem.getProductionsDirector(director1);
+var director = directores.next();
+while (director.done !== true){
+    console.log("**************************************");
+    console.log ("Produción:\n" + director.production);
+    director = directores.next();
+}
+
+console.log("recorremos el casting de una produccion (serie1):" + serie1.title );
+
+var actores = vSistem.getCast(serie1);
+var actor = actores.next();
+while (actor.done !== true){
+    console.log ("Actor:" + actor.name + ", Personaje: " + actor.character + "\n");
+    actor = actores.next();
 }

@@ -364,7 +364,7 @@ var VideoSystem = (function(){
                 
             }
 
-            //asignamos un actor a una produccion
+            //asignamos un director a una produccion
             this.assignDirector = function(director,production){
                 
                 if(!(director instanceof Person) || director === null) throw new InvalidAccesConstructorException();
@@ -437,7 +437,7 @@ var VideoSystem = (function(){
                 
             }
 
-            //desasignamos un actor a una produccion
+            //desasignamos un director a una produccion
             this.desassignDirector = function(director,production){
                 
                 if(!(director instanceof Person) || director === null) throw new InvalidTypeOfException();
@@ -549,7 +549,7 @@ var VideoSystem = (function(){
                 return sActors[indexActor].productions.length;   
             }
 
-            //asignamos un actor a una produccion
+            //desasignamos un actor a una produccion
             this.desassignActor = function(actor,production){
 
                 if(!(actor instanceof Person) || actor === null) throw new InvalidAccesConstructorException();
@@ -557,21 +557,112 @@ var VideoSystem = (function(){
                 
                 var indexActor = sActors.findIndex( act => act.name === actor.name);
 
-                //var indexPro = sActors.findIndex( pro => pro[indexActor].productions.production.title === production.title);
                 var indexActorProduction = sActors[indexActor].productions.findIndex( pro => pro.production.title === production.title);
                 
-                if(indexActorProduction > -1) {
+                if(indexActorProduction > -1){
                     sActors[indexActor].productions.splice(indexActorProduction,1)
                 }else{
-                    throw new NoExistPersonnException(production.title);
+                    throw new NoExistPersonnException(actor.name);
                 };
 
-                console.log("Existe actor?: " + indexActor);
+                //console.log("Existe actor?: " + indexActor);
                 //console.log("Existe Produccion?: " + indexPro);
 
-                
                 return sActors[indexActor].productions.length;   
+            } 
+
+            this.getCast = function(production){
+
+                if(!(production instanceof Production) || production === null) throw new InvalidTypeOfException();
+                var arrayTempCast = [];
+
+                for (var indexActor = 0; indexActor <  sActors.length; indexActor++) {
+
+                   
+
+                    for(let indexPro = 0; indexPro <  sActors[indexActor].productions.length; indexPro++){
+                        
+                        
+                        //si encontramos una coincidencia creamos un objeto literal que incluimos en un array temporal con todos los
+                        
+                        if(sActors[indexActor].productions[indexPro].production.title === production.title){
+                            arrayTempCast.push({
+                                //production: sActors[indexActor].productions[indexPro].production.title,
+                                name: sActors[indexActor].name + " " + sActors[indexActor].lastName1 + " " + sActors[indexActor].lastName2 ,
+                                character: sActors[indexActor].productions[indexPro].character,
+                                //main: sActors[indexActor].productions[indexPro].main
+                            });
+                        }
+                    }
+                }
                 
+                var nextIndex = 0;
+                return {
+                    //devuelve el papel que ha realizado en la produccion y la produccion
+                    next: function(){
+                        return nextIndex < arrayTempCast.length ? 
+                            {name:arrayTempCast[nextIndex].name, character:arrayTempCast[nextIndex++].character , done:false} : {done:true};
+                    }
+                }
+            }
+
+            //iterador que devuelve las producciones de un director concreto una a una
+            this.getProductionsDirector = function(director){
+
+                if(!(director instanceof Person) || director === null) throw new InvalidAccesConstructorException();
+
+                var indexDirector = sDirectors.findIndex( dir => dir.name === director.name);
+
+                if(indexDirector === -1) throw new NoExistCategoryException;
+                var nextIndex = 0;
+
+                return {
+                    //devuelve el papel que ha realizado en la produccion y la produccion
+                    next: function(){
+                        return nextIndex < sDirectors[indexDirector].productions.length ? 
+                            {production:sDirectors[indexDirector].productions[nextIndex++], done:false} : {done:true};
+                    }
+                }
+
+            }
+
+            //iterador que devuelve las producciones de un actor concreto una a una
+            this.getProductionsActor = function(actor){
+
+                if(!(actor instanceof Person) || actor === null) throw new InvalidAccesConstructorException();
+
+                var indexActor = sActors.findIndex( act => act.name === actor.name);
+
+                if(indexActor === -1) throw new NoExistCategoryException;
+                var nextIndex = 0;
+
+                return {
+                    //devuelve el papel que ha realizado en la produccion y la produccion
+                    next: function(){
+                        return nextIndex < sActors[indexActor].productions.length ? 
+                            {character:sActors[indexActor].productions[nextIndex].character, production:sActors[indexActor].productions[nextIndex++].production, done:false} : {done:true};
+                    }
+                }
+
+            }
+
+            //iterador que devuelve las producciones de una categoria concreta una a una
+            this.getProductionsCategory = function(category){
+
+                if(!(category instanceof Category) || category === null) throw new InvalidAccesConstructorException();
+
+                var indexCat = sCategory.findIndex( cat => cat.name === category.name);
+
+                if(indexCat === -1) throw new NoExistCategoryException;
+                var nextIndex = 0;
+
+                return {
+                    next: function(){
+                        return nextIndex < sCategory[indexCat].productions.length ? 
+                            {value:sCategory[indexCat].productions[nextIndex++].toString(), done:false} : {done:true};
+                    }
+                }
+
             }
 
         }
