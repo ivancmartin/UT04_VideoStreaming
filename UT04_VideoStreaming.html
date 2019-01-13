@@ -1,18 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.css">
     <title>UT04_VideoStreaming</title>
 </head>
 <body>
+    <header>
+        <div class="cabecera">
+            <h1>VideoSystem <sub>PressToPlay</sub> </h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="container-login">
+            <div class="login">
+                <h2>Iniciar sesión</h2>
+                <form method="post">
+                    <input type="text" name="usuario" id="usuario" placeholder="Nombre o cuenta de correo">
+                    <input type="password" name="pass" id="pass" placeholder="Contraseña">
+                    <input type="button" value="iniciar sesión" >
+                    <a href="#" id="formReg" onclick="changeForm(1)">¿No tienes una cuenta? registrate aquí</a>
+                </form>
+            </div>
+            <div class="regist" style="display: none;">
+                <h2>Registrarse</h2>
+                <form method="post">
+                    <input type="text" name="usuario" id="usuario" placeholder="Nombre de usuario">
+                    <input type="text" name="cuenta" id="cuenta" placeholder="cuenta de correo">
+                    <input type="password" name="pass" id="pass" placeholder="Contraseña">
+                    <input type="button" value="Registrarse">
+                    <a href="#" id="formIni" onclick="changeForm(2)">¿Tienes una cuenta? Inicia sesión</a>
+                </form>
+            </div>
+            
+        </div>
+    </main>
 
     <script src="./js/excepciones.js"></script>
     <script src="./js/objetos.js"></script>
-    <!--<script src="./js/test.js"></script> -->
     <script src="./js/VideoSystem.js"></script>
-    <script src="./js/VSTest.js"></script>
+
+    <!--<script src="./js/test.js"></script> -->
+    <!--<script src="./js/VSTest.js"></script> -->
+
+    <script src="./js/styles.js"></script> 
     
 </body>
 </html>
