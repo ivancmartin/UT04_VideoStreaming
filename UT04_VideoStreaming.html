@@ -18,20 +18,21 @@
         <div class="container-login">
             <div class="login">
                 <h2>Iniciar sesión</h2>
-                <form method="post">
+                <form>
                     <input type="text" name="usuario" id="usuario" placeholder="Nombre o cuenta de correo">
                     <input type="password" name="pass" id="pass" placeholder="Contraseña">
-                    <input type="button" value="iniciar sesión" >
+                    <input type="button" value="iniciar sesión" onclick="createUser()">
                     <a href="#" id="formReg" onclick="changeForm(1)">¿No tienes una cuenta? registrate aquí</a>
                 </form>
             </div>
             <div class="regist" style="display: none;">
                 <h2>Registrarse</h2>
-                <form method="post">
-                    <input type="text" name="usuario" id="usuario" placeholder="Nombre de usuario">
-                    <input type="text" name="cuenta" id="cuenta" placeholder="cuenta de correo">
-                    <input type="password" name="pass" id="pass" placeholder="Contraseña">
-                    <input type="button" value="Registrarse">
+                <form >
+                    <input type="text" name="nUsuario" id="nUsuario" placeholder="Nombre de usuario">
+                    <input type="text" name="correo" id="correo" placeholder="cuenta de correo">
+                    <input type="password" name="nPass" id="nPass" placeholder="Contraseña">
+                    <input type="button" value="reset" onclick="reset()">
+                    <input type="button" value="Registrarse" onclick="createUser()">
                     <a href="#" id="formIni" onclick="changeForm(2)">¿Tienes una cuenta? Inicia sesión</a>
                 </form>
             </div>

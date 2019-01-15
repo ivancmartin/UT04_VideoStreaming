@@ -37,9 +37,7 @@ main{
     border-radius: 5px;
     padding: 15px;
     background-color: rgba(0, 0, 0, 0.692);
-
     
-
 }
 
 main::before{
@@ -48,7 +46,7 @@ main::before{
     display: block;
 }
 
-.container-login h2{
+.container-login h2, a{
     text-align: center;
     margin-bottom: 25px;
 }
@@ -62,27 +60,40 @@ main::before{
     outline: 0;
     border: 0px;
     text-align: center;
-    background-color: #b8600d;
+    background-color: #080808;
     color: aliceblue;
-    
 }
-
-
 
 ::placeholder{
     color: aliceblue;
 }
 
 .container-login form input:focus{
-    border: 1px solid #ff6600;
-    background-color: #f08420;
+    border: 1px solid #202020;
+    background-color: #1d1c1b;
     color: aliceblue;
 }
 
 .container-login form input[type="password"]{
     margin-bottom: 100px;
-    
 }
+
+.container-login form input[type="button"]{
+    border: 1px solid #027508;
+    background-color: #07a007;
+    color: aliceblue;
+}
+
+.container-login form input[type="button"]:hover{
+    border: 1px solid #012703;
+    background-color: #07a007;
+}
+
+.container-login form input[type="button"]:active{
+    border: 1px solid #165819;
+    background-color: #20ad20;
+}
+
 
 .container-login form *{
     margin: 0 auto;
