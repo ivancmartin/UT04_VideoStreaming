@@ -1,103 +1,15 @@
-body, body *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 
 body{
-    height: 100vh;
-    background-image: url(https://www.diariocritico.com/fotos/1/306037_tarantino.jpg);
-    background-position: center; 
-    background-repeat: no-repeat; 
-    background-size: cover; 
-}
-
-header{
     background-color: grey;
 }
 
-header .usuario{
-    background-color: red;
+figcaption{
+    font-size: 0.8rem;
+    bottom: 10px;
+    background-color: rgba(32, 35, 37, 0.699);
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    width: 90%;
+    border-bottom-right-radius: 10px;
 }
-
-header .menu{
-    background-color: cadetblue;
-}
-
-main{
-    
-}
-
-
-.container-login{
-    
-    margin: 0 auto;
-    color: white;
-    width: 350px;
-    border-radius: 5px;
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.692);
-    
-}
-
-main::before{
-    content: "";
-    height: 91px;
-    display: block;
-}
-
-.container-login h2, a{
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.container-login form input{
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 25px;
-    height: 40px;
-    border-radius: 5px;
-    outline: 0;
-    border: 0px;
-    text-align: center;
-    background-color: #080808;
-    color: aliceblue;
-}
-
-::placeholder{
-    color: aliceblue;
-}
-
-.container-login form input:focus{
-    border: 1px solid #202020;
-    background-color: #1d1c1b;
-    color: aliceblue;
-}
-
-.container-login form input[type="password"]{
-    margin-bottom: 100px;
-}
-
-.container-login form input[type="button"]{
-    border: 1px solid #027508;
-    background-color: #07a007;
-    color: aliceblue;
-}
-
-.container-login form input[type="button"]:hover{
-    border: 1px solid #012703;
-    background-color: #07a007;
-}
-
-.container-login form input[type="button"]:active{
-    border: 1px solid #165819;
-    background-color: #20ad20;
-}
-
-
-.container-login form *{
-    margin: 0 auto;
-    width: 80%;
-    display: block;
-}
-

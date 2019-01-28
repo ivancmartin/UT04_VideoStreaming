@@ -659,7 +659,7 @@ var VideoSystem = (function(){
                 return {
                     next: function(){
                         return nextIndex < sCategory[indexCat].productions.length ? 
-                            {value:sCategory[indexCat].productions[nextIndex++].toString(), done:false} : {done:true};
+                            {value:sCategory[indexCat].productions[nextIndex++], done:false} : {done:true};
                     }
                 }
 
