@@ -57,6 +57,53 @@ function initPopulate(){
     vSistem.assignCategory(categoria2,serie1);
     vSistem.assignCategory(categoria6,peli3);
 
+    var fecha1 = new Date("Aogust 10, 1989");
+    var actor1 = new Person("Brenton","Thwaites","Middleton",fecha1,"images/movie.jpg");
+    var actor2 = new Person("Anna","Diop","",fecha1,"images/movie.jpg");
+    var actor3 = new Person("Teagan","Croft","McNamee",fecha1,"images/movie.jpg");
+    
+    var actor4 = new Person("Daniel","Jacob","Radcliffe",fecha1,"images/movie.jpg");
+    var actor5 = new Person("Rupert Alexander","Lloyd","Grint",fecha1,"images/movie.jpg");
+
+    var actor6 = new Person("Anthony","Gonzalez","",fecha1,"images/movie.jpg");
+    var actor7 = new Person("Gael","García","Bernal",fecha1,"images/movie.jpg");
+
+    var actor8 = new Person("Winona","Ryder","",fecha1,"images/movie.jpg");
+    var actor9 = new Person("David","Harbour","",fecha1,"images/movie.jpg");
+    
+
+    var actor10 = new Person("Dan","Castellaneta","",fecha1,"images/movie.jpg");
+    var actor11 = new Person("Julie","Kavner ","",fecha1,"images/movie.jpg");
+
+     
+    var actor12 = new Person("Bill","Skarsgård","",fecha1,"images/movie.jpg");
+    var actor13 = new Person("Jaeden","Lieberher","",fecha1,"images/movie.jpg");
+
+    var arraActors = [actor1,actor2,actor3,actor4,actor5,actor6,actor7,actor8,actor9,actor10,actor11,actor12,actor13];
+    for (let i = 0; i < arraActors.length; i++) {
+        vSistem.addActor(arraActors[i]);
+    }
+
+    vSistem.assignActor(actor8,serie1,"La prota",false);
+    vSistem.assignActor(actor9,serie1,"El poli",true);
+
+    vSistem.assignActor(actor1,serie3,"Robin",true);
+    vSistem.assignActor(actor2,serie3,"Raven",false);
+    vSistem.assignActor(actor3,serie3,"Star fire",false);
+
+    vSistem.assignActor(actor10,serie2,"Homer Simpson",true);    
+    vSistem.assignActor(actor11,serie2,"Homer Simpson",true);
+
+    vSistem.assignActor(actor4,peli1,"Harry potter",true);
+    vSistem.assignActor(actor5,peli1,"Ron Weasly",true);
+
+    vSistem.assignActor(actor6,peli2,"EL niño",true);
+    vSistem.assignActor(actor7,peli2,"El cantante",true);
+
+    vSistem.assignActor(actor12,peli3,"El payaso malo",true);
+    vSistem.assignActor(actor13,peli3,"La prota",true);
+
+
     createHomePage();
     
 }
@@ -72,13 +119,14 @@ function createHomePage() {
     var main = document.getElementById("main");
     main.setAttribute("class","d-line");
     //console.log((main.getAttribute("display")));
-    //cargamos el menú con las opciones
     
+    //cargamos el menú con las opciones
     var navBarCat = document.getElementById("categories");
     
     var categorias = vSistem.categories;
     var categoria = categorias.next();
     while (categoria.done !== true){
+        
         var textA = document.createTextNode(categoria.value.name);
         
         //opciones del menú
@@ -97,7 +145,7 @@ function createHomePage() {
         //encuadres de las categorías
         var textN = document.createTextNode(categoria.value.name);
         var div = document.createElement("div");
-        div.setAttribute("class","d-flex flex-wrap justify-content-left mt-2");
+        div.setAttribute("class","position-relative");
         div.setAttribute("id",textN.textContent);
         var h2 = document.createElement("h2");
 
@@ -107,55 +155,121 @@ function createHomePage() {
         
         categoria = categorias.next();
     }
+    //fin opciones del menu
 
-    //recorremos el iterador y mostramos los valores
-    
+    //slider con peliculas de cada categoría
     var categorias = vSistem.categories;
     var categoria = categorias.next();
     while (categoria.done !== true){
         //console.log(categoria.value.name);
-        var nodeTxt =  document.createTextNode(categoria.value.name);
 
+        //con esto hacemos que sea un identificador diferente para dada seccion
+        var nodeTxt =  document.createTextNode(categoria.value.name);
+        
+        //Creamos el slider
+        var divSlider = document.createElement("div");
+        var idElemSlider = "demo_" + nodeTxt.textContent;
+        divSlider.setAttribute("id",idElemSlider);
+        divSlider.setAttribute("class","carousel slide");
+        divSlider.setAttribute("data-ride","carousel");
+
+        //indicadores del slider
+        var ul = document.createElement("ul");
+        ul.setAttribute("class","carousel-indicators");
+        
+
+        //seccion de imágenes 
+        var divInner = document.createElement("div");
+        divInner.setAttribute("class","carousel-inner");
+        
+        divSlider.appendChild(ul);
+        divSlider.appendChild(divInner);
+
+       
+        //con esto activamos elelemento del slider
+        var activeItem = true;
+        //contador de sliders
+        var cont = 0;
         var producciones = vSistem.getProductionsCategory(categoria.value);
         var produccion = producciones.next();
         while (produccion.done !== true){
-            var div = document.createElement("div");
-            div.setAttribute("class","p-2 bg-info m-2 position-relative");
+            //titulo y enlace del recurso
+            var titleFilm = produccion.value.title;
+            var imgResource = produccion.value.image;
+
+            var divImageS = document.createElement("div");
+
+            //indicadores del carrusel
+            var li = document.createElement("li");
+            li.setAttribute("data-target","#"+idElemSlider);
+            li.setAttribute("data-slide-to",cont);
+
+            if (activeItem){
+                divImageS.setAttribute("class","carousel-item active");
+                
+                //indicadores activos del carrusel
+                li.setAttribute("class","active");
+                activeItem = false;
+            }else{
+                divImageS.setAttribute("class","carousel-item");
+                li.removeAttribute("class","active");
+            }
             
+            var divInfo = document.createElement("div");    
+            divInfo.setAttribute("class","carousel-caption d-block");
+            var h5 = document.createElement("h5");
+            var nodeTxtInfo = document.createTextNode(titleFilm);
+            h5.appendChild(nodeTxtInfo);
+
             var a = document.createElement("a");
-            var titulo = produccion.value.title;
-            a.setAttribute("id",titulo);
-            
+            a.setAttribute("id",titleFilm);
             a.setAttribute("href","#");
             a.setAttribute("onclick","showProduction(this.id)");
-            
-            var figure = document.createElement("figure");
-            figure.setAttribute("class","m-0");
+            var nodeTxtlink = document.createTextNode("más info");
+            a.appendChild(nodeTxtlink);
 
-            var figcap = document.createElement("figcaption");
-            figcap.setAttribute("class","position-absolute"); 
+            divInfo.appendChild(h5);
+            divInfo.appendChild(a);
+            
+            cont++;
 
             var img = document.createElement("img");
-            img.setAttribute("class","img-fluid ");
-            img.setAttribute("width","300");
-            img.setAttribute("alt",produccion.value.title);
-            img.setAttribute("src",produccion.value.image);
+            img.setAttribute("alt",titleFilm);
+            img.setAttribute("src",imgResource);
 
-            var nodeTxtAlt = document.createTextNode(produccion.value.title); 
-            figcap.appendChild(nodeTxtAlt);
+            divImageS.appendChild(img);
+            divImageS.appendChild(divInfo);
+            divInner.appendChild(divImageS);
 
+            ul.appendChild(li);
 
-            figure.appendChild(img);
-            figure.appendChild(figcap);
-            a.appendChild(figure);
-            div.appendChild(a);
+            //botones laterales
+            var aPrev = document.createElement("a");
+            aPrev.setAttribute("class","carousel-control-prev");
+            aPrev.setAttribute("href","#"+idElemSlider);
+            aPrev.setAttribute("data-slide","prev");
 
-            //recogo el identificador de la sección
-            //console.log(arrayCat[i]);
+            var spanP = document.createElement("span");
+            spanP.setAttribute("class","carousel-control-prev-icon");
+            
+            aPrev.appendChild(spanP);
+
+            var aNext = document.createElement("a");
+            aNext.setAttribute("class","carousel-control-next");
+            aNext.setAttribute("href","#"+idElemSlider);
+            aNext.setAttribute("data-slide","next");
+
+            var spanN = document.createElement("span");
+            spanN.setAttribute("class","carousel-control-next-icon");
+
+            aNext.appendChild(spanN);
+            //fin botones laterales
+
             var section = document.getElementById(nodeTxt.textContent);
             
-            section.appendChild(div);
-
+            section.appendChild(divSlider);
+            section.appendChild(aPrev);
+            section.appendChild(aNext);
             //console.log (produccion.value.title);
             //console.log (produccion.value.image);
             
@@ -165,13 +279,20 @@ function createHomePage() {
         //cargar el siguiente
         categoria = categorias.next();
     }
-
+    
 }
 
 function showProduction(element) {
+
     var main = document.getElementById("main");
     var mainPro = document.getElementById("main-production");
-    mainPro.removeChild(mainPro.firstChild);
+    var divCast = document.getElementById("cast");
+    
+    //borrado de actores
+    while(divCast.firstChild) {
+        divCast.removeChild(divCast.firstChild);
+    }
+
     main.setAttribute("class","d-none");
     mainPro.setAttribute("class","d-line");
     
@@ -180,39 +301,53 @@ function showProduction(element) {
     while (produccion.done !== true){
         //console.log(produccion.value.title);
         var title = produccion.value.title;
+        
         if(title == element){
             var pelicula = produccion.value;
+            var actores = vSistem.getCast(produccion.value);
             break; //revisar
         }else{
             produccion = producciones.next();
         }
     }
 
-    console.log(pelicula);
-    var div1 = document.createElement("div");
-    var img = document.createElement("img");
+    var actor = actores.next();
+    while (actor.done !== true){
+
+        var figuActor_pro = document.createElement("figure");
+        var imgActor_pro = document.createElement("img");
+        imgActor_pro.setAttribute("alt",actor.name);
+        imgActor_pro.setAttribute("src","images/movie.jpg");
+        imgActor_pro.setAttribute("class","image-fluid p-2");
+        imgActor_pro.setAttribute("with","300");
+        var figCapActor_pro = document.createElement("figcaption");
+        var nodeTexActor_pro = document.createTextNode(actor.name + " " + actor.surname);
+        //console.log ("Actor:" + actor.name + ", Personaje: " + actor.character + "\n");
+
+        figuActor_pro.appendChild(imgActor_pro);
+        figuActor_pro.appendChild(figCapActor_pro);
+        figCapActor_pro.appendChild(nodeTexActor_pro);
+        divCast.appendChild(figuActor_pro);
+
+        actor = actores.next();
+    }
+
+    var img = document.getElementById("pro_img");
     img.setAttribute("alt",pelicula.title);
     img.setAttribute("src",pelicula.image);
     img.setAttribute("class","img-fluid ");
-    img.setAttribute("width","300");
+    img.setAttribute("width","100%");
+
+    var figcap = document.getElementById("pro_title");
+    figcap.textContent = figcap.textContent.replace(figcap.textContent,pelicula.title);
     
-    mainPro.appendChild(div1);
+    var p_pro = mainPro.getElementsByTagName("p")[0];
+    p_pro.textContent = p_pro.textContent.replace(p_pro.textContent,pelicula.synopsis);
 
-    var div2 = document.createElement("div");
-    var h3 = document.createElement("h3");
-    var title = document.createTextNode(pelicula.title);
-    var decript = document.createTextNode(pelicula.synopsis);
-    var p = document.createElement("p");
     
-    h3.appendChild(title);
-    p.appendChild(decript);
+    
 
-    div2.appendChild(h3);
-    div2.appendChild(p);
 
-    div1.appendChild(img);
-    mainPro.appendChild(div1);
-    mainPro.appendChild(div2);
 }
 
 window.onload = initPopulate;

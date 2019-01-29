@@ -578,17 +578,15 @@ var VideoSystem = (function(){
 
                 for (var indexActor = 0; indexActor <  sActors.length; indexActor++) {
 
-                   
-
                     for(let indexPro = 0; indexPro <  sActors[indexActor].productions.length; indexPro++){
-                        
                         
                         //si encontramos una coincidencia creamos un objeto literal que incluimos en un array temporal con todos los
                         
                         if(sActors[indexActor].productions[indexPro].production.title === production.title){
                             arrayTempCast.push({
                                 //production: sActors[indexActor].productions[indexPro].production.title,
-                                name: sActors[indexActor].name + " " + sActors[indexActor].lastName1 + " " + sActors[indexActor].lastName2 ,
+                                name: sActors[indexActor].name ,
+                                surname: sActors[indexActor].lastName1 + " " + sActors[indexActor].lastName2 ,
                                 character: sActors[indexActor].productions[indexPro].character,
                                 //main: sActors[indexActor].productions[indexPro].main
                             });
@@ -601,7 +599,7 @@ var VideoSystem = (function(){
                     //devuelve el papel que ha realizado en la produccion y la produccion
                     next: function(){
                         return nextIndex < arrayTempCast.length ? 
-                            {name:arrayTempCast[nextIndex].name, character:arrayTempCast[nextIndex++].character , done:false} : {done:true};
+                            {name:arrayTempCast[nextIndex].name, surname:arrayTempCast[nextIndex].surname, character:arrayTempCast[nextIndex++].character , done:false} : {done:true};
                     }
                 }
             }
