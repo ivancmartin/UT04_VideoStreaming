@@ -103,9 +103,23 @@ function initPopulate(){
     vSistem.assignActor(actor12,peli3,"El payaso malo",true);
     vSistem.assignActor(actor13,peli3,"La prota",true);
 
+    var fecha1 = new Date("Jun 27, 1966");
+    var fecha2 = new Date("May 14, 1944");
+
+    var director1 = new Person("Jeffrey","Jacob","Abrams",fecha1,"ruta");
+    var  director2 = new Person("George ","Walton","Lucas",fecha2,"ruta");
+
+    var arrayDirectors = [director1,director2];
+    for (let i = 0; i < arrayDirectors.length; i++) {
+        vSistem.addDirector(arrayDirectors[i]);
+        vSistem.assignDirector(arrayDirectors[i],serie1);
+        vSistem.assignDirector(arrayDirectors[i],serie2);
+        vSistem.assignDirector(arrayDirectors[i],peli1);
+        vSistem.assignDirector(arrayDirectors[i],peli2);
+    }
 
     createHomePage();
-    
+
 }
 
 function showHomePage() {
@@ -282,20 +296,21 @@ function createHomePage() {
     
 }
 
-function showProduction(element) {
+function showProduction(element){
 
     var main = document.getElementById("main");
     var mainPro = document.getElementById("main-production");
-    var divCast = document.getElementById("cast");
+    //var divCast = document.getElementById("cast");
     
-    //borrado de actores
-    while(divCast.firstChild) {
-        divCast.removeChild(divCast.firstChild);
+    //borramos todos los elemetos 
+    while(mainPro.firstChild){
+        mainPro.removeChild(mainPro.firstChild);
     }
 
     main.setAttribute("class","d-none");
     mainPro.setAttribute("class","d-line");
-    
+
+    //recogemos la producción concreta
     var producciones = vSistem.productions;
     var produccion = producciones.next();
     while (produccion.done !== true){
@@ -311,15 +326,74 @@ function showProduction(element) {
         }
     }
 
+    //imagen de la película
+    var img = document.createElement("img"); 
+    img.setAttribute("class","pro_img");
+    img.setAttribute("alt",pelicula.title);
+    img.setAttribute("src",pelicula.image);
+    img.setAttribute("class","img-fluid");
+    img.setAttribute("width","100%");
+
+    var figcap_pro = document.createElement("figcaption");
+    figcap_pro.appendChild(img);
+
+    var fig_pro = document.createElement("figure");
+    var nodeText_pro = document.createTextNode(pelicula.title); 
+    fig_pro.appendChild(nodeText_pro);
+    figcap_pro.appendChild(fig_pro);
+
+    mainPro.appendChild(figcap_pro);
+    //fin imagen de la película
+
+    //Sinopsys
+    var h2_pro = document.createElement("h2");
+    var h2_titleS_pro = document.createTextNode("Sinopsys");
+    h2_pro.appendChild(h2_titleS_pro);
+    mainPro.appendChild(h2_pro);
+
+    var p1_pro = document.createElement("p");
+    var h2_sinop_pro = document.createTextNode(pelicula.synopsis);
+    p1_pro.appendChild(h2_sinop_pro);
+    mainPro.appendChild(p1_pro);
+    //fin synopsis
+
+    //nacionalidad
+    var p2_pro = document.createElement("p");
+    var p2_nt = document.createTextNode("Nacionalidad: " + pelicula.nationality);
+    p2_pro.appendChild(p2_nt);
+    mainPro.appendChild(p2_pro);
+    //fin nacionalidad
+
+    //Fecha de publicación
+    var p2_date = document.createElement("p");
+    var p2_textD = document.createTextNode("Fecha de publicación: " + pelicula.publication);
+    p2_date.appendChild(p2_textD);
+    mainPro.appendChild(p2_date);
+    //fin Fecha de publicación
+
+    //h2 actores
+    var h2_pro_actors = document.createElement("h2");
+    var h2_actors_pro = document.createTextNode("Actores");
+    h2_pro_actors.appendChild(h2_actors_pro);
+    mainPro.appendChild(h2_pro_actors);
+    //fin h2 actores
+
+    var div_actors = document.createElement("div");
+    div_actors.setAttribute("id","actors");
+    div_actors.setAttribute("class","d-flex flex-wrap justify-content-left");
+    mainPro.appendChild(div_actors);
+
+    //actores participantes
     var actor = actores.next();
     while (actor.done !== true){
 
         var figuActor_pro = document.createElement("figure");
+        figuActor_pro.setAttribute("class","pr-1")
         var imgActor_pro = document.createElement("img");
         imgActor_pro.setAttribute("alt",actor.name);
         imgActor_pro.setAttribute("src","images/movie.jpg");
-        imgActor_pro.setAttribute("class","image-fluid p-2");
-        imgActor_pro.setAttribute("with","300");
+        imgActor_pro.setAttribute("class","img-fluid");
+        imgActor_pro.setAttribute("width","300");
         var figCapActor_pro = document.createElement("figcaption");
         var nodeTexActor_pro = document.createTextNode(actor.name + " " + actor.surname);
         //console.log ("Actor:" + actor.name + ", Personaje: " + actor.character + "\n");
@@ -327,26 +401,66 @@ function showProduction(element) {
         figuActor_pro.appendChild(imgActor_pro);
         figuActor_pro.appendChild(figCapActor_pro);
         figCapActor_pro.appendChild(nodeTexActor_pro);
-        divCast.appendChild(figuActor_pro);
+        div_actors.appendChild(figuActor_pro);
 
         actor = actores.next();
     }
 
-    var img = document.getElementById("pro_img");
-    img.setAttribute("alt",pelicula.title);
-    img.setAttribute("src",pelicula.image);
-    img.setAttribute("class","img-fluid ");
-    img.setAttribute("width","100%");
-
-    var figcap = document.getElementById("pro_title");
-    figcap.textContent = figcap.textContent.replace(figcap.textContent,pelicula.title);
-    
-    var p_pro = mainPro.getElementsByTagName("p")[0];
-    p_pro.textContent = p_pro.textContent.replace(p_pro.textContent,pelicula.synopsis);
-
+    //h2 directores
+    var h2_pro_directors = document.createElement("h2");
+    var h2_directors_pro = document.createTextNode("Directores");
+    h2_pro_directors.appendChild(h2_directors_pro);
+    mainPro.appendChild(h2_pro_directors);
+    //fin h2 directores
     
     
+    var div_Directs = document.createElement("div");
+    div_Directs.setAttribute("id","directors");
+    div_Directs.setAttribute("class","d-flex flex-wrap justify-content-left");
+    mainPro.appendChild(div_Directs);
 
+    var directores = vSistem.directors;
+    var director = directores.next();
+    while (director.done !== true){
+        console.log(director.value.productions);
+        var arrayProDir = director.value.productions;
+        
+        for (let i = 0; i < arrayProDir.length; i++) {
+            
+            //si existe la produccion de ese director, la recogemos y la mostramos
+            var proDir = (director.value.productions[i].title === element);
+            if (proDir) {
+                var figuDirect_pro = document.createElement("figure");
+                figuDirect_pro.setAttribute("class","pr-1")
+                var imgDirect_pro = document.createElement("img");
+                imgDirect_pro.setAttribute("alt",director.value.name);
+                imgDirect_pro.setAttribute("src","images/movie.jpg");
+                imgDirect_pro.setAttribute("class","img-fluid");
+                imgDirect_pro.setAttribute("width","300");
+                var figCapDirect_pro = document.createElement("figcaption");
+                var nodeTexDirect_pro = document.createTextNode(director.value.name);
+                //console.log ("Direct:" + Direct.name + ", Personaje: " + Direct.character + "\n");
+
+                figuDirect_pro.appendChild(imgDirect_pro);
+                figuDirect_pro.appendChild(figCapDirect_pro);
+                figCapDirect_pro.appendChild(nodeTexDirect_pro);
+                div_Directs.appendChild(figuDirect_pro);
+            }
+            
+        }
+
+
+        director = directores.next();
+    }
+
+    
+
+    //figcap.textContent = figcap.textContent.replace(figcap.textContent,pelicula.title);
+    
+    //var p_pro = mainPro.getElementsByTagName("p")[0];
+    //p_pro.textContent = p_pro.textContent.replace(p_pro.textContent,pelicula.synopsis);
+
+    
 
 }
 

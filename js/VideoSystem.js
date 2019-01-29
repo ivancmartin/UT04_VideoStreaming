@@ -641,7 +641,6 @@ var VideoSystem = (function(){
                             {character:sActors[indexActor].productions[nextIndex].character, production:sActors[indexActor].productions[nextIndex++].production, done:false} : {done:true};
                     }
                 }
-
             }
 
             //iterador que devuelve las producciones de una categoria concreta una a una

@@ -22,6 +22,11 @@ figcaption{
     object-fit: cover;
 }
 
+.carousel-control-next, .carousel-control-prev{
+    top: 45px;
+}
+
+
 /*.carousel-control-next{
     padding: 200px 80px;
 }
