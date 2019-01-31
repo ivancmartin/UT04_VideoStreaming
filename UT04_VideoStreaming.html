@@ -17,57 +17,61 @@
     <title>UT04_VideoStreaming</title>
 </head>
 <body>
-    <header class="container-fluid">
-        
+    
+    <header id="head" class="container-fluid position-relative d-block">
+        <video id="video" loop autoplay preload muted>
+            <source src="video/Style-retro.mp4" type='video/mp4; codecs="avc1,mp4a"' />
+            <source src="video/Style-retro.mp4" type='video/ogg; codecs="theora,vorbis"' />
+            <source src="video/Style-retro.mp4" type='video/webm; codecs="vp8,vorbis"' />
+        </video>  
     </header>
     <nav id="mainMenu" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#" onclick="showHomePage()">VideoSystem</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div  class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul id="categories" class="navbar-nav">
-                
-                <!--<li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown link
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>-->
-            </ul>
+        <div class="container">
+                <a class="navbar-brand" href="#" onclick="showHomePage()">VideoSystem</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div  class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul id="categories" class="navbar-nav">
+                        
+                        <!--<li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown link
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>-->
+                    </ul>
+                </div>
         </div>
     </nav>
-    <main class="container mt-2">
+    <main class="container pt-1 mt-5 ">
         <div id="main" class="d-inline">
             <!-- opciones principales -->
         </div>
         <div id="main-production" class="d-none">
-            <!-- opciones actores -->
-            <!--<figure >
-                <img id="pro_img" alt="unknow" src=".">
-                <figcaption id="pro_title" ></figcaption>
-            </figure>
-            <hr>
-            <h2>Sinopsis</h2>
-            <p></p>
-            <hr>
-            <h2>Reparto</h2>
-            <div id="cast" class="d-flex flex-wrap justify-content-between mt-5"></div>
-            <hr>
-            <h2>Directores</h2>-->
+            <!-- información de la produccion -->
+        </div>
+        <div id="main-actors" class="d-none">
+            <!-- Todos los actores -->
+        </div>
+        <div id="main-directors" class="d-none">
+            <!-- Todos los directores -->
+        </div>
+        <div id="main-actor-info" class="d-none">
+            <!-- información del actor -->
         </div>
     </main>
     <!-- Optional JavaScript class="d-flex flex-wrap justify-content-center" -->
