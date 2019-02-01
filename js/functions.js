@@ -355,14 +355,14 @@ function createActors(element,actores){
         a.setAttribute("href","#" + actor.name);
         a.setAttribute("onclick","showActor(this.textContent)");
         var figuActor_pro = document.createElement("figure");
-        figuActor_pro.setAttribute("class","m-2 position-relative")
+        figuActor_pro.setAttribute("class","m-2 myFigure")
         var imgActor_pro = document.createElement("img");
         imgActor_pro.setAttribute("alt",actor.name);
         imgActor_pro.setAttribute("src","images/movie.jpg");
         imgActor_pro.setAttribute("class","img-fluid");
         imgActor_pro.setAttribute("width","250");
         var figCapActor_pro = document.createElement("figcaption");
-        figCapActor_pro.setAttribute("class","position-absolute");
+        figCapActor_pro.setAttribute("class","myFigcap");
         var nodeTexActor_pro = document.createTextNode(actor.name );
         //console.log ("Actor:" + actor.name + ", Personaje: " + actor.character + "\n");
         
@@ -406,13 +406,14 @@ function createDirectors(element,title_production){
                 a.setAttribute("href","#");
                 a.setAttribute("onclick","showDirector(this.textContent)");               
                 var figuDirect_pro = document.createElement("figure");
-                figuDirect_pro.setAttribute("class","m-2")
+                figuDirect_pro.setAttribute("class","m-2 myFigure")
                 var imgDirect_pro = document.createElement("img");
                 imgDirect_pro.setAttribute("alt",director.value.name);
                 imgDirect_pro.setAttribute("src","images/movie.jpg");
                 imgDirect_pro.setAttribute("class","img-fluid");
                 imgDirect_pro.setAttribute("width","250");
                 var figCapDirect_pro = document.createElement("figcaption");
+                figCapDirect_pro.setAttribute("class","myFigcap");
                 var nodeTexDirect_pro = document.createTextNode(director.value.name);
                 //console.log ("Direct:" + Direct.name + ", Personaje: " + Direct.character + "\n");
 
@@ -461,10 +462,10 @@ function showProduction(title_production){
         }
     }
 
-
     //imagen de la película
     var divImg = document.createElement("div");
-
+    divImg.setAttribute("class","imgDesc");
+    
     var img = document.createElement("img"); 
     img.setAttribute("class","pro_img");
     img.setAttribute("alt",pelicula.title);
@@ -472,22 +473,26 @@ function showProduction(title_production){
     img.setAttribute("class","img-fluid");
     img.setAttribute("width","100%");
 
-    var figcap_pro = document.createElement("figcaption");
-    figcap_pro.appendChild(img);
-
     var fig_pro = document.createElement("figure");
-    var nodeText_pro = document.createTextNode(pelicula.title); 
-    fig_pro.appendChild(nodeText_pro);
-    figcap_pro.appendChild(fig_pro);
+    fig_pro.setAttribute("class","myFigure");
 
-    divImg.appendChild(figcap_pro);
+    var figcap_pro = document.createElement("figcaption");
+    figcap_pro.setAttribute("class","myFigcap");
+    var nodeText_pro = document.createTextNode(pelicula.title);
+    figcap_pro.appendChild(nodeText_pro);
+
+    fig_pro.appendChild(img);
+    fig_pro.appendChild(figcap_pro);
+    //fig_pro.appendChild(figcap_pro);
+
+    divImg.appendChild(fig_pro);
     mainPro.appendChild(divImg);
     //fin imagen de la película
 
     var divDesc = document.createElement("div");
-    //Sinopsys
+    //Descripción
     var h2_pro = document.createElement("h2");
-    var h2_titleS_pro = document.createTextNode("Sinopsys");
+    var h2_titleS_pro = document.createTextNode("Descripción");
     h2_pro.appendChild(h2_titleS_pro);
     divDesc.appendChild(h2_pro);
 
@@ -509,10 +514,35 @@ function showProduction(title_production){
     var p2_textD = document.createTextNode("Fecha de publicación: " + pelicula.publication);
     p2_date.appendChild(p2_textD);
     divDesc.appendChild(p2_date);
-
     //fin Fecha de publicación
+
+    //audios
+   
+    
+    if(pelicula instanceof Movie){
+
+        var p2_dur = document.createElement("p");
+        var p2_resDur= document.createTextNode("Duración: " + pelicula.resource.duration.toString() + " min");
+        p2_dur.appendChild(p2_resDur);
+        divDesc.appendChild(p2_dur);
+
+        var p2_res = document.createElement("p");
+        var p2_aud = document.createTextNode("Audios: " + pelicula.resource.audios.toString());
+        p2_res.appendChild(p2_aud);
+        divDesc.appendChild(p2_res);
+
+        var p2_resSub = document.createElement("p");
+        var p2_resSub = document.createTextNode("Subtítulos: " + pelicula.resource.subtitles.toString());
+        p2_res.appendChild(p2_resSub);
+        divDesc.appendChild(p2_resSub);
+    
+    }
+
+    //fin audios
+
+
     var divImgDesv = document.createElement("div");
-    divImgDesv.setAttribute("class","d-flex justify-content-around");
+    /*divImgDesv.setAttribute("class","d-flex justify-content-around");*/
     divImgDesv.appendChild(divImg);
     divImgDesv.appendChild(divDesc);
     
@@ -567,18 +597,20 @@ function showProductions(elemt,actor,type) {
     while (production.done !== true){
         //console.log(production.production);
         
+        var div = document.createElement("div");
         //production.production
         var a = document.createElement("a");
         a.setAttribute("href","#");
         a.setAttribute("onclick","showProduction(this.textContent)");
         var figuActor_pro = document.createElement("figure");
-        figuActor_pro.setAttribute("class","pr-1")
+        figuActor_pro.setAttribute("class","myFigure")
         var imgActor_pro = document.createElement("img");
         imgActor_pro.setAttribute("alt",production.production.title);
         imgActor_pro.setAttribute("src","images/movie.jpg");
         imgActor_pro.setAttribute("class","img-fluid");
         imgActor_pro.setAttribute("width","250");
         var figCapActor_pro = document.createElement("figcaption");
+        figCapActor_pro.setAttribute("class","myFigcap");
         var nodeTexActor_pro = document.createTextNode(production.production.title);
         //console.log ("Actor:" + actor.value.name + ", Personaje: " + actor.value.character + "\n");
         
@@ -586,7 +618,8 @@ function showProductions(elemt,actor,type) {
         figuActor_pro.appendChild(figCapActor_pro);
         figCapActor_pro.appendChild(nodeTexActor_pro);
         a.appendChild(figuActor_pro);
-        div_product.appendChild(a);
+        div.appendChild(a)
+        div_product.appendChild(div);
         
         production = productions.next();
     }
@@ -616,7 +649,6 @@ function showActors(){
     div_actors.setAttribute("class","d-flex flex-wrap justify-content-center align-content-between container");
     mainAct.appendChild(div_actors);
     
-
     //actores participantes
     var actores = vSistem.actors;
     var actor = actores.next();
@@ -630,19 +662,21 @@ function showActors(){
         a.setAttribute("href","#");
         a.setAttribute("onclick","showActor(this.id)");
         var figuActor_pro = document.createElement("figure");
-        figuActor_pro.setAttribute("class","m-2")
+        figuActor_pro.setAttribute("class","m-2 myFigure")
         var imgActor_pro = document.createElement("img");
         imgActor_pro.setAttribute("alt",actor.value.name);
         imgActor_pro.setAttribute("src","images/movie.jpg");
         imgActor_pro.setAttribute("class","img-fluid");
         imgActor_pro.setAttribute("width","250");
         var figCapActor_pro = document.createElement("figcaption");
+        figCapActor_pro.setAttribute("class","myFigcap");
         var nodeTexActor_pro = document.createTextNode(actor.value.name + " " + actor.value.lastName1);
         //console.log ("Actor:" + actor.value.name + ", Personaje: " + actor.value.character + "\n");
-        
+        figCapActor_pro.appendChild(nodeTexActor_pro);
+
         figuActor_pro.appendChild(imgActor_pro);
         figuActor_pro.appendChild(figCapActor_pro);
-        figCapActor_pro.appendChild(nodeTexActor_pro);
+        
         a.appendChild(figuActor_pro);
         div.appendChild(a);
         div_actors.appendChild(div);
@@ -682,6 +716,12 @@ function showActor(name_actor) {
     }
 
     //imagen de la película
+    var divImg = document.createElement("div");
+    divImg.setAttribute("class","imgDesc");
+
+    var fig_act = document.createElement("figure");
+    fig_act.setAttribute("class","myFigure");
+
     var img = document.createElement("img"); 
     img.setAttribute("class","pro_img");
     img.setAttribute("alt",actor_objetiv.name);
@@ -690,13 +730,16 @@ function showActor(name_actor) {
     img.setAttribute("width","100%");
 
     var figcap_act = document.createElement("figcaption");
-    figcap_act.appendChild(img);
-
-    var fig_act = document.createElement("figure");
+    figcap_act.setAttribute("class","myFigcap");
     var nodeText_act = document.createTextNode(actor_objetiv.name + " " + actor_objetiv.lastName1 ); 
-    fig_act.appendChild(nodeText_act);
-    figcap_act.appendChild(fig_act);
+    figcap_act.appendChild(nodeText_act);
 
+
+    fig_act.appendChild(img);
+    fig_act.appendChild(figcap_act);
+    divImg.appendChild(fig_act);
+    
+    var divDesc = document.createElement("div"); 
     //Nombre completo
     var p_pro = document.createElement("p");
     var p_nt = document.createTextNode("Nombre : " + actor_objetiv.name + " " + actor_objetiv.lastName1 + " " + actor_objetiv.lastName2);
@@ -712,15 +755,19 @@ function showActor(name_actor) {
     //titulo producciones
     var h2_pro = document.createElement("h2");
     var h2_ntp = document.createTextNode("Producciones");
-    mainActor.appendChild(h2_ntp);
+    h2_pro.appendChild(h2_ntp);
+    
     //fin titulo producciones
 
-
-    mainActor.appendChild(figcap_act);
-    mainActor.appendChild(p_pro);
-    mainActor.appendChild(p_date);
+    var div = document.createElement("div");
+    /*div.setAttribute("class","d-flex justify-content-around");*/
+    
+    div.appendChild(divImg);
+    div.appendChild(divDesc);
+    mainActor.appendChild(div);
+    divDesc.appendChild(p_date);
+    
     mainActor.appendChild(h2_pro);
-
     showProductions(mainActor,actor_objetiv,"actor");
 
 }
@@ -762,13 +809,14 @@ function showDirectors(){
         a.setAttribute("href","#");
         a.setAttribute("onclick","showDirector(this.textContent)");               
         var figuDirect_pro = document.createElement("figure");
-        figuDirect_pro.setAttribute("class","m-2")
+        figuDirect_pro.setAttribute("class","m-2 myFigure")
         var imgDirect_pro = document.createElement("img");
         imgDirect_pro.setAttribute("alt",director.value.name);
         imgDirect_pro.setAttribute("src","images/movie.jpg");
         imgDirect_pro.setAttribute("class","img-fluid");
         imgDirect_pro.setAttribute("width","250");
         var figCapDirect_pro = document.createElement("figcaption");
+        figCapDirect_pro.setAttribute("class","myFigcap");
         var nodeTexDirect_pro = document.createTextNode(director.value.name);
         //console.log ("Direct:" + Direct.name + ", Personaje: " + Direct.character + "\n");
 
@@ -815,6 +863,7 @@ function showDirector(name_director){
     }
     
     var divImg = document.createElement("div");
+    divImg.setAttribute("class","imgDesc");
 
     //imagen de la película
     var img = document.createElement("img"); 
@@ -824,14 +873,17 @@ function showDirector(name_director){
     img.setAttribute("class","img-fluid");
     img.setAttribute("width","100%");
 
-    var figcap_act = document.createElement("figcaption");
-    figcap_act.appendChild(img);
-
     var fig_act = document.createElement("figure");
+    fig_act.setAttribute("class","myFigure");
+    fig_act.appendChild(img);
+
+    var figcap_act = document.createElement("figcaption");
+    figcap_act.setAttribute("class","myFigcap")
     var nodeText_act = document.createTextNode(director_objetiv.name + " " + director_objetiv.lastName1 ); 
-    fig_act.appendChild(nodeText_act);
-    figcap_act.appendChild(fig_act);
-    divImg.appendChild(figcap_act);
+    figcap_act.appendChild(nodeText_act);
+
+    fig_act.appendChild(figcap_act);
+    divImg.appendChild(fig_act);
 
     //Nombre completo
     var p_pro = document.createElement("p");
@@ -851,9 +903,16 @@ function showDirector(name_director){
     h2_pro.appendChild(h2_ntp);
     //fin titulo producciones
 
-    mainActor.appendChild(divImg);
-    mainActor.appendChild(p_pro);
-    mainActor.appendChild(p_date);
+    var divDesc = document.createElement("div");
+    divDesc.appendChild(p_pro);
+    divDesc.appendChild(p_date);
+
+    var div = document.createElement("div");
+    /*div.setAttribute("class","d-flex justify-content-around");*/
+    div.appendChild(divImg);
+    div.appendChild(divDesc);
+
+    mainActor.appendChild(div);
     mainActor.appendChild(h2_pro);
 
     showProductions(mainActor,director_objetiv,"director");
