@@ -489,6 +489,15 @@ function showProduction(title_production){
     mainPro.appendChild(divImg);
     //fin imagen de la película
 
+    var btn = document.createElement("button");
+    btn.setAttribute("type","button");
+    var btn_text = document.createTextNode("ver");
+    btn.appendChild(btn_text);
+    btn.addEventListener("click",function(){crearVentana(this.value)});
+    btn.setAttribute("value",pelicula.title);
+    btn.setAttribute("class","btn");
+    divImg.appendChild(btn);
+
     var divDesc = document.createElement("div");
     //Descripción
     var h2_pro = document.createElement("h2");
@@ -539,7 +548,6 @@ function showProduction(title_production){
     }
 
     //fin audios
-
 
     var divImgDesv = document.createElement("div");
     /*divImgDesv.setAttribute("class","d-flex justify-content-around");*/
@@ -932,6 +940,5 @@ function hideAll(){
     mainAct.setAttribute("class","d-none");
     mainActInfo.setAttribute("class","d-none");
 }
-
 
 window.onload = initPopulate;
