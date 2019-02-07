@@ -21,7 +21,7 @@ function initPopulate(){
     //cargamos las producciones
     var subtitulos = ["español","Ingles"];
     var audios = ["español","Ingles"];
-    var recurso = new Resource(10,"video.vwm",audios,subtitulos);  
+    var recurso = new Resource(10,"video/Style-retro.mp4",audios,subtitulos);  
     var coordenadas1 = new Coordinate(444,446);
     var localizaciones = [coordenadas1,coordenadas1];
 
@@ -30,13 +30,21 @@ function initPopulate(){
         {title: "episodio2 temporada 1", episode:recurso, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} }
     ]; 
 
+    var episodios2 = [
+        {title: "episodio1 temporada 2", episode:recurso, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} },
+        {title: "episodio2 temporada 2", episode:recurso, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} }
+    ]; 
+
     var season1 = new Season("temp 1",episodios);
+    var season2 = new Season("temp 2",episodios2);
+
+    var temporadas = [season1,season2]
 
     var fecha = new Date("January 1, 2000");
 
     var serie1 = new Serie("Stranger Things","UK",fecha,"La historia arranca durante la década de los 80, en el ficticio pueblo de Hawkins, Indiana, cuando un niño llamado Will Byers desaparece, hecho que destapa los extraños sucesos que tienen lugar en la zona, producto de una serie de experimentos que realiza el gobierno en un laboratorio científico cercano.","images/movie.jpg",season1);
     var serie2 = new Serie("The Simpsons","EEUU",fecha,"La serie de 'The Simpsons'","images/movie.jpg",season1);
-    var serie3 = new Serie("Titans","EEUU",fecha,"Cuando Dick Grayson(Robin) y Rachel Roth(Raven) necesitan ayuda para lidiar con un complot que amenaza a todo el planeta, se unen con Koriand'r(Starfire) y Gar Logan(Chico Bestia) para formar los Titanes.","images/movie.jpg",season1);
+    var serie3 = new Serie("Titans","EEUU",fecha,"Cuando Dick Grayson(Robin) y Rachel Roth(Raven) necesitan ayuda para lidiar con un complot que amenaza a todo el planeta, se unen con Koriand'r(Starfire) y Gar Logan(Chico Bestia) para formar los Titanes.","images/movie.jpg",temporadas);
     
     var peli1 = new Movie("Harry Potter y la piedra filosofal","UK",fecha,"Harry Potter se ha quedado huérfano y vive en casa de sus abominables tíos y del insoportable primo Dudley. Harry se siente muy triste y solo, hasta que un buen día recibe una carta que cambiará su vida para siempre.","images/movie.jpg",recurso,localizaciones);
     var peli2 = new Movie("Coco","EEUU",fecha,"En el pequeño pueblo de Santa Cecilia en México vive Miguel Rivera, un niño de 12 años que sueña con ser un músico como su famoso ídolo Ernesto de la Cruz, un popular compositor/cantante y estrella de cine que murió cuando fue aplastado por una campana en una presentación en vivo.","images/movie.jpg",recurso,localizaciones);
@@ -526,8 +534,7 @@ function showProduction(title_production){
     //fin Fecha de publicación
 
     //audios
-   
-    
+
     if(pelicula instanceof Movie){
 
         var p2_dur = document.createElement("p");
@@ -632,6 +639,7 @@ function showProductions(elemt,actor,type) {
         production = productions.next();
     }
 }
+
 //muestra todos los actores
 function showActors(){
 
