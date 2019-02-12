@@ -55,6 +55,7 @@ function compVentanas(){
     }
 }
 
+//muestra todos los recursos
 function showResource(){
     //console.log(window.opener);
 
@@ -206,55 +207,3 @@ function showResource(){
     main.appendChild(divDesc);
 
 }
-
-
-
-//ventana.onload = addResource; 
-
-    
-    /*
-    <div id="video"></div>
-    <div id="des_resource">
-        <h2>Descripción</h2>
-        <p></p>
-        <h2>Nacionalidad</h2>
-        <p></p>
-        <h2>Fecha</h2>
-        <p></p>
-    </div>
-    <div id="caps"></div>
-
-    
-    console.log(ventana.document.childNodes)
-    
-    var divVid = document.createElement("div");
-    var h2_desc = document.createElement("h2");
-    var h2_nac = document.createElement("h2");
-    var h2_fech = document.createElement("h2");
-
-    var h2_caps = document.createElement("h2");
-
-    
-    function escribirVentanaNueva(){
-        if (ventana && !ventana.closed){
-
-            var main = ventana.document.getElementById("main");
-            console.log(main);
-            main.appendChild(divVid);             
-            main.appendChild(h2_desc);
-            ventana.focus();
-        } else {
-            document.getElementById("resultado").innerHTML = "La ventana está cerrada.";
-        }                                    
-    }
-    
-
-    if (pelicula instanceof Movie) {
-        
-    }else{
-
-    }
-
-    escribirVentanaNueva();
-
-    console.log(main); */
