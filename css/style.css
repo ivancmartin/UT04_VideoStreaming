@@ -291,3 +291,15 @@ footer{
     text-align: center;
     box-shadow: inset 0px 0px 133px -10px rgb(0, 0, 0);
 }
+
+main a{
+    color: rgba(248, 27, 27, 0.692);
+}
+
+main a:hover{
+    color: rgba(153, 7, 7, 0.692);
+}
+
+.modal-content{
+    background-color: rgba(71, 49, 65, 0.959);
+}

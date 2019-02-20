@@ -542,9 +542,13 @@ function User(name,email,password){
 	if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]$/.test (name) !== true)
 		throw new InvalidTypeOfException();		
 
-	if (email === 'undefined' || email === '') throw new EmptyValuesException("email");	
-	if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]\@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test (email) !== true)
+    //console.log(email + " " + ( email.length !== 0) + " " + email.length);
+	if (email === 'undefined' || (email.length === 0)){
+        email = "";
+    }else{
+        if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]\@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test (email) !== true)
         throw new InvalidTypeOfException();	
+    }
 
 	password = typeof password !== 'undefined' ? password : "";
 	if (password === "") throw new EmptyValuesException("password");

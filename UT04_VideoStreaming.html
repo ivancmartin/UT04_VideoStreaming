@@ -17,12 +17,12 @@
     <title>UT04_VideoStreaming</title>
 </head>
 <body>
-    <header id="head" class="container-fluid position-relative d-block">
+    <header id="head" class="container-fluid position-relative d-block">  
         <video id="video" loop autoplay preload muted>
             <source src="video/Style-retro.mp4" type='video/mp4; codecs="avc1,mp4a"' />
             <source src="video/Style-retro.mp4" type='video/ogg; codecs="theora,vorbis"' />
             <source src="video/Style-retro.mp4" type='video/webm; codecs="vp8,vorbis"' />
-        </video>  
+        </video> 
     </header>
     <nav id="mainMenu" class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -57,6 +57,11 @@
         </div>
     </nav>
     <main class="container pt-1 mt-3 ">
+        <div class="d-flex justify-content-between">
+                <span id="userName"></span>
+                <a href="#" id="iniciar" class="linkModal" data-toggle="modal" data-target="#modalLoginForm">Iniciar sesión</a>        
+        </div>
+        
         <div id="main" class="d-inline">
             <!-- opciones principales -->
         </div>
@@ -72,6 +77,43 @@
         <div id="main-actor-info" class="d-none">
             <!-- información del actor -->
         </div>
+        <div id="main-mod-admin" class="d-none">
+            <!-- operaciones del usuario admin -->
+        </div>
+        <!-- modal de registro -->
+        <form action="" >
+            <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Iniciar sesión</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        
+                        <div class="md-form mb-5">
+                            <!--<i class="fas fa-envelope prefix grey-text"></i>-->
+                            <input type="text" id="usuario" class="form-control validate" autocomplete>
+                            <label data-error="wrong" data-success="right" for="usuario">Usuario</label>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <!--<i class="fas fa-lock prefix grey-text"></i>-->
+                            <input type="password" id="password" class="form-control" autocomplete>
+                            <label data-error="wrong" data-success="right" for="password">Contraseña</label>
+                        </div>
+                        <div id="msg"></div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" onclick="compUsu(usuario,password.value)" class="btn btn-default">Iniciar Sesión</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Fin modal registro -->
     </main>
     <!-- Optional JavaScript class="d-flex flex-wrap justify-content-center" -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->  

@@ -3,7 +3,10 @@
 var vSistem = VideoSystem.getInstance();
 
 function initPopulate(){
-    
+    //cargamos el usuario
+    var usuario1 = new User("prueba","prueba@gmail.com","prueba");
+    vSistem.addUser(usuario1);
+
     //cargamos las categorías
     var categoria1  = new Category("Acción","Peliculas y series de acción"); 
     var categoria2  = new Category("Aventura","Peliculas y series de aventuras");
@@ -214,6 +217,24 @@ function categoriesMenuPopulate() {
     li_direct.appendChild(a_direct);
     navBarCat.appendChild(li_direct);
     //fin boton menu Directores
+
+    //boton menu Administrar
+    var li_admin = document.createElement("li");
+    li_admin.setAttribute("class","nav-item d-none");
+    li_admin.setAttribute("id","administrar");
+
+    var nodeTex_admin = document.createTextNode("Administración");
+
+    var a_admin = document.createElement("a");
+    a_admin.setAttribute("class","nav-link ");
+    a_admin.setAttribute("href","#");
+    a_admin.setAttribute("onclick","showAdmin()");
+
+    a_admin.appendChild(nodeTex_admin);
+    li_admin.appendChild(a_admin);
+    navBarCat.appendChild(li_admin);
+    //fin boton menu Administrar
+
 }
 //crea los elementos del inicio
 function createHomePage() {
@@ -464,7 +485,7 @@ function showProduction(title_production){
         if(title == title_production){
             var pelicula = produccion.value;
             var actores = vSistem.getCast(produccion.value);
-            break; //revisar
+            break; //revisar - condición de ruptura
         }else{
             produccion = producciones.next();
         }
@@ -933,6 +954,130 @@ function showDirector(name_director){
 
     showProductions(mainActor,director_objetiv,"director");
 }
+
+//comprueba si el usuario existe e inicia sesión
+function compUsu(UName,pass){
+
+    //console.log(usuario,pass);
+    //var NewUsuario = new User(usuario,"",pass);
+
+    //recorremos el iterador y mostramos los valores
+    var usuarios = vSistem.users;
+    var usuario = usuarios.next();
+    var encontrado = false;
+    while (usuario.done !== true){
+        // console.log(usuario.value.name + " vs " + UName.value);
+        //console.log(usuario.value.name.localeCompare(usuario));
+        //console.log(usuario.value.password.localeCompare(pass));
+
+        if (usuario.value.name === UName.value.trim() && usuario.value.password === pass.trim()) {
+            encontrado = true;
+            //console.log(encontrado);
+            //console.log ("" + usuario.value.name);
+        }
+
+        usuario = usuarios.next();
+    }
+
+    var div = document.getElementById("msg");
+    var opcion = document.getElementById("administrar");
+    if (encontrado) {
+        div.removeChild;
+
+        console.log(getCookie("username"));
+        if (getCookie("username")=="") {
+            setCookie("username", pass);
+            console.log(getCookie("username"));
+        }
+        
+        if(checkCookie()){
+            var btnIni = document.getElementById("iniciar");
+            btnIni.removeAttribute("data-target");
+            var msg2 = document.createTextNode("Cerrar sesión");
+            btnIni.replaceChild(msg2,btnIni.lastChild);
+            btnIni.setAttribute("onclick","cerrarSes()");
+            opcion.setAttribute("class","nav-item d-line");
+            var username = document.getElementById("userName");
+            username.innerHTML = "Bienvenido: " + UName.value.trim();
+        };
+
+        div.innerHTML = "";
+        var modal = document.getElementById("modalLoginForm");
+        modal.setAttribute("class","modal fade"); 
+    }else{
+        div.innerHTML = "No se encuentra la cuenta";
+    }
+
+}
+
+//quita el nombre a la cookie (la "borra")
+function cerrarSes() {
+    var opcion = document.getElementById("administrar");
+    if (checkCookie()) {
+        setCookie("", "");
+        var btnIni = document.getElementById("iniciar");
+        var msg2 = document.createTextNode("Iniciar sesión");
+        btnIni.replaceChild(msg2,btnIni.lastChild);
+        btnIni.setAttribute("onclick","cerrarSes()")
+        btnIni.setAttribute("data-target","#modalLoginForm");
+        opcion.setAttribute("class","nav-item d-none");
+        var username = document.getElementById("userName");
+        username.innerHTML = "";
+        hideAll();
+        showHomePage();
+    }
+    console.log("existe prueba?: " + getCookie("prueba"))
+
+}
+
+//comprueba si la cookie existe
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
+//comprueba la cookie
+function checkCookie() {
+    var username = getCookie("username");
+    console.log(username);
+    if (username != "") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//crea la cookie
+function setCookie(cname, cvalue) {
+    var d = new Date();
+    d.setTime(d.getTime() + (10 * 24 * 60 * 60 * 1000)); //10 días
+    var expires = "expires="+d.toUTCString();
+    document.cookie = "username =" + cname + "; pass =" + cvalue + ";" + expires + ";path=/";
+}
+
+//muestra las operaciones y formularios para la edición de categorías, producciones...
+function showAdmin(){
+    hideAll();
+    var mainDir = document.getElementById("main-mod-admin");
+    mainDir.setAttribute("class","d-line"); 
+    
+    var div = document.createElement("div");
+    
+    
+}
+
+
 //oculta todos los elementos
 function hideAll(){
     var main = document.getElementById("main");
@@ -940,13 +1085,14 @@ function hideAll(){
     var mainAct = document.getElementById("main-actors");
     var mainDir = document.getElementById("main-directors");
     var mainActInfo = document.getElementById("main-actor-info");
-    
+    var mainAdmin = document.getElementById("main-mod-admin");
     
     mainDir.setAttribute("class","d-none");
     main.setAttribute("class","d-none");
     mainPro.setAttribute("class","d-none");
     mainAct.setAttribute("class","d-none");
     mainActInfo.setAttribute("class","d-none");
+    mainAdmin.setAttribute("class","d-none");
 }
 
 window.onload = initPopulate;
