@@ -57,9 +57,9 @@
         </div>
     </nav>
     <main class="container pt-1 mt-3 ">
-        <div class="d-flex justify-content-between">
+        <div class="py-2 d-flex justify-content-between">
                 <span id="userName"></span>
-                <a href="#" id="iniciar" class="linkModal" data-toggle="modal" data-target="#modalLoginForm">Iniciar sesión</a>        
+                <a href="#" id="iniciar" class="linkModal" data-toggle="modal" data-target="#myModal">Iniciar sesión</a> 
         </div>
         
         <div id="main" class="d-inline">
@@ -81,34 +81,34 @@
             <!-- operaciones del usuario admin -->
         </div>
         <!-- modal de registro -->
-        <form action="" >
-            <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form >
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Iniciar sesión</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        
-                        <div class="md-form mb-5">
-                            <!--<i class="fas fa-envelope prefix grey-text"></i>-->
-                            <input type="text" id="usuario" class="form-control validate" autocomplete>
-                            <label data-error="wrong" data-success="right" for="usuario">Usuario</label>
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Iniciar sesión</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div class="modal-body mx-3">
+                            
+                            <div class="md-form mb-5">
+                                <!--<i class="fas fa-envelope prefix grey-text"></i>-->
+                                <input type="text" id="usuario" class="form-control validate" autocomplete>
+                                <label data-error="wrong" data-success="right" for="usuario">Usuario</label>
+                            </div>
 
-                        <div class="md-form mb-4">
-                            <!--<i class="fas fa-lock prefix grey-text"></i>-->
-                            <input type="password" id="password" class="form-control" autocomplete>
-                            <label data-error="wrong" data-success="right" for="password">Contraseña</label>
+                            <div class="md-form mb-4">
+                                <!--<i class="fas fa-lock prefix grey-text"></i>-->
+                                <input type="password" id="password" class="form-control" autocomplete>
+                                <label data-error="wrong" data-success="right" for="password">Contraseña</label>
+                            </div>
+                            <div id="msg"></div>
                         </div>
-                        <div id="msg"></div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="button" onclick="compUsu(usuario,password.value)" class="btn btn-default">Iniciar Sesión</button>
-                    </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" onclick="compUsu(usuario,password.value)" class="btn btn-default">Iniciar Sesión</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,9 +126,12 @@
     <script src="./js/objetos.js"></script>
     <script src="./js/VideoSystem.js"></script>
     
-    <!-- Personalizado -->
+    <!-- funciones -->
     <script src="./js/functions.js"></script> 
     <script src="./js/cargarVentana.js"></script>
+
+    <!-- iconos -->
+    <script src="https://unpkg.com/ionicons@4.4.4/dist/ionicons.js"></script>    
     
     <!--<script src="./js/test.js"></script> -->
     <!--<script src="./js/VSTest.js"></script> -->

@@ -999,11 +999,12 @@ function compUsu(UName,pass){
             opcion.setAttribute("class","nav-item d-line");
             var username = document.getElementById("userName");
             username.innerHTML = "Bienvenido: " + UName.value.trim();
+            $('#myModal').modal('hide');
         };
 
         div.innerHTML = "";
-        var modal = document.getElementById("modalLoginForm");
-        modal.setAttribute("class","modal fade"); 
+        var modal = document.getElementById("myModal");
+        //modal.setAttribute("class","modal fade hide"); 
     }else{
         div.innerHTML = "No se encuentra la cuenta";
     }
@@ -1018,8 +1019,8 @@ function cerrarSes() {
         var btnIni = document.getElementById("iniciar");
         var msg2 = document.createTextNode("Iniciar sesión");
         btnIni.replaceChild(msg2,btnIni.lastChild);
-        btnIni.setAttribute("onclick","cerrarSes()")
-        btnIni.setAttribute("data-target","#modalLoginForm");
+        btnIni.removeAttribute("onclick","cerrarSes()");
+        btnIni.setAttribute("data-target","#myModal");
         opcion.setAttribute("class","nav-item d-none");
         var username = document.getElementById("userName");
         username.innerHTML = "";
@@ -1069,12 +1070,138 @@ function setCookie(cname, cvalue) {
 //muestra las operaciones y formularios para la edición de categorías, producciones...
 function showAdmin(){
     hideAll();
-    var mainDir = document.getElementById("main-mod-admin");
-    mainDir.setAttribute("class","d-line"); 
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
+    var div_actions = document.createElement("div");
+    div_actions.setAttribute("id","actions_list"); 
+    div_actions.setAttribute("class","m-auto w-50 text-center");
+
+    mainAdmin.appendChild(div_actions);
+
+
+    //var operaciones = ["Categorías","Actores","Directores","producciones","Recursos"];
+
+    var div_action = document.createElement("div");
     
+    //categorias
+    div_actions.appendChild(div_action);
+
+    var a = document.createElement("a");
+    a.setAttribute("class","d-block p-3 m-2");
+    a.setAttribute("href","#");
+    
+    a.setAttribute("onclick","showOpCat()");               
+    var nodeTex_actions = document.createTextNode("Administrar: Categorías");
+    //console.log ("Direct:" + Direct.name + ", Personaje: " + Direct.character + "\n");
+
+    a.appendChild(nodeTex_actions);
+    div_action.appendChild(a); 
+    div_actions.appendChild(div_action);
+
+}
+
+//muestra las operaciones para las categorías
+function showOpCat(){
+    hideAll();
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
     var div = document.createElement("div");
+    div.setAttribute("id","form_cat"); 
+    div.setAttribute("class","m-auto text-center");
+
+    mainAdmin.appendChild(div);
+
+    var table = document.createElement("table");
+    table.setAttribute("class","table table-bordered table-striped");
+
+    //cabecera
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
     
+    var th_name = document.createElement("th");
+    var name = document.createTextNode("Categoria");
+    th_name.appendChild(name);
+
+    var th_desc = document.createElement("th");
+    var descrip = document.createTextNode("Descripción de la categoría");
+    th_desc.appendChild(descrip);
+
+    var th_delete = document.createElement("th");
+    var dele = document.createTextNode("Eliminar");
+    th_delete.appendChild(dele);
+
+    var th_edit = document.createElement("th");
+    var dele = document.createTextNode("Modificar");
+    th_edit.appendChild(dele);
     
+    tr.appendChild(th_name);
+    tr.appendChild(th_desc);
+    tr.appendChild(th_delete);
+    tr.appendChild(th_edit);
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+    div.appendChild(table);
+
+    //cuerpo
+    var tbody = document.createElement("tbody");
+    rechargeTableCat(tbody);
+    table.appendChild(tbody);
+    
+}
+
+//recargamos la tabla de categorías
+function rechargeTableCat(tbody){
+    console.log(tbody);
+
+    //rellenamos el cuerpo de la tabla
+    var categorias = vSistem.categories;
+    var categoria = categorias.next();
+    while (categoria.done !== true){
+        
+        var tr = document.createElement("tr");
+        var tdNAme = document.createElement("td");
+        var textName = document.createTextNode(categoria.value.name);
+        tdNAme.appendChild(textName);
+
+        var tdDesc = document.createElement("td");
+        var textDesc = document.createTextNode(categoria.value.description);
+        tdDesc.appendChild(textDesc);
+
+        var tdDel = document.createElement("td");
+        var button = document.createElement("button");
+        tdDel.appendChild(button);
+
+        var tdEdit = document.createElement("td");
+        var button = document.createElement("button");
+        tdEdit.appendChild(button);
+
+        tr.appendChild(tdNAme);
+        tr.appendChild(tdDesc);
+        tr.appendChild(tdDel);
+        tr.appendChild(tdEdit);
+
+
+
+        tbody.appendChild(tr);
+        categoria = categorias.next();
+    }
 }
 
 
