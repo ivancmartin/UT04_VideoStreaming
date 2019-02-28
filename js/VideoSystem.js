@@ -578,20 +578,23 @@ var VideoSystem = (function(){
 
                 for (var indexActor = 0; indexActor <  sActors.length; indexActor++) {
 
-                    for(let indexPro = 0; indexPro <  sActors[indexActor].productions.length; indexPro++){
+                    if(sActors[indexActor].productions !== undefined) {
+                        for(let indexPro = 0; indexPro <  sActors[indexActor].productions.length; indexPro++){
                         
-                        //si encontramos una coincidencia creamos un objeto literal que incluimos en un array temporal con todos los
-                        
-                        if(sActors[indexActor].productions[indexPro].production.title === production.title){
-                            arrayTempCast.push({
-                                //production: sActors[indexActor].productions[indexPro].production.title,
-                                name: sActors[indexActor].name ,
-                                surname: sActors[indexActor].lastName1 + " " + sActors[indexActor].lastName2 ,
-                                character: sActors[indexActor].productions[indexPro].character,
-                                //main: sActors[indexActor].productions[indexPro].main
-                            });
+                            //si encontramos una coincidencia creamos un objeto literal que incluimos en un array temporal con todos los
+                            
+                            if(sActors[indexActor].productions[indexPro].production.title === production.title){
+                                arrayTempCast.push({
+                                    //production: sActors[indexActor].productions[indexPro].production.title,
+                                    name: sActors[indexActor].name ,
+                                    surname: sActors[indexActor].lastName1 + " " + sActors[indexActor].lastName2 ,
+                                    character: sActors[indexActor].productions[indexPro].character,
+                                    //main: sActors[indexActor].productions[indexPro].main
+                                });
+                            }
                         }
                     }
+                    
                 }
                 
                 var nextIndex = 0;
@@ -637,8 +640,12 @@ var VideoSystem = (function(){
                 return {
                     //devuelve el papel que ha realizado en la produccion y la produccion
                     next: function(){
-                        return nextIndex < sActors[indexActor].productions.length ? 
-                            {character:sActors[indexActor].productions[nextIndex].character, production:sActors[indexActor].productions[nextIndex++].production, done:false} : {done:true};
+                        if(sActors[indexActor].productions === undefined) {
+                            return {character:"sin caracterización", production:"sin producciones", done:true}
+                        }else{
+                            return nextIndex < sActors[indexActor].productions.length ? 
+                            {character:sActors[indexActor].productions[nextIndex].character, production:sActors[indexActor].productions[nextIndex].production,main: sActors[indexActor].productions[nextIndex++].main, done:false} : {done:true};
+                        }
                     }
                 }
             }
@@ -649,14 +656,18 @@ var VideoSystem = (function(){
                 if(!(category instanceof Category) || category === null) throw new InvalidAccesConstructorException();
 
                 var indexCat = sCategory.findIndex( cat => cat.name === category.name);
-
+                //console.log(indexCat);
                 if(indexCat === -1) throw new NoExistCategoryException;
                 var nextIndex = 0;
 
                 return {
                     next: function(){
-                        return nextIndex < sCategory[indexCat].productions.length ? 
+                        if(sCategory[indexCat].productions === undefined) {
+                            return {value:"sin producciones", done:true}
+                        }else{
+                            return nextIndex < sCategory[indexCat].productions.length ? 
                             {value:sCategory[indexCat].productions[nextIndex++], done:false} : {done:true};
+                        }
                     }
                 }
 

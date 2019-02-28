@@ -10,10 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Personalizado -->
     <link rel="stylesheet" href="./css/style.css">
-    <!-- fontaosome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <!-- Mi css-->
+    <!-- fontaosome <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <title>UT04_VideoStreaming</title>
 </head>
 <body>
@@ -24,7 +21,7 @@
             <source src="video/Style-retro.mp4" type='video/webm; codecs="vp8,vorbis"' />
         </video> 
     </header>
-    <nav id="mainMenu" class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav id="mainMenu" class="navbar navbar-light bg-light">
         <div class="container">
                 <a class="navbar-brand" href="#" onclick="showHomePage()">VideoSystem</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,9 +54,9 @@
         </div>
     </nav>
     <main class="container pt-1 mt-3 ">
-        <div class="d-flex justify-content-between">
+        <div class="py-2 d-flex justify-content-between">
                 <span id="userName"></span>
-                <a href="#" id="iniciar" class="linkModal" data-toggle="modal" data-target="#modalLoginForm">Iniciar sesión</a>        
+                <a href="#" id="iniciar" class="linkModal" data-toggle="modal" data-target="#myModal">Iniciar sesión</a> 
         </div>
         
         <div id="main" class="d-inline">
@@ -81,40 +78,51 @@
             <!-- operaciones del usuario admin -->
         </div>
         <!-- modal de registro -->
-        <form action="" >
-            <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form >
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Iniciar sesión</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        
-                        <div class="md-form mb-5">
-                            <!--<i class="fas fa-envelope prefix grey-text"></i>-->
-                            <input type="text" id="usuario" class="form-control validate" autocomplete>
-                            <label data-error="wrong" data-success="right" for="usuario">Usuario</label>
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Iniciar sesión</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div class="modal-body mx-3">
+                            
+                            <div class="md-form mb-5">
+                                <!--<i class="fas fa-envelope prefix grey-text"></i>-->
+                                <input type="text" id="usuario" class="form-control validate" autocomplete>
+                                <label data-error="wrong" data-success="right" for="usuario">Usuario</label>
+                            </div>
 
-                        <div class="md-form mb-4">
-                            <!--<i class="fas fa-lock prefix grey-text"></i>-->
-                            <input type="password" id="password" class="form-control" autocomplete>
-                            <label data-error="wrong" data-success="right" for="password">Contraseña</label>
+                            <div class="md-form mb-4">
+                                <!--<i class="fas fa-lock prefix grey-text"></i>-->
+                                <input type="password" id="password" class="form-control" autocomplete>
+                                <label data-error="wrong" data-success="right" for="password">Contraseña</label>
+                            </div>
+                            <div id="msg"></div>
                         </div>
-                        <div id="msg"></div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="button" onclick="compUsu(usuario,password.value)" class="btn btn-default">Iniciar Sesión</button>
-                    </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" onclick="compUsu(usuario,password.value)" class="btn btn-default">Iniciar Sesión</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
         <!-- Fin modal registro -->
+        <!-- modal advertencias -->
+        <div class="modal fade bd-example-modal-sm" id="myModalAdv" tabindex="-1" role="dialog" aria-labelledby="myModalAdv" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <h5 class="modal-title h4" id="myModalAdvh5">msg</h5>
+                <div class="modal-content" id="myModalAdvMsg">msg</div>
+            </div>
+        </div>
     </main>
+    <footer class="page-footeri mt-5 p-4  ">
+        <h4>VideoSystem by iván</h4>
+    </footer>
+
     <!-- Optional JavaScript class="d-flex flex-wrap justify-content-center" -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->  
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -126,17 +134,16 @@
     <script src="./js/objetos.js"></script>
     <script src="./js/VideoSystem.js"></script>
     
-    <!-- Personalizado -->
+    <!-- funciones -->
     <script src="./js/functions.js"></script> 
     <script src="./js/cargarVentana.js"></script>
+    <script src="./js/formularios.js"></script>
+
+    <!-- iconos -->
+    <script src="https://unpkg.com/ionicons@4.4.4/dist/ionicons.js"></script>    
     
     <!--<script src="./js/test.js"></script> -->
     <!--<script src="./js/VSTest.js"></script> -->
-
-    <footer class="page-footeri mt-5 p-4  ">
-        <h4>VideoSystem by iván</h4>
-    </footer>
     
-
 </body>
 </html>

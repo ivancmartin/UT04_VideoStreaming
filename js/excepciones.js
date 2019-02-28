@@ -58,8 +58,8 @@ InvalidStringException.prototype.constructor = InvalidStringException;
 
 //ExistValueException: el valor ya existe en el array.
 function ExistValueException(param){
-    this.name = "ExistValueException";
-    this.message = "el valor " + param + " introducido ya existe en el array";
+    this.name = "Duplica:o";
+    this.message = "el valor " + param + " introducido ya existe en el sistema";
 }
 ExistValueException.prototype = new MyBaseExceptions();
 ExistValueException.prototype.constructor = ExistValueException;
