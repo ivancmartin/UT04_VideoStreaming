@@ -1,0 +1,152 @@
+{"VideoSystem":{
+    "Categorias":[
+        {"nombre": "Acción", "descripcion": "Peliculas y series de acción"},
+        {"nombre": "Animadas", "descripcion": "Peliculas y series de dibujos animados"},
+        {"nombre": "Aventura", "descripcion": "Peliculas y series de aventuras"},
+        {"nombre": "CI-FI", "descripcion": "Peliculas y series de ciencia ficción"},
+        {"nombre": "Comedias", "descripcion": "Peliculas y series de humor"},
+        {"nombre": "Terror", "descripcion": "Peliculas y series de miedo"}
+    ],
+    "Actores":[
+        {"name": "Anna", "lastName1": "Diop", "lastName2": "", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Anthony", "lastName1": "Gonzalez", "lastName2": "", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Bill", "lastName1": "Skarsgård", "lastName2": "", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Brenton", "lastName1": "Thwaites", "lastName2": "Middleton", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Dan", "lastName1": "Castellaneta", "lastName2": "", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Daniel", "lastName1": "Jacob", "lastName2": "Radcliffe", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "David", "lastName1": "Harbour", "lastName2": "", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Gael", "lastName1": "García", "lastName2": "Bernal", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Jaeden", "lastName1": "Lieberher", "lastName2": "", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Julie", "lastName1": "Kavner", "lastName2": "", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Rupert Alexander", "lastName1": "Lloyd", "lastName2": "Grint", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Teagan", "lastName1": "Croft", "lastName2": "McNamee", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Winona", "lastName1": "Ryder", "lastName2": "", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"}
+    ],
+    "Poducciones":[
+        {   
+            "title": "Coco", 
+            "nationality": "EEUU", 
+            "publication": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", 
+            "synopsis": "En el pequeño pueblo de Santa Cecilia en México vi…tado por una campana en una presentación en vivo.", 
+            "image": "images/movie.jpg",
+            "locations":"",
+            "resource":{
+                "audios": ["español", "Ingles"],
+                "duration": 10,
+                "link": "video/Style-retro.mp4",
+                "subtitles":["español", "Ingles"]
+            }
+        },{
+            "title": "Harry Potter y la piedra filosofal", 
+            "nationality": "UK", 
+            "publication": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", 
+            "synopsis": "Harry Potter se ha quedado huérfano y vive en casa…cibe una carta que cambiará su vida para siempre.", 
+            "image": "images/movie.jpg",
+            "locations":"",
+            "resource":{
+                "audios": ["español", "Ingles"],
+                "duration": 10,
+                "link": "video/Style-retro.mp4",
+                "subtitles":["español", "Ingles"]
+            }
+        },{
+            "title": "It(2017)", 
+            "nationality": "EEUU", 
+            "publication": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", 
+            "synopsis": "Con Pennywise derrotado, Bill, Beverly, Richie, Ed…ultos o ancianos) dejando a Bill y Beverly solos.", 
+            "image": "images/movie.jpg",
+            "locations":"",
+            "resource":{
+                "audios": ["español", "Ingles"],
+                "duration": 10,
+                "link": "video/Style-retro.mp4",
+                "subtitles":["español", "Ingles"]
+            }
+        },{
+            "title": "Stranger Things", 
+            "nationality": "UK", 
+            "publication": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", 
+            "synopsis": "La historia arranca durante la década de los 80, e…el gobierno en un laboratorio científico cercano.", 
+            "image": "images/movie.jpg",
+            "seasons": [{
+                    "title": "temp 1",
+                    "episodes":[
+                        {
+                            "audios": ["español", "Ingles"],
+                            "duration": 10,
+                            "link": "video/Style-retro.mp4",
+                            "subtitles": ["español", "Ingles"]
+                        },{
+                            "audios": ["español", "Ingles"],
+                            "duration": 10,
+                            "link": "video/Style-retro.mp4",
+                            "subtitles": ["español", "Ingles"]
+                        }
+                    ]}
+            ]   
+        },{
+            "title": "The Simpsons", 
+            "nationality": "UK", 
+            "publication": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", 
+            "synopsis": "La serie de 'The Simpsons'", 
+            "image": "images/movie.jpg",
+            "seasons": [{
+                    "title": "temp 1",
+                    "episodes":[
+                        {
+                            "audios": ["español", "Ingles"],
+                            "duration": 10,
+                            "link": "video/Style-retro.mp4",
+                            "subtitles": ["español", "Ingles"]
+                        },{
+                            "audios": ["español", "Ingles"],
+                            "duration": 10,
+                            "link": "video/Style-retro.mp4",
+                            "subtitles": ["español", "Ingles"]
+                        }
+                    ]}
+            ]   
+        },{
+            "title": "Titans", 
+            "nationality": "UK", 
+            "publication": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", 
+            "synopsis": "Cuando Dick Grayson(Robin) y Rachel Roth(Raven) necesitan ayuda para lidiar con un complot que amenaza a todo el planeta, se unen con Koriand'r(Starfire) y Gar Logan(Chico Bestia) para formar los Titanes.", 
+            "image": "images/movie.jpg",
+            "seasons": [{
+                    "title": "temp 1",
+                    "episodes":[
+                        {
+                            "audios": ["español", "Ingles"],
+                            "duration": 10,
+                            "link": "video/Style-retro.mp4",
+                            "subtitles": ["español", "Ingles"]
+                        },{
+                            "audios": ["español", "Ingles"],
+                            "duration": 10,
+                            "link": "video/Style-retro.mp4",
+                            "subtitles": ["español", "Ingles"]
+                        }
+                    ]},{
+                    "title": "temp 2",
+                    "episodes":[
+                        {
+                            "audios": ["español", "Ingles"],
+                            "duration": 10,
+                            "link": "video/Style-retro.mp4",
+                            "subtitles": ["español", "Ingles"]
+                        },{
+                            "audios": ["español", "Ingles"],
+                            "duration": 10,
+                            "link": "video/Style-retro.mp4",
+                            "subtitles": ["español", "Ingles"]
+                        }
+                    ]}
+            ]   
+        }
+    ],
+    "Directores":[
+        {"name": "George", "lastName1": "Walton", "lastName2": "Lucas", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"},
+        {"name": "Jeffrey", "lastName1": "Jacob", "lastName2": "Abrams", "born": "Sat Jan 01 2000 00:00:00 GMT+0100 (hora estándar de Europa central)", "picture": "images/movie.jpg"}
+    ]
+
+}}

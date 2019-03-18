@@ -31,9 +31,9 @@ function compUsu(UName,pass){
 
         //console.log(document.cookie);
         if (getCookie("username")=="") {
-            console.log(UName);
+            //console.log(UName);
             setCookie(UName.value.trim(), pass);
-            console.log(getCookie("username"));
+            //console.log(getCookie("username"));
         }
         
         if(checkCookie()){
@@ -56,7 +56,6 @@ function compUsu(UName,pass){
     }
 
 }
-
 //quita el nombre a la cookie (la "borra")
 function cerrarSes() {
     var opcion = document.getElementById("administrar");
@@ -73,10 +72,9 @@ function cerrarSes() {
         hideAll();
         showHomePage();
     }
-    console.log("existe prueba?: " + getCookie("prueba"))
+    //console.log("existe prueba?: " + getCookie("prueba"))
 
 }
-
 //comprueba si la cookie existe
 function getCookie(cname) {
     var name = cname + "=";
@@ -93,7 +91,6 @@ function getCookie(cname) {
     }
     return "";
 }
-
 //comprueba la cookie
 function checkCookie() {
     var username = getCookie("username");
@@ -104,7 +101,6 @@ function checkCookie() {
         return false;
     }
 }
-
 //crea la cookie
 function setCookie(cname, cvalue) {
     var d = new Date();
@@ -123,7 +119,7 @@ function showAdmin(){
 
     //borramos todos los elemetos 
     while(mainAdmin.firstChild){
-        console.log(mainAdmin.firstChild);
+        //console.log(mainAdmin.firstChild);
         mainAdmin.removeChild(mainAdmin.firstChild);
     }
 
@@ -198,6 +194,92 @@ function showAdmin(){
     
     div_actions.appendChild(div_action);
 
+    var h2Act = document.createElement("h2");
+    var actTex = document.createTextNode("Directores");
+    h2Act.appendChild(actTex);
+    div_action.appendChild(h2Act);
+
+    //Actores: añadir
+    var delEditAct = document.createElement("a");
+    delEditAct.setAttribute("class","d-block p-3 m-2");
+    delEditAct.setAttribute("href","#");
+    
+    delEditAct.setAttribute("onclick","showAddDir()");               
+    var nodeTex_adAct = document.createTextNode("Directores: añadir");
+
+    delEditAct.appendChild(nodeTex_adAct);
+    div_action.appendChild(delEditAct); 
+
+    //Directores: borrar y editar
+    var delEditAct = document.createElement("a");
+    delEditAct.setAttribute("class","d-block p-3 m-2");
+    delEditAct.setAttribute("href","#");
+    
+    delEditAct.setAttribute("onclick","showOpDir()");               
+    var nodeTex_adAct = document.createTextNode("Directores: Modificar y borrar");
+
+    delEditAct.appendChild(nodeTex_adAct);
+    div_action.appendChild(delEditAct); 
+
+    /** */
+
+    var h2Act = document.createElement("h2");
+    var actTex = document.createTextNode("Producciones");
+    h2Act.appendChild(actTex);
+    div_action.appendChild(h2Act);
+
+    //Películas: añadir
+    var delEditAct = document.createElement("a");
+    delEditAct.setAttribute("class","d-block p-3 m-2");
+    delEditAct.setAttribute("href","#");
+    
+    delEditAct.setAttribute("onclick","showAddFilm()");               
+    var nodeTex_adAct = document.createTextNode("Películas: añadir");
+
+    delEditAct.appendChild(nodeTex_adAct);
+    div_action.appendChild(delEditAct); 
+
+    //Series: añadir
+    var delEditAct = document.createElement("a");
+    delEditAct.setAttribute("class","d-block p-3 m-2");
+    delEditAct.setAttribute("href","#");
+    
+    delEditAct.setAttribute("onclick","showAddSerie()");               
+    var nodeTex_adAct = document.createTextNode("Series: añadir");
+
+    delEditAct.appendChild(nodeTex_adAct);
+    div_action.appendChild(delEditAct);
+
+    
+
+    //Películas: borrar y editar
+    var delEditAct = document.createElement("a");
+    delEditAct.setAttribute("class","d-block p-3 m-2");
+    delEditAct.setAttribute("href","#");
+    
+    delEditAct.setAttribute("onclick","showDelPro()");               
+    var nodeTex_adAct = document.createTextNode("Películas y series: borrar");
+
+    delEditAct.appendChild(nodeTex_adAct);
+    div_action.appendChild(delEditAct);
+
+    var h2Act = document.createElement("h2");
+    var actTex = document.createTextNode("Base de datos");
+    h2Act.appendChild(actTex);
+    div_action.appendChild(h2Act);
+
+    //generar db
+    var delEditAct = document.createElement("a");
+    delEditAct.setAttribute("class","d-block p-3 m-2");
+    delEditAct.setAttribute("href","#");
+    
+    delEditAct.setAttribute("onclick","generarDoc()");               
+    var nodeTex_adAct = document.createTextNode("Generar db");
+
+    delEditAct.appendChild(nodeTex_adAct);
+    div_action.appendChild(delEditAct);
+
+    
 }
 
 //muestra las operaciones para las categorías
@@ -209,9 +291,17 @@ function showOpCat(){
 
     //borramos todos los elemetos 
     while(mainAdmin.firstChild){
-        console.log(mainAdmin.firstChild);
+        //console.log(mainAdmin.firstChild);
         mainAdmin.removeChild(mainAdmin.firstChild);
     }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
 
     var div = document.createElement("div");
     div.setAttribute("id","form_cat"); 
@@ -233,7 +323,7 @@ function showOpCat(){
     div.appendChild(input);
 
     var table = document.createElement("table");
-    table.setAttribute("class","table table-bordered table-striped");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
 
     //cabecera
     var thead = document.createElement("thead");
@@ -280,13 +370,21 @@ function showAddCat(){
 
     //borramos todos los elemetos 
     while(mainAdmin.firstChild){
-        console.log(mainAdmin.firstChild);
+        //console.log(mainAdmin.firstChild);
         mainAdmin.removeChild(mainAdmin.firstChild);
     }
 
     var div = document.createElement("div");
     div.setAttribute("id","form_cat"); 
     div.setAttribute("class","m-auto text-center");
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
 
     mainAdmin.appendChild(div);
 
@@ -342,7 +440,7 @@ function showAddCat(){
     var btnAdd = document.createElement("input");
     btnAdd.setAttribute("type","submit");
     //btnAdd.setAttribute("class","btn btn-primary mb-2");
-    btnAdd.setAttribute("value","add");
+    btnAdd.setAttribute("value","Añadir");
     //btnAdd.addEventListener("click",function(){addCat(document.addForm.AName.value,document.addForm.ADesc.value)});
     var textNodeBtn = document.createTextNode("Añadir");
     btnAdd.appendChild(textNodeBtn);
@@ -364,11 +462,11 @@ function rechargeTableCat(){
 
     var tbody = document.createElement("tbody");
     tbody.setAttribute("id","myTable");
-    console.log(tbody);
+    //console.log(tbody);
 
     //borramos todos los elemetos 
     while(tbody.firstChild){
-        console.log(tbody.firstChild);
+        //console.log(tbody.firstChild);
         tbody.removeChild(tbody.firstChild);
     }
 
@@ -391,15 +489,26 @@ function rechargeTableCat(){
 
         var tdDel = document.createElement("td");
         var button_del = document.createElement("button");
+        
         tdDel.appendChild(button_del);
         button_del.setAttribute("value",categoria.value.name);
         button_del.addEventListener("click",function(){eliminarCat(this.value)});
+
+        var del = document.createElement("ion-icon");
+        del.setAttribute("name","trash");
+
+        button_del.appendChild(del);
 
         var tdEdit = document.createElement("td");
         var button_edit = document.createElement("button");
         tdEdit.appendChild(button_edit);
         button_edit.setAttribute("value",categoria.value.name);
         button_edit.addEventListener("click",function(){showModCat(this.value)});
+        
+        var edit = document.createElement("ion-icon");
+        edit.setAttribute("name","brush");
+
+        button_edit.appendChild(edit);
 
         tdEdit.appendChild(button_edit);
 
@@ -436,32 +545,49 @@ function eliminarCat(nameCAt){
     var encontrado = false;
 
     while (categoria.done !== true && !encontrado){
-        console.log(categoria.value.name.localeCompare(nameCAt));
+        //console.log(categoria.value.name.localeCompare(nameCAt));
         if (categoria.value.name.localeCompare(nameCAt) === 0) { 
             encontrado = true;
 
-            console.log ("aqui " + categoria.value);
+            //console.log ("aqui " + categoria.value);
             var auxCat = new Category(categoria.value.name,categoria.value.description);
-            console.log(typeof auxCat);
-            console.log(auxCat);
+            //console.log(typeof auxCat);
+            //console.log(auxCat);
 
             //recorremos el iterador y mostramos los valores
             var producciones = vSistem.getProductionsCategory(auxCat);
-            console.log(producciones.next());
+            //console.log(producciones.next());
             var produccion = producciones.next();
             while (produccion.done !== true){
-                console.log(produccion);
+                //console.log(produccion);
                 vSistem.deassignCategory(auxCat,produccion.value);
                 produccion = producciones.next();
             }
 
             vSistem.removeCategory(auxCat);
+            borrarElementos("categorias",auxCat);
            
-            console.log((categoria.value.name.localeCompare(nameCAt) === 0));
+            //console.log((categoria.value.name.localeCompare(nameCAt) === 0));
         }else{
             categoria = categorias.next();
         }
     }
+
+    $('#myModalAdv').modal('show');
+    $('#myModalAdv').modal('handleUpdate');
+    
+    var h5Advert = document.getElementById("myModalAdvh5");
+    var texth5 = document.createTextNode("Info:");
+    //h5Advert.appendChild(texth5);
+    //console.log(h5Advert);
+    h5Advert.innerHTML = texth5.textContent;
+
+    var msgAdvert = document.getElementById("myModalAdvMsg");
+    msgAdvert.setAttribute("class","green");
+    var msgh5 = document.createTextNode("operación realizada correctamente");
+    msgAdvert.innerHTML = msgh5.textContent;
+
+    borrarElementos("categorias",nameCAt);
 
     categoriesMenuPopulate();
     rechargeTableCat();
@@ -472,19 +598,27 @@ function eliminarCat(nameCAt){
 function showModCat(nameCat){
     hideAll();
 
-    console.log(nameCat);
+    //console.log(nameCat);
     var mainAdmin = document.getElementById("main-mod-admin");
     mainAdmin.setAttribute("class","d-block "); 
 
     //borramos todos los elemetos 
     while(mainAdmin.firstChild){
-        console.log(mainAdmin.firstChild);
+        //console.log(mainAdmin.firstChild);
         mainAdmin.removeChild(mainAdmin.firstChild);
     }
 
     var div = document.createElement("div");
     div.setAttribute("id","form_cat"); 
     div.setAttribute("class","m-auto text-center");
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
 
     mainAdmin.appendChild(div);
 
@@ -585,7 +719,7 @@ function addCat() {
     var name = document.forms["addForm"]["AName"].value;
     var desc = document.forms["addForm"]["ADesc"].value;
 
-    console.log("aqui: "  + name + " " + desc);
+    //console.log("aqui: "  + name + " " + desc);
     
     var inputNamCAt = document.getElementById("inputNamCAt");
     var divInfoName = document.getElementById("divInfoName");
@@ -623,16 +757,31 @@ function addCat() {
             
             var auxCat = new Category(name,desc);
             vSistem.addCategory(auxCat);
+            introducirElemento(auxCat.getObject(),1);
 
             categoriesMenuPopulate();
             rechargeTableCat();
             showAddCat();
-            console.log("aqui: "  + name + " " + desc);
+            //console.log("aqui: "  + name + " " + desc);
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("Info:");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            msgAdvert.setAttribute("class","green");
+            var msgh5 = document.createTextNode("operación realizada correctamente");
+            msgAdvert.innerHTML = msgh5.textContent;
+
             return false;
 
         } catch (error) {
 
-            console.log("aqui: "  + name + " " + desc);
+            //console.log("aqui: "  + name + " " + desc);
 
             $('#myModalAdv').modal('show');
             $('#myModalAdv').modal('handleUpdate');
@@ -640,12 +789,12 @@ function addCat() {
             var h5Advert = document.getElementById("myModalAdvh5");
             var texth5 = document.createTextNode("¡Error!");
             //h5Advert.appendChild(texth5);
-            console.log(h5Advert);
-            h5Advert.replaceWith(texth5.textContent);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
 
             var msgAdvert = document.getElementById("myModalAdvMsg");
             var msgh5 = document.createTextNode(error);
-            msgAdvert.appendChild(msgh5);
+            msgAdvert.innerHTML = msgh5.textContent;
 
             return false;
         }
@@ -658,7 +807,7 @@ function modCat(cont){
     var name = document.forms["addForm"]["AName"].value;
     var desc = document.forms["addForm"]["ADesc"].value;
     
-    console.log("aqui: "  + name + " " + desc + "  " + cont);
+    //console.log("aqui: "  + name + " " + desc + "  " + cont);
 
     var inputNamCAt = document.getElementById("inputNamCAt");
     var divInfoName = document.getElementById("divInfoName");
@@ -691,7 +840,7 @@ function modCat(cont){
     if (validacion) {
 
         try {
-
+            /*revisar*/ 
             //recorremos el iterador y recojemos la categoría seleccionada
             var categorias = vSistem.categories;
             var categoria = categorias.next();
@@ -708,6 +857,20 @@ function modCat(cont){
                 }
             }
 
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("Info:");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            msgAdvert.setAttribute("class","green");
+            var msgh5 = document.createTextNode("operación realizada correctamente");
+            msgAdvert.innerHTML = msgh5.textContent;
+
         } catch (error) {
             $('#myModalAdv').modal('show');
             $('#myModalAdv').modal('handleUpdate');
@@ -715,12 +878,12 @@ function modCat(cont){
             var h5Advert = document.getElementById("myModalAdvh5");
             var texth5 = document.createTextNode("¡Error!");
             //h5Advert.appendChild(texth5);
-            console.log(h5Advert);
-            h5Advert.replaceWith(texth5.textContent);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
 
             var msgAdvert = document.getElementById("myModalAdvMsg");
             var msgh5 = document.createTextNode(error);
-            msgAdvert.appendChild(msgh5);
+            msgAdvert.innerHTML = msgh5.textContent;
 
             return false;
         }
@@ -743,9 +906,17 @@ function showAddAct(){
 
     //borramos todos los elemetos 
     while(mainAdmin.firstChild){
-        console.log(mainAdmin.firstChild);
+        //console.log(mainAdmin.firstChild);
         mainAdmin.removeChild(mainAdmin.firstChild);
     }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
 
     var div = document.createElement("div");
     div.setAttribute("id","form_act"); 
@@ -874,7 +1045,7 @@ function showAddAct(){
     formGroup6.appendChild(input);
 
     var table = document.createElement("table");
-    table.setAttribute("class","table table-bordered table-striped");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
 
     //cabecera
     var thead = document.createElement("thead");
@@ -927,11 +1098,11 @@ function rechargeTableAct(){
 
     var tbody = document.createElement("tbody");
     tbody.setAttribute("id","myTable");
-    console.log(tbody);
+    //console.log(tbody);
 
     //borramos todos los elemetos 
     while(tbody.firstChild){
-        console.log(tbody.firstChild);
+        //console.log(tbody.firstChild);
         tbody.removeChild(tbody.firstChild);
     }
 
@@ -1058,7 +1229,7 @@ function addAct(name,lastName1,lastName2,aDate,img){
             var Ndate = new Date(aDate);
             var auxAct = new Person(name,lastName1,lastName2,Ndate,img);
             vSistem.addActor(auxAct);
-
+            introducirElemento(auxAct.getObject(),2);
             //vSistem.assignActor(actor1,serie1,"El Personaje",false)
 
             //recorremos el iterador y mostramos los valores
@@ -1066,25 +1237,39 @@ function addAct(name,lastName1,lastName2,aDate,img){
             var produccion = producciones.next();
             while (produccion.done !== true){
                 for (let i = 0; i < porElementos.length; i++) {
-                    console.log (produccion.value.title );
+                    //console.log (produccion.value.title );
                     if((porElementos[i].checked) && (porElementos[i].value === produccion.value.title) ){
                         
                         //comprobamos si es protagonista
                         var pjInput = document.getElementById("pj " + produccion.value.title).value;
-                        console.log(pjInput);
+                        //console.log(pjInput);
 
                         //comprobamos si es protagonista
                         var protaInput = document.getElementById("prota " + produccion.value.title);
                         var siProta = protaInput.options[protaInput.selectedIndex].value;
-                        console.log(siProta);
+                        //console.log(siProta);
                         
                         vSistem.assignActor(auxAct,produccion.value,pjInput,siProta);
-                        console.log (produccion.value.toString() );
+                        //console.log (produccion.value.toString() );
                     }
                 }
                 
                 produccion = producciones.next();
             }
+
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("Info:");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            msgAdvert.setAttribute("class","green");
+            var msgh5 = document.createTextNode("operación realizada correctamente");
+            msgAdvert.innerHTML = msgh5.textContent;
 
             categoriesMenuPopulate();
             showAddAct();
@@ -1098,19 +1283,18 @@ function addAct(name,lastName1,lastName2,aDate,img){
             var h5Advert = document.getElementById("myModalAdvh5");
             var texth5 = document.createTextNode("¡Error!");
             //h5Advert.appendChild(texth5);
-            console.log(h5Advert);
-            h5Advert.replaceWith(texth5.textContent);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
 
             var msgAdvert = document.getElementById("myModalAdvMsg");
             var msgh5 = document.createTextNode(error);
-            msgAdvert.appendChild(msgh5);
+            msgAdvert.innerHTML = msgh5.textContent;
 
             return false;
         }
     }
 }
-
-//muestra las operaciones para las categorías
+//muestra las operaciones para los actores
 function showOpAct(){
     hideAll();
 
@@ -1119,9 +1303,17 @@ function showOpAct(){
 
     //borramos todos los elemetos 
     while(mainAdmin.firstChild){
-        console.log(mainAdmin.firstChild);
+        //console.log(mainAdmin.firstChild);
         mainAdmin.removeChild(mainAdmin.firstChild);
     }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
 
     var div = document.createElement("div");
     div.setAttribute("id","form_cat"); 
@@ -1143,7 +1335,7 @@ function showOpAct(){
     div.appendChild(input);
 
     var table = document.createElement("table");
-    table.setAttribute("class","table table-bordered table-striped");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
 
     //cabecera
     var thead = document.createElement("thead");
@@ -1157,10 +1349,11 @@ function showOpAct(){
     var lastname = document.createTextNode("1º Apellido");
     th_lastname.appendChild(lastname);
 
+    /*
     var th_date = document.createElement("th");
-    var date = document.createTextNode("Fecha");
+    var date = document.createTextNode("2º Apellido");
     th_date.appendChild(date);
-
+    */
     var th_delete = document.createElement("th");
     var dele = document.createTextNode("Eliminar");
     th_delete.appendChild(dele);
@@ -1171,7 +1364,7 @@ function showOpAct(){
     
     tr.appendChild(th_name);
     tr.appendChild(th_lastname);
-    tr.appendChild(th_date);
+    //tr.appendChild(th_date);
     tr.appendChild(th_delete);
     tr.appendChild(th_edit);
     thead.appendChild(tr);
@@ -1185,17 +1378,16 @@ function showOpAct(){
     table.appendChild(tbody);
 
 }
-
 //recargamos la tabla de actores
 function rechargeTableActors(){
 
     var tbody = document.createElement("tbody");
     tbody.setAttribute("id","myTable");
-    console.log(tbody);
+    //console.log(tbody);
 
     //borramos todos los elemetos 
     while(tbody.firstChild){
-        console.log(tbody.firstChild);
+        //console.log(tbody.firstChild);
         tbody.removeChild(tbody.firstChild);
     }
     var contFila = 0;
@@ -1214,16 +1406,21 @@ function rechargeTableActors(){
         var tdLastName = document.createElement("td");
         var textLastName1 = document.createTextNode(actor.value.lastName1);
         tdLastName.appendChild(textLastName1);
-
+        /*
         var tdDate = document.createElement("td");
-        var textDate = document.createTextNode(actor.value.born);
+        var textDate = document.createTextNode(actor.value.lastName2);
         tdDate.appendChild(textDate);
-
+        */
         var tdDel = document.createElement("td");
         var button_del = document.createElement("button");
         tdDel.appendChild(button_del);
         button_del.setAttribute("value",actor.value.name);
         button_del.addEventListener("click",function(){eliminarAct(this.value)});
+
+        var del = document.createElement("ion-icon");
+        del.setAttribute("name","trash");
+
+        button_del.appendChild(del);
 
         var tdEdit = document.createElement("td");
         var button_edit = document.createElement("button");
@@ -1231,9 +1428,14 @@ function rechargeTableActors(){
         button_edit.setAttribute("value",actor.value.name);
         button_edit.addEventListener("click",function(){showModAct(this.value)});
 
+        var edit = document.createElement("ion-icon");
+        edit.setAttribute("name","brush");
+
+        button_edit.appendChild(edit);
+
         tr.appendChild(tdNAme);
         tr.appendChild(tdLastName);
-        tr.appendChild(tdDate);
+        //tr.appendChild(tdDate);
         
         tr.appendChild(tdDel);
         tr.appendChild(tdEdit);
@@ -1256,7 +1458,6 @@ function rechargeTableActors(){
 
     return tbody;
 }
-
 //eliminamos la categoría
 function eliminarAct(nameAct){
     //recorremos el iterador y recojemos la categoría seleccionada
@@ -1264,26 +1465,42 @@ function eliminarAct(nameAct){
     var actor = actores.next();
     var encontrado = false;
     while (actor.done !== true && !encontrado){
-        console.log(actor.value.name.localeCompare(nameAct));
+        //console.log(actor.value.name.localeCompare(nameAct));
         if (actor.value.name.localeCompare(nameAct) === 0) { 
             encontrado = true;
 
-            console.log ("aqui " + actor.value);
+            //console.log ("aqui " + actor.value);
             var auxAct = actor.value;
-            console.log(typeof auxAct);
-            console.log(auxAct);
+            //console.log(typeof auxAct);
+            //console.log(auxAct);
 
             vSistem.removeActor(actor.value);
+            borrarElementos("actores",nameAct);
         }else{
             actor = actores.next();
         }
     }
 
+    $('#myModalAdv').modal('show');
+    $('#myModalAdv').modal('handleUpdate');
+    
+    var h5Advert = document.getElementById("myModalAdvh5");
+    var texth5 = document.createTextNode("Info:");
+    //h5Advert.appendChild(texth5);
+    //console.log(h5Advert);
+    h5Advert.innerHTML = texth5.textContent;
+
+    var msgAdvert = document.getElementById("myModalAdvMsg");
+    msgAdvert.setAttribute("class","green");
+    var msgh5 = document.createTextNode("operación realizada correctamente");
+    msgAdvert.innerHTML = msgh5.textContent;
+
+    borrarElementos("actores",nameAct);
+
     rechargeTableActors();
     showOpAct();
 }
-
-//Editar categorías
+//Editar actores
 function showModAct(nameAct){
     hideAll();
 
@@ -1292,7 +1509,7 @@ function showModAct(nameAct){
 
     //borramos todos los elemetos 
     while(mainAdmin.firstChild){
-        console.log(mainAdmin.firstChild);
+        //console.log(mainAdmin.firstChild);
         mainAdmin.removeChild(mainAdmin.firstChild);
     }
 
@@ -1301,15 +1518,23 @@ function showModAct(nameAct){
     var actor = actores.next();
     var encontrado = false;
     while (actor.done !== true && !encontrado){
-        console.log(actor.value.name.localeCompare(nameAct));
+        //console.log(actor.value.name.localeCompare(nameAct));
         if (actor.value.name.localeCompare(nameAct) === 0) { 
             encontrado = true;
-            console.log ("aqui " + actor.value);
+            //console.log ("aqui " + actor.value);
             var auxAct = actor.value;
         }else{
             actor = actores.next();
         }
     }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
 
     var div = document.createElement("div");
     div.setAttribute("id","form_act"); 
@@ -1416,8 +1641,8 @@ function showModAct(nameAct){
     var btnAdd = document.createElement("button");
     btnAdd.setAttribute("type","button");
     btnAdd.setAttribute("class","btn btn-primary mb-2");
-    btnAdd.setAttribute("value","add");
-    btnAdd.addEventListener("click",function(){modAct()});
+    btnAdd.setAttribute("value",auxAct.name);
+    btnAdd.addEventListener("click",function(){modAct(this.value)});
     var textNodeBtn = document.createTextNode("Modificar");
     btnAdd.appendChild(textNodeBtn);
 
@@ -1430,7 +1655,7 @@ function showModAct(nameAct){
     formGroup6.setAttribute("class","form-group");
 
     var h2 = document.createElement("h2");
-    var h2_text = document.createTextNode("Asignar producciones");
+    var h2_text = document.createTextNode("Modificar producciones asignadas");
     h2.appendChild(h2_text);
     
     var input = document.createElement("input");
@@ -1443,7 +1668,7 @@ function showModAct(nameAct){
     formGroup6.appendChild(input);
 
     var table = document.createElement("table");
-    table.setAttribute("class","table table-bordered table-striped");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
 
     //cabecera
     var thead = document.createElement("thead");
@@ -1489,17 +1714,16 @@ function showModAct(nameAct){
     div.appendChild(form);
     div.appendChild(advert);
 }
-
 //recargamos la tabla de produciones a asignadas a un actor concreto
 function rechargeTableConAct(nameAct){
 
     var tbody = document.createElement("tbody");
     tbody.setAttribute("id","myTable");
-    console.log(tbody);
+    //console.log(tbody);
 
     //borramos todos los elemetos 
     while(tbody.firstChild){
-        console.log(tbody.firstChild);
+        //console.log(tbody.firstChild);
         tbody.removeChild(tbody.firstChild);
     }
 
@@ -1508,22 +1732,22 @@ function rechargeTableConAct(nameAct){
     var actor = actores.next();
     var encontrado = false;
     while (actor.done !== true && !encontrado){
-        console.log(actor.value.name.localeCompare(nameAct));
+        
         if (actor.value.name.localeCompare(nameAct) === 0) { 
             encontrado = true;
-            console.log ("aqui " + actor.value);
+            
             var auxAct = actor.value;
         }else{
             actor = actores.next();
         }
     }
 
-    console.log("aquí");
+    //console.log("aquí");
     //rellenamos el cuerpo de la tabla
     var actores = vSistem.getProductionsActor(auxAct);
     var actor = actores.next();
     var contFila = 0;
-    console.log(actor);
+    //console.log(actor);
     while (actor.done !== true){
         
         var tr = document.createElement("tr");
@@ -1569,8 +1793,8 @@ function rechargeTableConAct(nameAct){
         var inputSelec = document.createElement("input");
         inputSelec.setAttribute("type","checkbox");
         inputSelec.setAttribute("class","checkbox");
-        inputSelec.setAttribute("name",actor.production);
-        inputSelec.setAttribute("value",actor.production);
+        inputSelec.setAttribute("name",actor.production.title);
+        inputSelec.setAttribute("value",actor.production.title);
         select.appendChild(inputSelec);
 
         tr.appendChild(tdNAme);
@@ -1586,20 +1810,25 @@ function rechargeTableConAct(nameAct){
 
     return tbody;
 }
-
-//modificar categoría
-function modAct(cont){
+//modificar actores
+function modAct(nameAct){
 
     var name = document.forms["addForm"]["AName"].value;
-    var desc = document.forms["addForm"]["ADesc"].value;
+    var lastName1 = document.forms["addForm"]["AlastName1"].value;
+    var lastName2 = document.forms["addForm"]["AlastName2"].value;
+    var born = document.forms["addForm"]["ADate"].value;
+    var img = document.forms["addForm"]["inputImg"].value;
     
-    console.log("aqui: "  + name + " " + desc + "  " + cont);
+    //console.log("aqui: "  + name + " " + lastName1 + "  " + lastName2 + " " + born + " " + img);
 
     var inputNamCAt = document.getElementById("inputNamCAt");
     var divInfoName = document.getElementById("divInfoName");
 
     var inputDesCAt = document.getElementById("inputDesCAt");
-    var divInfoDesc = document.getElementById("divInfoDesc");
+    var divInfoAlastName1 = document.getElementById("divInfoAlastName1");
+
+    var inputDesDate= document.getElementById("inputDesDate");
+    var divInfoDate = document.getElementById("InfoDesDate");
 
     //comprobar errores
     var validacion = true;
@@ -1613,35 +1842,941 @@ function modAct(cont){
         divInfoName.setAttribute("class","d-none");
     }
 
-    if (desc === ""){
+    if (lastName1 === ""){
         inputDesCAt.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
-        divInfoDesc.setAttribute("class","invalid-feedback text-left");
-        divInfoDesc.innerHTML = "El campo no puede estar vacío";
+        divInfoAlastName1.setAttribute("class","invalid-feedback text-left");
+        divInfoAlastName1.innerHTML = "El campo no puede estar vacío";
         validacion = false;
     }else{
         inputDesCAt.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
-        divInfoDesc.setAttribute("class","d-none");
+        divInfoAlastName1.setAttribute("class","d-none");
+    }
+
+    if (lastName2 === ""){
+        inputDesDate.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divInfoDate.setAttribute("class","invalid-feedback text-left");
+        divInfoDate.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        inputDesDate.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divInfoDate.setAttribute("class","d-none");
     }
 
     if (validacion) {
 
         try {
-
-            //recorremos el iterador y recojemos la categoría seleccionada
-            var categorias = vSistem.categories;
-            var categoria = categorias.next();
+            //console.log(validacion);
+            var actores = vSistem.actors;
+            var actor = actores.next();
             var encontrado = false;
-            var contador = 0; //selecionamos el indice concreto de la categoría
-            while (categoria.done !== true && !encontrado){
-                if (contador === cont) { 
+            while (actor.done !== true && !encontrado){
+                if (actor.value.name.localeCompare(nameAct) === 0) { 
                     encontrado = true;
-                    categoria.value.name = name;
-                    categoria.value.description = desc;
+                    
+                    var auxAct = actor.value;
+                    //console.log(auxAct);
+                    actor.value.name = name;
+                    actor.value.lastName1 = lastName1;
+                    actor.value.lastName2 = lastName2;
+                    actor.value.born = new Date(born);
+                    if(img !== "") actor.value.picture = img;
+                    
                 }else{
-                    categoria = categorias.next();
-                    cont++;
+                    actor = actores.next();
                 }
             }
+
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("Info:");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            msgAdvert.setAttribute("class","green");
+            var msgh5 = document.createTextNode("operación realizada correctamente");
+            msgAdvert.innerHTML = msgh5.textContent;
+
+            showOpAct();
+        } catch (error) {
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("¡Error!");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            var msgh5 = document.createTextNode(error);
+            msgAdvert.innerHTML = msgh5.textContent;
+
+            return false;
+        }
+    }
+
+    return false;
+
+}
+//modificar directores
+function showOpDir(){
+    hideAll();
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        //console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
+
+    var div = document.createElement("div");
+    div.setAttribute("id","form_cat"); 
+    div.setAttribute("class","m-auto text-center");
+
+    mainAdmin.appendChild(div);
+
+    var h2 = document.createElement("h2");
+    var h2_text = document.createTextNode("Buscar director");
+    h2.appendChild(h2_text);
+    
+    var input = document.createElement("input");
+    input.setAttribute("class","form-control");
+    input.setAttribute("id","myInput");
+    input.setAttribute("type","text");
+    input.setAttribute("placeholder","Buscar director... ");
+    
+    div.appendChild(h2);
+    div.appendChild(input);
+
+    var table = document.createElement("table");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
+
+    //cabecera
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
+    
+    var th_name = document.createElement("th");
+    var name = document.createTextNode("Nombre");
+    th_name.appendChild(name);
+
+    var th_lastname = document.createElement("th");
+    var lastname = document.createTextNode("1º Apellido");
+    th_lastname.appendChild(lastname);
+
+    var th_date = document.createElement("th");
+    var date = document.createTextNode("Fecha");
+    th_date.appendChild(date);
+
+    var th_delete = document.createElement("th");
+    var dele = document.createTextNode("Eliminar");
+    th_delete.appendChild(dele);
+
+    var th_edit = document.createElement("th");
+    var dele = document.createTextNode("Modificar");
+    th_edit.appendChild(dele);
+    
+    tr.appendChild(th_name);
+    tr.appendChild(th_lastname);
+    tr.appendChild(th_date);
+    tr.appendChild(th_delete);
+    tr.appendChild(th_edit);
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+    div.appendChild(table);
+
+    //cuerpo tabla
+    //Recargamos la tabla de las categorías
+    var tbody = rechargeTableDirectors();
+    table.appendChild(tbody);
+
+}
+//eliminamos la directores
+function eliminarDirec(nameAct){
+    var directores = vSistem.directors;
+    var director = directores.next();
+    while (director.done !== true){
+        //console.log ("" + director.value);
+        director = directores.next();
+    }
+
+    //recorremos el iterador y recojemos la categoría seleccionada
+    var directores = vSistem.directors;
+    var director = directores.next();
+    var encontrado = false;
+    while (director.done !== true && !encontrado){
+        //console.log(director.value.name.localeCompare(nameAct));
+        if (director.value.name.localeCompare(nameAct) === 0) { 
+            encontrado = true;
+
+            //console.log ("aqui " + director.value);
+            var auxAct = director.value;
+            //console.log(typeof auxAct);
+            //console.log(auxAct);
+
+            vSistem.removeDirector(director.value);
+            borrarElementos("directores",nameAct);
+
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("Info:");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            msgAdvert.setAttribute("class","green");
+            var msgh5 = document.createTextNode("operación realizada correctamente");
+            msgAdvert.innerHTML = msgh5.textContent;
+        }else{
+            director = directores.next();
+        }
+    }
+
+    showOpDir();
+}
+//Editar direcores
+function showModDir(nameAct){
+    hideAll();
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        //console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
+    //recorremos el iterador y recojemos la categoría seleccionada
+    var directores = vSistem.directors;
+    var director = directores.next();
+    var encontrado = false;
+    while (director.done !== true && !encontrado){
+        //console.log(director.value.name.localeCompare(nameAct));
+        if (director.value.name.localeCompare(nameAct) === 0) { 
+            encontrado = true;
+            //console.log ("aqui " + director.value);
+            var auxAct = director.value;
+        }else{
+            director = directores.next();
+        }
+    }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showOpDir()")
+    var volver = document.createTextNode("volver a administración de directores");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
+
+    var div = document.createElement("div");
+    div.setAttribute("id","form_act"); 
+    div.setAttribute("class","m-auto text-center");
+
+    mainAdmin.appendChild(div);
+
+    //formulario para inserción de categorías
+    var h2 = document.createElement("h2");
+    var h2Desc = document.createTextNode("Modificar director");
+    h2.appendChild(h2Desc);
+    div.appendChild(h2);
+
+    var form = document.createElement("form");
+    form.setAttribute("name","addForm");
+    //form.addEventListener("return onsubmit",function(){addAct(document.addForm.AName.value, document.addForm.AlastName1.value, document.addForm.AlastName2.value, document.addForm.ADate.value, )});
+    //form.setAttribute("onsubmit","return false");
+    
+    var formGroup1 = document.createElement("div");
+    formGroup1.setAttribute("class","form-group");
+    
+    var inputNamCAt = document.createElement("input");
+    inputNamCAt.setAttribute("id","inputNamCAt");
+    inputNamCAt.setAttribute("name","AName");
+    inputNamCAt.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputNamCAt.setAttribute("type","text");
+    inputNamCAt.setAttribute("placeholder","Nombre del director/ra");
+    inputNamCAt.setAttribute("value",auxAct.name);
+
+    //div con la información del error
+    var divInfoName = document.createElement("div");
+    divInfoName.setAttribute("id","divInfoName");
+    divInfoName.setAttribute("class","d-none invalid-feedback");
+
+    formGroup1.appendChild(inputNamCAt);
+    formGroup1.appendChild(divInfoName);
+    
+    // grupo 2
+    var formGroup2 = document.createElement("div");
+    formGroup2.setAttribute("class","form-group");
+
+    var inputDesCAt = document.createElement("input");
+    inputDesCAt.setAttribute("id","inputDesCAt");
+    inputDesCAt.setAttribute("name","AlastName1");
+    inputDesCAt.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesCAt.setAttribute("type","text");
+    inputDesCAt.setAttribute("placeholder","Primer apellido");
+    inputDesCAt.setAttribute("value",auxAct.lastName1);
+
+    //div con la información del error
+    var divInfoAlastName1 = document.createElement("div");
+    divInfoAlastName1.setAttribute("id","divInfoAlastName1");
+    divInfoAlastName1.setAttribute("class","d-none invalid-feedback");
+
+    formGroup2.appendChild(inputDesCAt); 
+    formGroup2.appendChild(divInfoAlastName1);
+
+    // grupo 3
+    var formGroup3 = document.createElement("div");
+    formGroup3.setAttribute("class","form-group");
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","inputDesAct");
+    inputDesAct.setAttribute("name","AlastName2");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","text");
+    inputDesAct.setAttribute("placeholder","Segundo apellido");
+    inputDesAct.setAttribute("value",auxAct.lastName2);
+    formGroup3.appendChild(inputDesAct);
+
+    // grupo 4
+    var formGroup4 = document.createElement("div");
+    formGroup4.setAttribute("class","form-group");
+
+    var inputDesDate = document.createElement("input");
+    inputDesDate.setAttribute("id","inputDesDate");
+    inputDesDate.setAttribute("name","ADate");
+    inputDesDate.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesDate.setAttribute("type","date");
+    inputDesDate.setAttribute("value",auxAct.born);
+
+    inputDesDate.valueAsDate = new Date(auxAct.born);
+    //div con la información del error
+    var divInfoDesDate = document.createElement("div");
+    divInfoDesDate.setAttribute("id","InfoDesDate");
+    divInfoDesDate.setAttribute("class","d-none invalid-feedback");
+
+    formGroup4.appendChild(inputDesDate); 
+    formGroup4.appendChild(divInfoDesDate);
+
+    // grupo 5
+    var formGroup5 = document.createElement("div");
+    formGroup5.setAttribute("class","form-group");
+
+    var inputImg = document.createElement("input");
+    inputImg.setAttribute("id","inputImg");
+    inputImg.setAttribute("name","AImg");
+    inputImg.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputImg.setAttribute("type","file");
+    inputImg.setAttribute("values",auxAct.picture);
+
+    formGroup5.appendChild(inputImg);
+
+    var btnAdd = document.createElement("button");
+    btnAdd.setAttribute("type","button");
+    btnAdd.setAttribute("class","btn btn-primary mb-2");
+    btnAdd.setAttribute("value",auxAct.name);
+    btnAdd.addEventListener("click",function(){modDir(this.value)});
+    var textNodeBtn = document.createTextNode("Modificar");
+    btnAdd.appendChild(textNodeBtn);
+
+    var advert = document.createElement("div");
+    advert.setAttribute("class","d-none");
+    advert.setAttribute("id","advert");
+
+    //grupo 6
+    var formGroup6 = document.createElement("div");
+    formGroup6.setAttribute("class","form-group");
+
+    var h2 = document.createElement("h2");
+    var h2_text = document.createTextNode("Modificar producciones asignadas");
+    h2.appendChild(h2_text);
+    
+    var input = document.createElement("input");
+    input.setAttribute("class","form-control");
+    input.setAttribute("id","myInput");
+    input.setAttribute("type","text");
+    input.setAttribute("placeholder","Buscar producciones... ");
+    
+    formGroup6.appendChild(h2);
+    formGroup6.appendChild(input);
+
+    var table = document.createElement("table");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
+
+    //cabecera
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
+    
+    var th_name = document.createElement("th");
+    var name = document.createTextNode("Produccion");
+    th_name.appendChild(name);
+
+    var th_select = document.createElement("th");
+    var dele = document.createTextNode("Desasignar");
+    th_select.appendChild(dele);
+    
+    tr.appendChild(th_name);
+    tr.appendChild(th_select);
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+    formGroup6.appendChild(table);
+
+    //cuerpo tabla
+    //Recargamos la tabla de las producciones
+    var tbody = rechargeTableConDir(auxAct.name);
+    table.appendChild(tbody);
+
+    form.appendChild(formGroup1);
+    form.appendChild(formGroup2);
+    form.appendChild(formGroup3);
+    form.appendChild(formGroup4);
+    form.appendChild(formGroup5);
+    form.appendChild(btnAdd);
+    form.appendChild(formGroup6);
+    div.appendChild(form);
+    div.appendChild(advert);
+}
+function modDir(dir){
+
+    var name = document.forms["addForm"]["AName"].value;
+    var lastName1 = document.forms["addForm"]["AlastName1"].value;
+    var lastName2 = document.forms["addForm"]["AlastName2"].value;
+    var born = document.forms["addForm"]["ADate"].value;
+    var img = document.forms["addForm"]["inputImg"].value;
+    
+    //console.log("aqui: "  + name + " " + lastName1 + "  " + lastName2 + " " + born + " " + img);
+
+    var inputNamCAt = document.getElementById("inputNamCAt");
+    var divInfoName = document.getElementById("divInfoName");
+
+    var inputDesCAt = document.getElementById("inputDesCAt");
+    var divInfoAlastName1 = document.getElementById("divInfoAlastName1");
+
+    var inputDesDate= document.getElementById("inputDesDate");
+    var divInfoDate = document.getElementById("InfoDesDate");
+
+    //comprobar errores
+    var validacion = true;
+    if (name === ""){
+        inputNamCAt.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divInfoName.setAttribute("class","invalid-feedback text-left");
+        divInfoName.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        inputNamCAt.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divInfoName.setAttribute("class","d-none");
+    }
+
+    if (lastName1 === ""){
+        inputDesCAt.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divInfoAlastName1.setAttribute("class","invalid-feedback text-left");
+        divInfoAlastName1.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        inputDesCAt.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divInfoAlastName1.setAttribute("class","d-none");
+    }
+
+    if (lastName2 === ""){
+        inputDesDate.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divInfoDate.setAttribute("class","invalid-feedback text-left");
+        divInfoDate.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        inputDesDate.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divInfoDate.setAttribute("class","d-none");
+    }
+
+    if (validacion) {
+
+        try {
+            //console.log(validacion);
+            var actores = vSistem.directors;
+            var actor = actores.next();
+            var encontrado = false;
+            while (actor.done !== true && !encontrado){
+                if (actor.value.name.localeCompare(dir) === 0) { 
+                    encontrado = true;
+
+                    var auxAct = actor.value;
+                    //console.log(auxAct);
+                    actor.value.name = name;
+                    actor.value.lastName1 = lastName1;
+                    actor.value.lastName2 = lastName2;
+                    actor.value.born = new Date(born);
+                    if(img !== "") actor.value.picture = img;
+                    
+                }else{
+                    actor = actores.next();
+                }
+            }
+
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("Info:");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            msgAdvert.setAttribute("class","green");
+            var msgh5 = document.createTextNode("operación realizada correctamente");
+            msgAdvert.innerHTML = msgh5.textContent;
+
+            showOpDir();
+        } catch (error) {
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("¡Error!");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            var msgh5 = document.createTextNode(error);
+            msgAdvert.innerHTML = msgh5.textContent;
+
+            return false;
+        }
+    }
+
+    return false;
+
+}
+
+//recargamos la tabla de actores
+function rechargeTableDirectors(){
+
+    var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","myTable");
+    //console.log(tbody);
+
+    //borramos todos los elemetos 
+    while(tbody.firstChild){
+        //console.log(tbody.firstChild);
+        tbody.removeChild(tbody.firstChild);
+    }
+    var contFila = 0;
+    //rellenamos el cuerpo de la tabla
+    var directores = vSistem.directors;
+    var director = directores.next();
+    while (director.done !== true){
+        
+        var tr = document.createElement("tr");
+        tr.setAttribute("id",contFila);
+
+        var tdNAme = document.createElement("td");
+        var textName = document.createTextNode(director.value.name);
+        tdNAme.appendChild(textName);
+
+        var tdLastName = document.createElement("td");
+        var textLastName1 = document.createTextNode(director.value.lastName1);
+        tdLastName.appendChild(textLastName1);
+
+        var tdDate = document.createElement("td");
+        var textDate = document.createTextNode(director.value.born);
+        tdDate.appendChild(textDate);
+
+        var tdDel = document.createElement("td");
+        var button_del = document.createElement("button");
+        tdDel.appendChild(button_del);
+        button_del.setAttribute("value",director.value.name);
+        button_del.addEventListener("click",function(){eliminarDirec(this.value)});
+
+        var del = document.createElement("ion-icon");
+        del.setAttribute("name","trash");
+
+        button_del.appendChild(del);
+
+        var tdEdit = document.createElement("td");
+        var button_edit = document.createElement("button");
+        tdEdit.appendChild(button_edit);
+        button_edit.setAttribute("value",director.value.name);
+        button_edit.addEventListener("click",function(){showModDir(this.value)});
+
+        var edit = document.createElement("ion-icon");
+        edit.setAttribute("name","brush");
+
+        button_edit.appendChild(edit);
+
+        tr.appendChild(tdNAme);
+        tr.appendChild(tdLastName);
+        tr.appendChild(tdDate);
+        
+        tr.appendChild(tdDel);
+        tr.appendChild(tdEdit);
+
+        director = directores.next();
+        tbody.appendChild(tr);
+
+        contFila++;
+    }
+
+    //3wschool script de filtro para tablas. 
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
+    return tbody;
+}
+//formulario añadir directores
+function showAddDir(){
+    hideAll();
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        //console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
+
+    var div = document.createElement("div");
+    div.setAttribute("id","form_act"); 
+    div.setAttribute("class","m-auto text-center");
+
+    mainAdmin.appendChild(div);
+
+    //formulario para inserción de categorías
+    var h2 = document.createElement("h2");
+    var h2Desc = document.createTextNode("Insertar director");
+    h2.appendChild(h2Desc);
+    div.appendChild(h2);
+
+    var form = document.createElement("form");
+    form.setAttribute("name","addForm");
+    //form.addEventListener("return onsubmit",function(){addAct(document.addForm.AName.value, document.addForm.AlastName1.value, document.addForm.AlastName2.value, document.addForm.ADate.value, )});
+    //form.setAttribute("onsubmit","return false");
+    
+    var formGroup1 = document.createElement("div");
+    formGroup1.setAttribute("class","form-group");
+    
+    var inputNamCAt = document.createElement("input");
+    inputNamCAt.setAttribute("id","inputNamCAt");
+    inputNamCAt.setAttribute("name","AName");
+    inputNamCAt.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputNamCAt.setAttribute("type","text");
+    inputNamCAt.setAttribute("placeholder","Nombre del director/ra");
+
+    //div con la información del error
+    var divInfoName = document.createElement("div");
+    divInfoName.setAttribute("id","divInfoName");
+    divInfoName.setAttribute("class","d-none invalid-feedback");
+
+    formGroup1.appendChild(inputNamCAt);
+    formGroup1.appendChild(divInfoName);
+    
+    // grupo 2
+    var formGroup2 = document.createElement("div");
+    formGroup2.setAttribute("class","form-group");
+
+    var inputDesCAt = document.createElement("input");
+    inputDesCAt.setAttribute("id","inputDesCAt");
+    inputDesCAt.setAttribute("name","AlastName1");
+    inputDesCAt.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesCAt.setAttribute("type","text");
+    inputDesCAt.setAttribute("placeholder","Primer apellido");
+
+    //div con la información del error
+    var divInfoAlastName1 = document.createElement("div");
+    divInfoAlastName1.setAttribute("id","divInfoAlastName1");
+    divInfoAlastName1.setAttribute("class","d-none invalid-feedback");
+
+    formGroup2.appendChild(inputDesCAt); 
+    formGroup2.appendChild(divInfoAlastName1);
+
+    // grupo 3
+    var formGroup3 = document.createElement("div");
+    formGroup3.setAttribute("class","form-group");
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","inputDesAct");
+    inputDesAct.setAttribute("name","AlastName2");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","text");
+    inputDesAct.setAttribute("placeholder","Segundo apellido");
+
+    formGroup3.appendChild(inputDesAct);
+
+    // grupo 4
+    var formGroup4 = document.createElement("div");
+    formGroup4.setAttribute("class","form-group");
+
+    var inputDesDate = document.createElement("input");
+    inputDesDate.setAttribute("id","inputDesDate");
+    inputDesDate.setAttribute("name","ADate");
+    inputDesDate.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesDate.setAttribute("type","date");
+
+    //div con la información del error
+    var divInfoDesDate = document.createElement("div");
+    divInfoDesDate.setAttribute("id","InfoDesDate");
+    divInfoDesDate.setAttribute("class","d-none invalid-feedback");
+
+    formGroup4.appendChild(inputDesDate); 
+    formGroup4.appendChild(divInfoDesDate);
+
+    // grupo 5
+    var formGroup5 = document.createElement("div");
+    formGroup5.setAttribute("class","form-group");
+
+    var inputImg = document.createElement("input");
+    inputImg.setAttribute("id","inputImg");
+    inputImg.setAttribute("name","AImg");
+    inputImg.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputImg.setAttribute("type","file");
+
+    formGroup5.appendChild(inputImg);
+
+    var btnAdd = document.createElement("button");
+    btnAdd.setAttribute("type","button");
+    btnAdd.setAttribute("class","btn btn-primary mb-2");
+    btnAdd.setAttribute("value","add");
+    btnAdd.addEventListener("click",function(){addDirect(document.addForm.AName.value, document.addForm.AlastName1.value, document.addForm.AlastName2.value, document.addForm.ADate.value, document.addForm.AImg.value )});
+    var textNodeBtn = document.createTextNode("Añadir");
+    btnAdd.appendChild(textNodeBtn);
+
+    var advert = document.createElement("div");
+    advert.setAttribute("class","d-none");
+    advert.setAttribute("id","advert");
+
+    //grupo 6
+    var formGroup6 = document.createElement("div");
+    formGroup6.setAttribute("class","form-group");
+
+    var h2 = document.createElement("h2");
+    var h2_text = document.createTextNode("Asignar producciones");
+    h2.appendChild(h2_text);
+    
+    var input = document.createElement("input");
+    input.setAttribute("class","form-control");
+    input.setAttribute("id","myInput");
+    input.setAttribute("type","text");
+    input.setAttribute("placeholder","Buscar producciones... ");
+    
+    formGroup6.appendChild(h2);
+    formGroup6.appendChild(input);
+
+    var table = document.createElement("table");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
+
+    //cabecera
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
+    
+    var th_name = document.createElement("th");
+    var name = document.createTextNode("Produccion");
+    th_name.appendChild(name);
+
+    var th_select = document.createElement("th");
+    var dele = document.createTextNode("Selecionar");
+    th_select.appendChild(dele);
+    
+    tr.appendChild(th_name);
+    tr.appendChild(th_select);
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+    formGroup6.appendChild(table);
+
+    //cuerpo tabla
+    //Recargamos la tabla de las producciones
+    var tbody = rechargeTableDire();
+    table.appendChild(tbody);
+
+    form.appendChild(formGroup1);
+    form.appendChild(formGroup2);
+    form.appendChild(formGroup3);
+    form.appendChild(formGroup4);
+    form.appendChild(formGroup5);
+    form.appendChild(formGroup6);
+    form.appendChild(btnAdd);
+    div.appendChild(form);
+    div.appendChild(advert);
+
+}
+//recargamos la tabla de produciones a asignar a los directores
+function rechargeTableDire(){
+
+    var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","myTable");
+    //console.log(tbody);
+
+    //borramos todos los elemetos 
+    while(tbody.firstChild){
+        //console.log(tbody.firstChild);
+        tbody.removeChild(tbody.firstChild);
+    }
+
+    //rellenamos el cuerpo de la tabla
+    var producciones = vSistem.productions;
+    var produccion = producciones.next();
+    var contFila = 0;
+    while (produccion.done !== true){
+        
+        var tr = document.createElement("tr");
+    
+        tr.setAttribute("id",contFila);
+        var tdNAme = document.createElement("td");
+        var textName = document.createTextNode(produccion.value.title);
+        tdNAme.appendChild(textName);
+
+        var select = document.createElement("td");
+        var inputSelec = document.createElement("input");
+        inputSelec.setAttribute("type","checkbox");
+        inputSelec.setAttribute("class","checkbox");
+        inputSelec.setAttribute("name",produccion.value.title);
+        inputSelec.setAttribute("value",produccion.value.title);
+        select.appendChild(inputSelec);
+
+        tr.appendChild(tdNAme);
+        tr.appendChild(select);
+
+        produccion = producciones.next();
+        tbody.appendChild(tr);
+
+        contFila++;
+    }
+
+    //3wschool script de filtro para tablas. 
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
+    return tbody;
+}
+//añadir actores
+function addDirect(name,lastName1,lastName2,aDate,img){
+    
+    var porElementos=document.getElementsByClassName("checkbox");
+    //console.log(porElementos);
+
+    var inputNamCAt = document.getElementById("inputNamCAt");
+    var divInfoName = document.getElementById("divInfoName");
+
+    var inputDesDate = document.getElementById("inputDesDate");
+    var InfoDesDate = document.getElementById("InfoDesDate");
+
+    var divInfoAlastName1 = document.getElementById("divInfoAlastName1");
+    var inputDesCAt = document.getElementById("inputDesCAt");
+
+    //comprobar errores
+    var validacion = true;
+    if (name === "" ){
+        inputNamCAt.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divInfoName.setAttribute("class","invalid-feedback text-left");
+        divInfoName.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        inputNamCAt.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divInfoName.setAttribute("class","d-none");
+    }
+
+    if (lastName1 === "" ){
+        inputDesCAt.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divInfoAlastName1.setAttribute("class","invalid-feedback text-left");
+        divInfoAlastName1.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        inputDesCAt.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divInfoAlastName1.setAttribute("class","d-none");
+    }
+
+    if (aDate === "" ){
+        inputDesDate.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        InfoDesDate.setAttribute("class","invalid-feedback text-left");
+        InfoDesDate.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        inputDesDate.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        InfoDesDate.setAttribute("class","d-none");
+    }
+
+    if (validacion) {
+        try {
+
+            var Ndate = new Date(aDate);
+            var auxAct = new Person(name,lastName1,lastName2,Ndate,img);
+            vSistem.addDirector(auxAct);
+            introducirElemento(auxAct.getObject(),3)
+
+            //vSistem.assignActor(actor1,serie1,"El Personaje",false)
+
+            //recorremos el iterador y mostramos los valores
+            var producciones = vSistem.productions;
+            var produccion = producciones.next();
+            while (produccion.done !== true){
+                for (let i = 0; i < porElementos.length; i++) {
+                    //console.log (produccion.value.title );
+                    if((porElementos[i].checked) && (porElementos[i].value === produccion.value.title) ){
+                        vSistem.assignDirector(auxAct,produccion.value);
+                        //console.log (produccion.value.toString() );
+                    }
+                }
+                
+                produccion = producciones.next();
+            }
+
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("Info:");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            msgAdvert.setAttribute("class","green");
+            var msgh5 = document.createTextNode("operación realizada correctamente");
+            msgAdvert.innerHTML = msgh5.textContent;
+
+            categoriesMenuPopulate();
+            showAddDir();
+
+            return false;
 
         } catch (error) {
             $('#myModalAdv').modal('show');
@@ -1650,21 +2785,1751 @@ function modAct(cont){
             var h5Advert = document.getElementById("myModalAdvh5");
             var texth5 = document.createTextNode("¡Error!");
             //h5Advert.appendChild(texth5);
-            console.log(h5Advert);
-            h5Advert.replaceWith(texth5.textContent);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
 
             var msgAdvert = document.getElementById("myModalAdvMsg");
             var msgh5 = document.createTextNode(error);
-            msgAdvert.appendChild(msgh5);
+            msgAdvert.innerHTML = msgh5.textContent;
 
             return false;
         }
-        
-        categoriesMenuPopulate();
-        rechargeTableCat();
-        showOpCat();
+    }
+}
+//recargamos la tabla de produciones a asignadas a un actor concreto
+function rechargeTableConDir(nameAct){
+
+    var arryP = [];
+
+    var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","myTable");
+    //console.log(tbody);
+
+    //borramos todos los elemetos 
+    while(tbody.firstChild){
+        //console.log(tbody.firstChild);
+        tbody.removeChild(tbody.firstChild);
     }
 
-    return false;
+    //recorremos el iterador y recogemos la categoría seleccionada
+    var actores = vSistem.directors;
+    var actor = actores.next();
+    var encontrado = false;
+    while (actor.done !== true && !encontrado){
+        
+        if (actor.value.name.localeCompare(nameAct) === 0) { 
+            encontrado = true;
+            
+            var auxAct = actor.value;
+        }else{
+            actor = actores.next();
+        }
+    }
+
+    
+    //console.log("aquí");
+    //rellenamos el cuerpo de la tabla
+    var actores = vSistem.getProductionsDirector(auxAct);
+    var actor = actores.next();
+    var contFila = 0;
+    //console.log(actor);
+    while (actor.done !== true){
+        var title = actor.production.title;
+        /*
+        var tr = document.createElement("tr");
+    
+        tr.setAttribute("id",contFila);
+        var tdNAme = document.createElement("td");
+        var textName = document.createTextNode(actor.production.title);
+        
+        
+        tdNAme.appendChild(textName);
+
+        var select = document.createElement("td");
+        var button_del = document.createElement("a");
+        button_del.setAttribute("href","#");
+        var texta = document.createTextNode("desasignar");
+        button_del.appendChild(texta);
+        select.appendChild(button_del);
+        button_del.setAttribute("title",actor.production.title);
+        button_del.setAttribute("id",auxAct.name);
+        
+        button_del.addEventListener("click",function(){deassignDirector(this.title,this.id)});
+
+        tr.appendChild(tdNAme);
+        tr.appendChild(select);
+
+        
+        tbody.appendChild(tr);
+*/
+        actor = actores.next();
+        arryP.push(title); 
+        contFila++;
+    }
+
+    //console.log(arryP);
+
+    //recojemos la produccion
+    var producciones = vSistem.productions;
+    var produccion = producciones.next();
+    
+    while (produccion.done !== true){
+        //console.log(produccion.value.title);
+        var title = produccion.value.title;
+        var coniciden = false
+
+        for (let i = 0; i < arryP.length && !coniciden ; i++) {
+            //console.log(title + " " + arryP[i] + " " + (title.localeCompare(arryP[i]) !== 0));
+            if (title.localeCompare(arryP[i]) === 0) coniciden = true;
+        }    
+            if (coniciden) { 
+                
+                var tr = document.createElement("tr");
+    
+                tr.setAttribute("id",contFila);
+                var tdNAme = document.createElement("td");
+                var textName = document.createTextNode(title);
+                tdNAme.appendChild(textName);
+
+                var select = document.createElement("td");
+                var button_del = document.createElement("a");
+                button_del.setAttribute("href","#");
+                var texta = document.createTextNode("desasignar");
+                button_del.appendChild(texta);
+                select.appendChild(button_del);
+                button_del.setAttribute("id",title);
+                button_del.setAttribute("title",auxAct.name);
+                
+                button_del.addEventListener("click",function(){deassignDirector(this.id,this.title)});
+
+                tr.appendChild(tdNAme);
+                tr.appendChild(select);
+
+                actor = actores.next();
+                tbody.appendChild(tr);
+
+            }else{
+
+                var tr = document.createElement("tr");
+    
+                tr.setAttribute("id",contFila);
+                var tdNAme = document.createElement("td");
+                var textName = document.createTextNode(title);
+                tdNAme.appendChild(textName);
+
+                var select = document.createElement("td");
+                select.setAttribute("class","asignar");
+                var button_del = document.createElement("a");
+                button_del.setAttribute("href","#");
+                var texta = document.createTextNode("Asignar");
+                button_del.appendChild(texta);
+                select.appendChild(button_del);
+                button_del.setAttribute("id",title);
+                button_del.setAttribute("title",auxAct.name);
+                button_del.setAttribute("class","asignar");
+                
+                button_del.addEventListener("click",function(){assignDirector(this.id,this.title)});
+
+                tr.appendChild(tdNAme);
+                tr.appendChild(select);
+
+                actor = actores.next();
+                tbody.appendChild(tr);
+            }
+
+            contFila++;
+            var produccion = producciones.next();
+        }
+    return tbody;
+}
+//funcion para desasignar directores a producciones
+function deassignDirector(proTitle,director){
+    //console.log("desasignando: " + proTitle + " " + director)
+    //recojemos el actor
+    var actores = vSistem.directors;
+    var actor = actores.next();
+    var encontrado = false;
+    while (actor.done !== true && !encontrado){
+        
+        if (actor.value.name.localeCompare(director) === 0) { 
+            encontrado = true;
+            
+            var auxAct = actor.value;
+        }else{
+            actor = actores.next();
+        }
+    }
+
+    //recojemos la produccion
+    var producciones = vSistem.productions;
+    var produccion = producciones.next();
+    var encontrado = false;
+    while (produccion.done !== true && !encontrado){
+        
+        if (produccion.value.title.localeCompare(proTitle) === 0) { 
+            encontrado = true;
+            //console.log(produccion.value);
+            //console.log(vSistem.desassignDirector(auxAct,produccion.value));
+        }else{
+            produccion = producciones.next();
+        }
+    }
+
+
+    showModDir(director);
+}
+//funcion para asasignar directores a producciones
+function assignDirector(proTitle,director){
+    //console.log("asignando: " + proTitle + " " + director)
+    //recojemos el actor
+    var actores = vSistem.directors;
+    var actor = actores.next();
+    var encontrado = false;
+    while (actor.done !== true && !encontrado){
+        
+        if (actor.value.name.localeCompare(director) === 0) { 
+            encontrado = true;
+            
+            var auxAct = actor.value;
+        }else{
+            actor = actores.next();
+        }
+    }
+
+    //recojemos la produccion
+    //recojemos la produccion
+    var producciones = vSistem.productions;
+    var produccion = producciones.next();
+    var encontrado = false;
+    while (produccion.done !== true && !encontrado){
+        
+        if (produccion.value.title.localeCompare(proTitle) === 0) { 
+            encontrado = true;
+            //console.log(vSistem.assignDirector(auxAct,produccion.value));
+        }else{
+            produccion = producciones.next();
+        }
+    }
+
+
+    showModDir(director);
+}
+//formulario añadir producciones: peliculas
+function showAddFilm(){
+    hideAll();
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        //console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
+
+    var div = document.createElement("div");
+    div.setAttribute("id","form_act"); 
+    div.setAttribute("class","m-auto text-center");
+
+    mainAdmin.appendChild(div);
+
+    //formulario para inserción de categorías
+    var h2 = document.createElement("h2");
+    var h2Desc = document.createTextNode("Insertar pelicula");
+    h2.appendChild(h2Desc);
+    div.appendChild(h2);
+
+    var form = document.createElement("form");
+    form.setAttribute("name","addForm");
+    //form.addEventListener("return onsubmit",function(){addAct(document.addForm.AName.value, document.addForm.AlastName1.value, document.addForm.AlastName2.value, document.addForm.ADate.value, )});
+    //form.setAttribute("onsubmit","return false");
+    
+    var formGroup1 = document.createElement("div");
+    formGroup1.setAttribute("class","form-group");
+    
+    //grupo1
+    var inputNamCAt = document.createElement("input");
+    inputNamCAt.setAttribute("id","pTilte");
+    inputNamCAt.setAttribute("name","pTilte");
+    inputNamCAt.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputNamCAt.setAttribute("type","text");
+    inputNamCAt.setAttribute("placeholder","título de la película");
+
+    //div con la información del error
+    var divInfoName = document.createElement("div");
+    divInfoName.setAttribute("id","divPTilte");
+    divInfoName.setAttribute("class","d-none invalid-feedback");
+
+    formGroup1.appendChild(inputNamCAt);
+    formGroup1.appendChild(divInfoName);
+    
+    // grupo 2
+    var formGroup2 = document.createElement("div");
+    formGroup2.setAttribute("class","form-group");
+
+    var inputDesCAt = document.createElement("input");
+    inputDesCAt.setAttribute("id","inputNation");
+    inputDesCAt.setAttribute("name","inputNation");
+    inputDesCAt.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesCAt.setAttribute("type","text");
+    inputDesCAt.setAttribute("placeholder","Nacionalidad");
+    
+    formGroup2.appendChild(inputDesCAt); 
+
+    // grupo 3
+    var formGroup3 = document.createElement("div");
+    formGroup3.setAttribute("class","form-group");
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","synopsis");
+    inputDesAct.setAttribute("name","synopsis");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","text");
+    inputDesAct.setAttribute("placeholder","synopsis");
+
+    formGroup3.appendChild(inputDesAct);
+
+    // grupo 4
+    var formGroup4 = document.createElement("div");
+    formGroup4.setAttribute("class","form-group text-left");
+
+    var labelPub = document.createElement("label");
+    var lblText = document.createTextNode("fecha de publicación");
+    labelPub.appendChild(lblText);
+    formGroup4.appendChild(labelPub);
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","publi");
+    inputDesAct.setAttribute("name","publi");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","date");
+
+    //div con la información del error
+    var divDate = document.createElement("div");
+    divDate.setAttribute("id","divInfoPubli");
+    divDate.setAttribute("class","d-none invalid-feedback");
+
+    formGroup4.appendChild(inputDesAct);
+    formGroup4.appendChild(divDate);
+
+    // grupo 6
+    var formGroup6 = document.createElement("div");
+    formGroup6.setAttribute("class","form-group text-left");
+
+    var labelPub = document.createElement("label");
+    var lblText = document.createTextNode("Imágen del recurso");
+    labelPub.appendChild(lblText);
+    formGroup6.appendChild(labelPub);
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","img");
+    inputDesAct.setAttribute("name","img");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","file");
+
+    formGroup6.appendChild(inputDesAct);
+
+    // grupo 7
+    var formGroup7 = document.createElement("div");
+    formGroup7.setAttribute("class","form-group text-left");
+    //link
+    var labelPub = document.createElement("label");
+    var lblText = document.createTextNode("recurso");
+    labelPub.appendChild(lblText);
+    formGroup7.appendChild(labelPub);
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","url");
+    inputDesAct.setAttribute("name","url");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","file");
+
+    //div con la información del error
+    var divInfoUrl = document.createElement("div");
+    divInfoUrl.setAttribute("id","divInfoUrl");
+    divInfoUrl.setAttribute("class","d-none invalid-feedback");
+
+    formGroup7.appendChild(inputDesAct);
+    formGroup7.appendChild(divInfoUrl);
+
+    //audios
+    var labelPub = document.createElement("label");
+    var lblText = document.createTextNode("audio del recurso");
+    labelPub.appendChild(lblText);
+    formGroup7.appendChild(labelPub);
+
+    var inputDesAct = document.createElement("select");
+    inputDesAct.setAttribute("id","audio");
+    inputDesAct.setAttribute("name","audio");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("multiple","");
+
+    //recorremos el iterador y mostramos los valores
+    
+    var audios = ["español","Ingles","Italiano","Francés"];
+    for (let i = 0; i < audios.length; i++) {
+        var opc = document.createElement("option");
+        var value = document.createTextNode(audios[i]);
+        opc.appendChild(value);
+        opc.setAttribute("value",audios[i]);
+        inputDesAct.appendChild(opc);
+    }
+
+    //subtitulos
+    formGroup7.appendChild(inputDesAct);
+
+    var labelPub2 = document.createElement("label");
+    var lblText2 = document.createTextNode("subtitulos del recurso");
+    labelPub2.appendChild(lblText2);
+    formGroup7.appendChild(labelPub2);
+
+    var inputDesAct2 = document.createElement("select");
+    inputDesAct2.setAttribute("id","sub");
+    inputDesAct2.setAttribute("name","sub");
+    inputDesAct2.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct2.setAttribute("multiple","");
+
+    //recorremos el iterador y mostramos los valores
+    
+    var subti = ["español","Ingles","Italiano","Francés"];
+    for (let i = 0; i < subti.length; i++) {
+        var opc = document.createElement("option");
+        var value = document.createTextNode(subti[i]);
+        opc.appendChild(value);
+        opc.setAttribute("value",subti[i]);
+        inputDesAct2.appendChild(opc);
+    }
+
+    formGroup7.appendChild(inputDesAct2);
+
+    //duración
+    var labelPub2 = document.createElement("label");
+    var lblText2 = document.createTextNode("duración del recurso(segundos)");
+    labelPub2.appendChild(lblText2);
+    formGroup7.appendChild(labelPub2);
+
+    var inputDesAct2 = document.createElement("input");
+    inputDesAct2.setAttribute("id","durac");
+    inputDesAct2.setAttribute("name","durac");
+    inputDesAct2.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct2.setAttribute("type","number");
+    inputDesAct2.setAttribute("min","0");
+
+    //div con la información del error
+    var divInfoName = document.createElement("div");
+    divInfoName.setAttribute("id","divInfoDur");
+    divInfoName.setAttribute("class","d-none invalid-feedback");
+
+    formGroup7.appendChild(inputDesAct2);
+    formGroup7.appendChild(divInfoName);
+
+    //grupo 8
+    var formGroup8 = document.createElement("div");
+    formGroup8.setAttribute("class","form-group text-left");
+
+    var labelPub = document.createElement("label");
+    var lblText = document.createTextNode("coordenadas");
+    labelPub.appendChild(lblText);
+    formGroup8.appendChild(labelPub);
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","coor");
+    inputDesAct.setAttribute("name","coor");
+    inputDesAct.setAttribute("placeholder","0,-5");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","text");
+
+    formGroup8.appendChild(inputDesAct);
+
+    var btnAdd = document.createElement("button");
+    btnAdd.setAttribute("type","button");
+    btnAdd.setAttribute("class","btn btn-primary mb-2");
+    btnAdd.setAttribute("value","add");
+    btnAdd.addEventListener("click",function(){addFilm()});
+    var textNodeBtn = document.createTextNode("Añadir");
+    btnAdd.appendChild(textNodeBtn);
+
+    var advert = document.createElement("div");
+    advert.setAttribute("class","d-none");
+    advert.setAttribute("id","advert");
+
+    form.appendChild(formGroup1);
+    form.appendChild(formGroup2);
+    form.appendChild(formGroup3);
+    form.appendChild(formGroup4);
+    form.appendChild(formGroup6);
+    form.appendChild(formGroup7);
+    form.appendChild(formGroup8);
+    form.appendChild(btnAdd);
+    div.appendChild(form);
+    div.appendChild(advert);
+}
+//formulario añadir producciones: Series
+function showAddSerie(){
+    hideAll();
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        //console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
+
+    var div = document.createElement("div");
+    div.setAttribute("id","form_act"); 
+    div.setAttribute("class","m-auto text-center");
+
+    mainAdmin.appendChild(div);
+
+    //formulario para inserción de categorías
+    var h2 = document.createElement("h2");
+    var h2Desc = document.createTextNode("Insertar pelicula");
+    h2.appendChild(h2Desc);
+    div.appendChild(h2);
+
+    var form = document.createElement("form");
+    form.setAttribute("name","addForm");
+    //form.addEventListener("return onsubmit",function(){addAct(document.addForm.AName.value, document.addForm.AlastName1.value, document.addForm.AlastName2.value, document.addForm.ADate.value, )});
+    //form.setAttribute("onsubmit","return false");
+    
+    var formGroup1 = document.createElement("div");
+    formGroup1.setAttribute("class","form-group");
+    
+    //grupo1
+    var inputNamCAt = document.createElement("input");
+    inputNamCAt.setAttribute("id","pTilte");
+    inputNamCAt.setAttribute("name","pTilte");
+    inputNamCAt.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputNamCAt.setAttribute("type","text");
+    inputNamCAt.setAttribute("placeholder","título de la película");
+
+    //div con la información del error
+    var divInfoName = document.createElement("div");
+    divInfoName.setAttribute("id","divPTilte");
+    divInfoName.setAttribute("class","d-none invalid-feedback");
+
+    formGroup1.appendChild(inputNamCAt);
+    formGroup1.appendChild(divInfoName);
+    
+    // grupo 2
+    var formGroup2 = document.createElement("div");
+    formGroup2.setAttribute("class","form-group");
+
+    var inputDesCAt = document.createElement("input");
+    inputDesCAt.setAttribute("id","inputNation");
+    inputDesCAt.setAttribute("name","inputNation");
+    inputDesCAt.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesCAt.setAttribute("type","text");
+    inputDesCAt.setAttribute("placeholder","Nacionalidad");
+    
+    formGroup2.appendChild(inputDesCAt); 
+
+    // grupo 3
+    var formGroup3 = document.createElement("div");
+    formGroup3.setAttribute("class","form-group");
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","synopsis");
+    inputDesAct.setAttribute("name","synopsis");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","text");
+    inputDesAct.setAttribute("placeholder","synopsis");
+
+    formGroup3.appendChild(inputDesAct);
+
+    // grupo 4
+    var formGroup4 = document.createElement("div");
+    formGroup4.setAttribute("class","form-group text-left");
+
+    var labelPub = document.createElement("label");
+    var lblText = document.createTextNode("fecha de publicación");
+    labelPub.appendChild(lblText);
+    formGroup4.appendChild(labelPub);
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","publi");
+    inputDesAct.setAttribute("name","publi");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","date");
+
+    //div con la información del error
+    var divDate = document.createElement("div");
+    divDate.setAttribute("id","divInfoPubli");
+    divDate.setAttribute("class","d-none invalid-feedback");
+
+    formGroup4.appendChild(inputDesAct);
+    formGroup4.appendChild(divDate);
+
+    // grupo 6
+    var formGroup6 = document.createElement("div");
+    formGroup6.setAttribute("class","form-group text-left");
+
+    var labelPub = document.createElement("label");
+    var lblText = document.createTextNode("Imágen del recurso");
+    labelPub.appendChild(lblText);
+    formGroup6.appendChild(labelPub);
+
+    var inputDesAct = document.createElement("input");
+    inputDesAct.setAttribute("id","img");
+    inputDesAct.setAttribute("name","img");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("type","file");
+
+    formGroup6.appendChild(inputDesAct);
+
+    // grupo 7
+    var formGroup7 = document.createElement("div");
+    formGroup7.setAttribute("class","form-group text-left");
+    //link
+    var labelPub = document.createElement("label");
+    var lblText = document.createTextNode("capitulos");
+    labelPub.appendChild(lblText);
+    formGroup7.appendChild(labelPub);
+
+    var inputDesAct = document.createElement("select");
+    inputDesAct.setAttribute("id","capitulos");
+    inputDesAct.setAttribute("name","capitulos");
+    inputDesAct.setAttribute("class","form-control mb-2 mr-sm-2");
+    inputDesAct.setAttribute("multiple","");
+
+    //recorremos el iterador y mostramos los valores
+    
+    var audios = ["captitulo 1","captitulo 2","captitulo 3","captitulo 4"];
+    for (let i = 0; i < audios.length; i++) {
+        var opc = document.createElement("option");
+        var value = document.createTextNode(audios[i]);
+        opc.appendChild(value);
+        opc.setAttribute("value",audios[i]);
+        inputDesAct.appendChild(opc);
+    }
+
+    //div con la información del error
+    var divInfoUrl = document.createElement("div");
+    divInfoUrl.setAttribute("id","divInfoUrl");
+    divInfoUrl.setAttribute("class","d-none invalid-feedback");
+
+    formGroup7.appendChild(inputDesAct);
+    formGroup7.appendChild(divInfoUrl);
+
+    var btnAdd = document.createElement("button");
+    btnAdd.setAttribute("type","button");
+    btnAdd.setAttribute("class","btn btn-primary mb-2");
+    btnAdd.setAttribute("value","add");
+    btnAdd.addEventListener("click",function(){addSerie()});
+    var textNodeBtn = document.createTextNode("Añadir");
+    btnAdd.appendChild(textNodeBtn);
+
+    var advert = document.createElement("div");
+    advert.setAttribute("class","d-none");
+    advert.setAttribute("id","advert");
+
+    form.appendChild(formGroup1);
+    form.appendChild(formGroup2);
+    form.appendChild(formGroup3);
+    form.appendChild(formGroup4);
+    form.appendChild(formGroup6);
+    form.appendChild(formGroup7);
+    //form.appendChild(formGroup8);
+    form.appendChild(btnAdd);
+    div.appendChild(form);
+    div.appendChild(advert);
+}
+//añadir peliculas
+function addFilm(){
+
+    var title = document.addForm.pTilte.value;
+    var nationality = document.addForm.inputNation.value;
+    var synopsis = document.addForm.synopsis.value;
+    var publication = document.addForm.publi.value;
+    var url = document.addForm.url.value;
+    var durac = document.addForm.durac.value;
+    var locations = document.addForm.coor.value;
+    var image = document.addForm.img.value;
+
+    //console.log(title + " " + nationality + " " + publication + " "+ url + " " + synopsis + " " + image + " " + durac + " " + locations);
+    
+    var select = document.getElementById( 'audio' );
+    //console.log(select.length);
+    
+    //recojemos en un array idiomas
+    var audios = [];
+
+    for ( j = 0; j < select.length; j++) {
+        if(select[j].selected) audios.push(select[j].textContent);
+    }
+    
+    //console.log(audios.length);
+
+    var select = document.getElementById( 'sub' );
+    //console.log(select[0].textContent);
+    
+    //recojemos en un array subtítulos
+    var subtitles = [];
+
+    for ( j = 0; j < select.length; j++) {
+        if(select[j].selected) subtitles.push(select[j].textContent);
+    }
+
+    //console.log(subtitles.length);
+
+    var pTilte = document.getElementById("pTilte");
+    var divPTilte = document.getElementById("divPTilte");
+
+    var publi = document.getElementById("publi");
+    var divDateIfo = document.getElementById("divInfoPubli");
+
+    var durInp = document.getElementById("durac");
+    var divDurIfo = document.getElementById("divInfoDur");
+
+    var urlInput = document.getElementById("url");
+    var divInfoUrl = document.getElementById("divInfoUrl");
+    
+    
+    //comprobar errores
+    var validacion = true;
+    
+    if (title === "" ){
+        pTilte.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divPTilte.setAttribute("class","invalid-feedback text-left");
+        divPTilte.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        pTilte.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divPTilte.setAttribute("class","d-none");
+    }
+
+    if (publication === "" ){
+        publi.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divDateIfo.setAttribute("class","invalid-feedback text-left");
+        divDateIfo.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        publi.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divDateIfo.setAttribute("class","d-none");
+    }
+
+    if (durac === "" ){
+        durInp.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divDurIfo.setAttribute("class","invalid-feedback text-left");
+        divDurIfo.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        durInp.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divDurIfo.setAttribute("class","d-none");
+    }
+
+    if (url === "" ){
+        urlInput.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divInfoUrl.setAttribute("class","invalid-feedback text-left");
+        divInfoUrl.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        urlInput.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divInfoUrl.setAttribute("class","d-none");
+    }
+
+    if (locations !== "" ){
+        locations = locations.split(",");
+        console.log(locations);
+        try {
+            var coordenadas1 = new Coordinate(locations[0],locations[1]);
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(coordenadas1);
+    }else{
+        urlInput.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divInfoUrl.setAttribute("class","d-none");
+    }
+    
+    if (validacion) {
+        try {
+
+            var Ndate = new Date(publication);
+            var recurso = new Resource(durac,url,audios,subtitles); 
+            var film = new Movie(title,nationality,Ndate,synopsis,"images/movie.jpg",recurso,coordenadas1);
+
+            vSistem.addProduction(film);
+            introducirElemento(film.getObject(),4);
+
+            showAssingDirAct(title);
+
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("Info:");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            msgAdvert.setAttribute("class","green");
+            var msgh5 = document.createTextNode("operación realizada correctamente");
+            msgAdvert.innerHTML = msgh5.textContent;
+            
+            return false;
+
+
+        } catch (error) {
+            console.log(error)
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("¡Error!");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            var msgh5 = document.createTextNode(error);
+            msgAdvert.innerHTML = msgh5.textContent;
+
+            return false;
+        }
+    }
+}
+
+function addSerie(){
+
+    var title = document.addForm.pTilte.value;
+    var nationality = document.addForm.inputNation.value;
+    var synopsis = document.addForm.synopsis.value;
+    var publication = document.addForm.publi.value;
+    var image = document.addForm.img.value;
+
+    //console.log(title + " " + nationality + " " + publication + " " + synopsis + " " + image);
+    
+    //recojemos en un array subtítulos
+    var select = document.getElementById( 'capitulos' );
+
+    var pTilte = document.getElementById("pTilte");
+    var divPTilte = document.getElementById("divPTilte");
+
+    var publi = document.getElementById("publi");
+    var divDateIfo = document.getElementById("divInfoPubli");
+
+    var durInp = document.getElementById("durac");
+    var divDurIfo = document.getElementById("divInfoDur");
+
+    var urlInput = document.getElementById("url");
+    var divInfoUrl = document.getElementById("divInfoUrl");
+    
+    
+    //comprobar errores
+    var validacion = true;
+    
+    if (title === "" ){
+        pTilte.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divPTilte.setAttribute("class","invalid-feedback text-left");
+        divPTilte.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        pTilte.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divPTilte.setAttribute("class","d-none");
+    }
+
+    if (publication === "" ){
+        publi.setAttribute("class","form-control is-invalid mb-2 mr-sm-2");
+        divDateIfo.setAttribute("class","invalid-feedback text-left");
+        divDateIfo.innerHTML = "El campo no puede estar vacío";
+        validacion = false;
+    }else{
+        publi.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
+        divDateIfo.setAttribute("class","d-none");
+    }
+    
+    if (validacion) {
+
+        
+        try {
+            
+            var subtitulos = ["español","Ingles"];
+            var audios = ["español","Ingles"];
+            var recurso = new Resource(60,"../images/hp_movie.jpg",audios,subtitulos); 
+            var coordenadas = new Coordinate(444,446);
+            var episodios = [
+                {title: "episodio1 temporada 1", episode:recurso, scenarios:coordenadas, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} },
+                {title: "episodio2 temporada 1", episode:recurso, scenarios:coordenadas, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} },
+                {title: "episodio3 temporada 1", episode:recurso, scenarios:coordenadas, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} },
+                {title: "episodio4 temporada 1", episode:recurso, scenarios:coordenadas, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} },
+                {title: "episodio5 temporada 1", episode:recurso, scenarios:coordenadas, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} }
+            ]; 
+            
+            var totalEpi = [];
+            for ( j = 0; j < select.length; j++) {
+                if(select[j].selected) totalEpi.push(episodios[j]);
+            }
+
+            var season1 = new Season("temp 1",totalEpi);
+
+            var Ndate = new Date(publication);
+            
+            var film = new Serie(title,nationality,Ndate,synopsis,"../images/hp_movie.jpg",season1);
+
+            vSistem.addProduction(film);
+
+            showAssingDirAct(title);
+
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("Info:");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            msgAdvert.setAttribute("class","green");
+            var msgh5 = document.createTextNode("operación realizada correctamente");
+            msgAdvert.innerHTML = msgh5.textContent;
+
+            return false;
+
+        } catch (error) {
+            $('#myModalAdv').modal('show');
+            $('#myModalAdv').modal('handleUpdate');
+            
+            var h5Advert = document.getElementById("myModalAdvh5");
+            var texth5 = document.createTextNode("¡Error!");
+            //h5Advert.appendChild(texth5);
+            //console.log(h5Advert);
+            h5Advert.innerHTML = texth5.textContent;
+
+            var msgAdvert = document.getElementById("myModalAdvMsg");
+            var msgh5 = document.createTextNode(error);
+            msgAdvert.innerHTML = msgh5.textContent;
+
+            return false;
+        }
+    }
+}
+//formulario asignar directores y actores y categorías a una produccion
+function showAssingDirAct(production){
+    hideAll();
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        //console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
+
+    var div = document.createElement("div");
+    div.setAttribute("id","form_act"); 
+    div.setAttribute("class","m-auto text-center");
+
+    mainAdmin.appendChild(div);
+
+    //formulario para inserción de categorías
+    var h2 = document.createElement("h2");
+    var h2Desc = document.createTextNode("asignar directores y actores a: " + production);
+    h2.setAttribute("id",production);
+    h2.appendChild(h2Desc);
+    div.appendChild(h2);
+
+    var form = document.createElement("form");
+    form.setAttribute("name","addForm");
+    //form.addEventListener("return onsubmit",function(){addAct(document.addForm.AName.value, document.addForm.AlastName1.value, document.addForm.AlastName2.value, document.addForm.ADate.value, )});
+    //form.setAttribute("onsubmit","return false");
+
+    //grupo 6
+    var formGroup6 = document.createElement("div");
+    formGroup6.setAttribute("class","form-group");
+
+    var h2 = document.createElement("h2");
+    var h2Desc = document.createTextNode("asignar actores");
+    h2.appendChild(h2Desc);
+    formGroup6.appendChild(h2);
+
+    var table = document.createElement("table");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
+
+    //cabecera
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
+    
+    var th_name = document.createElement("th");
+    var name = document.createTextNode("actores");
+    th_name.appendChild(name);
+
+    var th_select = document.createElement("th");
+    var dele = document.createTextNode("Selecionar");
+    th_select.appendChild(dele);
+    
+    tr.appendChild(th_name);
+    tr.appendChild(th_select);
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+    formGroup6.appendChild(table);
+
+    //cuerpo tabla
+    //Recargamos la tabla de las producciones
+    var tbody = rechargeTableActorsPro(production);
+    table.appendChild(tbody);
+    
+    form.appendChild(formGroup6);
+
+    //grupo7
+    var formGroup7 = document.createElement("div");
+    formGroup7.setAttribute("class","form-group");
+
+    var h2 = document.createElement("h2");
+    var h2Desc = document.createTextNode("asignar directores");
+    h2.appendChild(h2Desc);
+    formGroup7.appendChild(h2);
+
+    var table = document.createElement("table");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
+
+    //cabecera
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
+    
+    var th_name = document.createElement("th");
+    var name = document.createTextNode("directores");
+    th_name.appendChild(name);
+
+    var th_select = document.createElement("th");
+    var dele = document.createTextNode("Selecionar");
+    th_select.appendChild(dele);
+    
+    tr.appendChild(th_name);
+    tr.appendChild(th_select);
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+    formGroup7.appendChild(table);
+
+    //cuerpo tabla
+    //Recargamos la tabla de las producciones
+    var tbody = rechargeTableDirecorsPro(production);
+    table.appendChild(tbody);
+    
+    form.appendChild(formGroup7);
+
+    //grupo7
+    var formGroup8 = document.createElement("div");
+    formGroup8.setAttribute("class","form-group");
+
+    var h2 = document.createElement("h2");
+    var h2Desc = document.createTextNode("asignar categorías");
+    h2.appendChild(h2Desc);
+    formGroup8.appendChild(h2);
+
+    var table = document.createElement("table");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
+
+    //cabecera
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
+    
+    var th_name = document.createElement("th");
+    var name = document.createTextNode("Categorías");
+    th_name.appendChild(name);
+
+    var th_select = document.createElement("th");
+    var dele = document.createTextNode("Selecionar");
+    th_select.appendChild(dele);
+    
+    tr.appendChild(th_name);
+    tr.appendChild(th_select);
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+    formGroup8.appendChild(table);
+
+    //cuerpo tabla
+    //Recargamos la tabla de las producciones
+    var tbody = rechargeTableCatsPro(production);
+    table.appendChild(tbody);
+    
+    form.appendChild(formGroup8);
+
+    div.appendChild(form);
+}
+//recargamos la tabla de actores, para el formulario de asignar a producciones
+function rechargeTableDirecorsPro(production){
+
+    var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","myTable2");
+    //console.log(tbody);
+
+    //borramos todos los elemetos 
+    while(tbody.firstChild){
+        //console.log(tbody.firstChild);
+        tbody.removeChild(tbody.firstChild);
+    }
+    var contFila = 0;
+
+    //rellenamos el cuerpo de la tabla
+    var actores = vSistem.directors;
+    var actor = actores.next();
+    while (actor.done !== true){
+            var tr = document.createElement("tr");
+            tr.setAttribute("id",contFila);
+
+            var tdNAme = document.createElement("td");
+            var textName = document.createTextNode(actor.value.name + " " +  actor.value.lastName1 );
+            tdNAme.appendChild(textName);
+
+            var select = document.createElement("td");
+            select.setAttribute("class","asignar");
+            var button_del = document.createElement("a");
+            button_del.setAttribute("href","#myTable2");
+            var texta = document.createTextNode("asignar");
+            button_del.appendChild(texta);
+            select.appendChild(button_del);
+            button_del.setAttribute("id",actor.value.name);
+            button_del.setAttribute("title",production);
+            
+            button_del.addEventListener("click",function(){assignDirecProd(this.title,this.id)});
+
+            tr.appendChild(tdNAme);
+            tr.appendChild(select);
+
+            actor = actores.next();
+            tbody.appendChild(tr);
+
+            contFila++;
+    }
+
+    //3wschool script de filtro para tablas. 
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
+    return tbody;
+}
+//recargamos la tabla de actores, para el formulario de asignar a producciones
+function rechargeTableActorsPro(production){
+
+    var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","myTable");
+    //console.log(tbody);
+
+    //borramos todos los elemetos 
+    while(tbody.firstChild){
+        //console.log(tbody.firstChild);
+        tbody.removeChild(tbody.firstChild);
+    }
+    var contFila = 0;
+
+    //rellenamos el cuerpo de la tabla
+    var actores = vSistem.actors;
+    var actor = actores.next();
+    while (actor.done !== true){
+            var tr = document.createElement("tr");
+            tr.setAttribute("id",contFila);
+
+            var tdNAme = document.createElement("td");
+            var textName = document.createTextNode(actor.value.name + " " +  actor.value.lastName1 );
+            tdNAme.appendChild(textName);
+
+            var select = document.createElement("td");
+            select.setAttribute("class","asignar");
+            var button_del = document.createElement("a");
+            button_del.setAttribute("href","#myTable");
+            var texta = document.createTextNode("asignar");
+            button_del.appendChild(texta);
+            select.appendChild(button_del);
+            button_del.setAttribute("id",actor.value.name);
+            button_del.setAttribute("title",production);
+            
+            button_del.addEventListener("click",function(){assignActorProd(this.title,this.id)});
+
+            tr.appendChild(tdNAme);
+            tr.appendChild(select);
+
+            actor = actores.next();
+            tbody.appendChild(tr);
+
+            contFila++;
+    }
+
+    //3wschool script de filtro para tablas. 
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
+    return tbody;
+}
+//funcion para asignar categorías a producciones
+function rechargeTableCatsPro(production){
+    var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","myTable3");
+    //console.log(tbody);
+
+    //borramos todos los elemetos 
+    while(tbody.firstChild){
+        //console.log(tbody.firstChild);
+        tbody.removeChild(tbody.firstChild);
+    }
+    var contFila = 0;
+
+    //rellenamos el cuerpo de la tabla
+    var actores = vSistem.categories;
+    var actor = actores.next();
+    while (actor.done !== true){
+            var tr = document.createElement("tr");
+            tr.setAttribute("id",contFila);
+
+            var tdNAme = document.createElement("td");
+            var textName = document.createTextNode(actor.value.name);
+            tdNAme.appendChild(textName);
+
+            var select = document.createElement("td");
+            select.setAttribute("class","asignar");
+            var button_del = document.createElement("a");
+            button_del.setAttribute("href","#myTable3");
+            var texta = document.createTextNode("asignar");
+            button_del.appendChild(texta);
+            select.appendChild(button_del);
+            button_del.setAttribute("id",actor.value.name);
+            button_del.setAttribute("title",production);
+            
+            button_del.addEventListener("click",function(){assignCatProd(this.title,this.id)});
+
+            tr.appendChild(tdNAme);
+            tr.appendChild(select);
+
+            
+            tbody.appendChild(tr);
+
+            actor = actores.next();
+            contFila++;
+    }
+
+    //3wschool script de filtro para tablas. 
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
+    return tbody;
+}
+//funcion para asasignar directores a producciones
+function assignActorProd(proTitle,actorPro){
+    console.log("asignando: " + proTitle + " " + actorPro)
+    //recojemos el actor
+    var actores = vSistem.actors;
+    var actor = actores.next();
+    var encontrado = false;
+    while (actor.done !== true && !encontrado){
+        
+        if (actor.value.name.localeCompare(actorPro) === 0) { 
+            encontrado = true;
+            var auxAct = actor.value;
+        }else{
+            actor = actores.next();
+        }
+    }
+    //recojemos la produccion
+    var producciones = vSistem.productions;
+    var produccion = producciones.next();
+    var encontrado = false;
+    while (produccion.done !== true && !encontrado){
+        
+        if (produccion.value.title.localeCompare(proTitle) === 0) { 
+            encontrado = true;
+            try {
+                console.log(vSistem.assignActor(auxAct,produccion.value,"El Personaje",false));
+            } catch (error) {
+                
+                $('#myModalAdv').modal('show');
+                $('#myModalAdv').modal('handleUpdate');
+                
+                var h5Advert = document.getElementById("myModalAdvh5");
+                var texth5 = document.createTextNode("¡Error!");
+                //h5Advert.appendChild(texth5);
+                //console.log(h5Advert);
+                h5Advert.innerHTML = texth5.textContent;
+
+                var msgAdvert = document.getElementById("myModalAdvMsg");
+                var msgh5 = document.createTextNode(error);
+                msgAdvert.innerHTML = msgh5.textContent;
+
+                return false;
+            }
+        }else{
+            produccion = producciones.next();
+        }
+    }
+}
+//funcion para asasignar directores a producciones
+function assignDirecProd(proTitle,actorPro){
+    //console.log("asignando: " + proTitle + " " + actorPro)
+    //recojemos el actor
+    var actores = vSistem.directors;
+    var actor = actores.next();
+    var encontrado = false;
+    while (actor.done !== true && !encontrado){
+        
+        if (actor.value.name.localeCompare(actorPro) === 0) { 
+            encontrado = true;
+            var auxAct = actor.value;
+        }else{
+            actor = actores.next();
+        }
+    }
+    //recojemos la produccion
+    var producciones = vSistem.productions;
+    var produccion = producciones.next();
+    var encontrado = false;
+    while (produccion.done !== true && !encontrado){
+        
+        if (produccion.value.title.localeCompare(proTitle) === 0) { 
+            encontrado = true;
+            try {
+                console.log(vSistem.assignDirector(auxAct,produccion.value));
+                
+                $('#myModalAdv').modal('show');
+                $('#myModalAdv').modal('handleUpdate');
+
+                var h5Advert = document.getElementById("myModalAdvh5");
+                var texth5 = document.createTextNode("Info:");
+                //h5Advert.appendChild(texth5);
+                //console.log(h5Advert);
+                h5Advert.innerHTML = texth5.textContent;
+
+                var msgAdvert = document.getElementById("myModalAdvMsg");
+                msgAdvert.setAttribute("class","green");
+                var msgh5 = document.createTextNode("operación realizada correctamente");
+                msgAdvert.innerHTML = msgh5.textContent;
+                
+            } catch (error) {
+                
+                $('#myModalAdv').modal('show');
+                $('#myModalAdv').modal('handleUpdate');
+                
+                var h5Advert = document.getElementById("myModalAdvh5");
+                var texth5 = document.createTextNode("¡Error!");
+                //h5Advert.appendChild(texth5);
+                //console.log(h5Advert);
+                h5Advert.innerHTML = texth5.textContent;
+
+                var msgAdvert = document.getElementById("myModalAdvMsg");
+                var msgh5 = document.createTextNode(error);
+                msgAdvert.innerHTML = msgh5.textContent;
+
+                return false;
+            }
+        }else{
+            produccion = producciones.next();
+        }
+    }
+}
+//asignar categorias a producciones
+function assignCatProd(proTitle,actorPro){
+    //console.log("asignando: " + proTitle + " " + actorPro)
+    //recojemos el actor
+    var actores = vSistem.categories;
+    var actor = actores.next();
+    var encontrado = false;
+    while (actor.done !== true && !encontrado){
+        
+        if (actor.value.name.localeCompare(actorPro) === 0) { 
+            encontrado = true;
+            var auxAct = actor.value;
+        }else{
+            actor = actores.next();
+        }
+    }
+
+    //recojemos la produccion
+    var producciones = vSistem.productions;
+    var produccion = producciones.next();
+    var encontrado = false;
+    while (produccion.done !== true && !encontrado){
+        
+        if (produccion.value.title.localeCompare(proTitle) === 0) { 
+            encontrado = true;
+            try {
+                console.log(vSistem.assignCategory(auxAct,produccion.value));
+                
+                $('#myModalAdv').modal('show');
+                $('#myModalAdv').modal('handleUpdate');
+                
+                var h5Advert = document.getElementById("myModalAdvh5");
+                var texth5 = document.createTextNode("Info:");
+                //h5Advert.appendChild(texth5);
+                //console.log(h5Advert);
+                h5Advert.innerHTML = texth5.textContent;
+
+                var msgAdvert = document.getElementById("myModalAdvMsg");
+                msgAdvert.setAttribute("class","green");
+                var msgh5 = document.createTextNode("operación realizada correctamente");
+                msgAdvert.innerHTML = msgh5.textContent;
+
+            } catch (error) {
+                
+                $('#myModalAdv').modal('show');
+                $('#myModalAdv').modal('handleUpdate');
+                
+                var h5Advert = document.getElementById("myModalAdvh5");
+                var texth5 = document.createTextNode("¡Error!");
+                //h5Advert.appendChild(texth5);
+                //console.log(h5Advert);
+                h5Advert.innerHTML = texth5.textContent;
+
+                var msgAdvert = document.getElementById("myModalAdvMsg");
+                var msgh5 = document.createTextNode(error);
+                msgAdvert.innerHTML = msgh5.textContent;
+
+                return false;
+            }
+        }else{
+            produccion = producciones.next();
+        }
+    }
+}
+//formulario eliminar producciones
+function showDelPro(){
+    hideAll();
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        //console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
+
+    var div = document.createElement("div");
+    div.setAttribute("id","form_cat"); 
+    div.setAttribute("class","m-auto text-center");
+
+    mainAdmin.appendChild(div);
+
+    var h2 = document.createElement("h2");
+    var h2_text = document.createTextNode("Buscar producción");
+    h2.appendChild(h2_text);
+    
+    var input = document.createElement("input");
+    input.setAttribute("class","form-control");
+    input.setAttribute("id","myInput");
+    input.setAttribute("type","text");
+    input.setAttribute("placeholder","Buscar director...");
+    
+    div.appendChild(h2);
+    div.appendChild(input);
+
+    var table = document.createElement("table");
+    table.setAttribute("class","table table-bordered table-dark table-striped");
+
+    //cabecera
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
+    
+    var th_name = document.createElement("th");
+    var name = document.createTextNode("Título");
+    th_name.appendChild(name);
+
+    var th_trash = document.createElement("th");
+    var trash = document.createTextNode("borrar");
+    th_trash.appendChild(trash);
+    
+    tr.appendChild(th_name);
+    tr.appendChild(th_trash);
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+    div.appendChild(table);
+
+    //cuerpo tabla
+    //Recargamos la tabla de las categorías
+    var tbody = rechargeTableProductions();
+    table.appendChild(tbody);
+}
+//recargamos la tabla de actores
+function rechargeTableProductions(){
+
+    var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","myTable");
+    //console.log(tbody);
+
+    //borramos todos los elemetos 
+    while(tbody.firstChild){
+        //console.log(tbody.firstChild);
+        tbody.removeChild(tbody.firstChild);
+    }
+    var contFila = 0;
+    //rellenamos el cuerpo de la tabla
+    var directores = vSistem.productions;
+    var director = directores.next();
+    while (director.done !== true){
+        
+        var tr = document.createElement("tr");
+
+        var tdNAme = document.createElement("td");
+        var textName = document.createTextNode(director.value.title);
+        tdNAme.appendChild(textName);
+
+        var tdDel = document.createElement("td");
+        var button_del = document.createElement("button");
+        tdDel.appendChild(button_del);
+        button_del.setAttribute("value",director.value.title);
+        button_del.addEventListener("click",function(){eliminarProduct(this.value)});
+
+        var del = document.createElement("ion-icon");
+        del.setAttribute("name","trash");
+
+        button_del.appendChild(del);
+
+        tr.appendChild(tdNAme);
+        tr.appendChild(tdDel);
+
+        director = directores.next();
+        tbody.appendChild(tr);
+
+        contFila++;
+    }
+    //3wschool script de filtro para tablas. 
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    return tbody;
+}
+//eliminamos una produccion
+function eliminarProduct(tituloProduc){
+    var producciones = vSistem.productions;
+    var produccion = producciones.next();
+    var encontrado = false;
+    while (produccion.done !== true && !encontrado){
+        //console.log("eliminando a "+ tituloProduc + "(" + produccion.value.title + ")");
+        if (produccion.value.title.localeCompare(tituloProduc) === 0) {
+            console.log(vSistem.removeProduction(produccion.value));
+            var produccionAdes = produccion.value;
+            encontrado = true;
+        }
+
+        if (encontrado) {
+            //recorremos el iterador y mostramos los valores
+            var categorias = vSistem.categories;
+            var categoria = categorias.next();
+            while (categoria.done !== true){
+
+                //recogemos la produccion de esta categoría y la desasignamos
+                var produccionesDes = vSistem.getProductionsCategory(categoria.value);
+                var produccionDes = produccionesDes.next();
+                var enco = false;
+                while (produccionDes.done !== true && !enco){
+                    //console.log(tituloProduc + " " + produccionDes.value.title + " "  + tituloProduc.localeCompare(produccion.value.title))
+                    if(tituloProduc.localeCompare(produccionDes.value.title) === 0){
+                        //console.log("desasignando: " + categoria.value.name + " a "+ produccionDes.value.title);
+                        console.log(vSistem.deassignCategory(categoria.value,produccionDes.value));
+                        enco = true;
+                    }
+                    produccionDes = produccionesDes.next();
+                }
+                categoria = categorias.next();
+            }
+
+            //desasignamos actores
+            var actores = vSistem.actors;
+            var actor = actores.next();
+            while (actor.done !== true){
+                var actoresPro = vSistem.getProductionsActor(actor.value);
+                var actorPro = actoresPro.next();
+                while (actorPro.done !== true){
+                    if(tituloProduc.localeCompare(actorPro.production.title) === 0){
+                        //console.log("desasignando: " +  actor.value + " a "+  actorPro.production.title);
+                        console.log(vSistem.desassignActor(actor.value,produccionAdes));
+                    }
+                    actorPro = actoresPro.next();
+                }
+                actor = actores.next();
+            }
+
+            //desasignamos directores
+            var actores = vSistem.directors;
+            var actor = actores.next();
+            while (actor.done !== true){
+                var actoresPro = vSistem.getProductionsDirector(actor.value);
+                var actorPro = actoresPro.next();
+                while (actorPro.done !== true){
+                    if(tituloProduc.localeCompare(actorPro.production.title) === 0){
+                        //console.log("desasignando: " +  actor.value + " a "+  actorPro.production.title);
+                        console.log(vSistem.desassignDirector(actor.value,produccionAdes));
+                    }
+                    actorPro = actoresPro.next();
+                }
+                actor = actores.next();
+            }
+
+        }
+
+        produccion = producciones.next();
+    }
+
+    borrarElementos("producciones",tituloProduc);
+    createHomePage();
+    showDelPro();
+}
+//recargamos la tabla de actores
+function rechargeTableDirectors(){
+
+    var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","myTable");
+    //console.log(tbody);
+
+    //borramos todos los elemetos 
+    while(tbody.firstChild){
+        //console.log(tbody.firstChild);
+        tbody.removeChild(tbody.firstChild);
+    }
+    var contFila = 0;
+    //rellenamos el cuerpo de la tabla
+    var directores = vSistem.directors;
+    var director = directores.next();
+    while (director.done !== true){
+        
+        var tr = document.createElement("tr");
+        tr.setAttribute("id",contFila);
+
+        var tdNAme = document.createElement("td");
+        var textName = document.createTextNode(director.value.name);
+        tdNAme.appendChild(textName);
+
+        var tdLastName = document.createElement("td");
+        var textLastName1 = document.createTextNode(director.value.lastName1);
+        tdLastName.appendChild(textLastName1);
+
+        var tdDate = document.createElement("td");
+        var textDate = document.createTextNode(director.value.born);
+        tdDate.appendChild(textDate);
+
+        var tdDel = document.createElement("td");
+        var button_del = document.createElement("button");
+        tdDel.appendChild(button_del);
+        button_del.setAttribute("value",director.value.name);
+        button_del.addEventListener("click",function(){eliminarDirec(this.value)});
+
+        var del = document.createElement("ion-icon");
+        del.setAttribute("name","trash");
+
+        button_del.appendChild(del);
+
+        var tdEdit = document.createElement("td");
+        var button_edit = document.createElement("button");
+        tdEdit.appendChild(button_edit);
+        button_edit.setAttribute("value",director.value.name);
+        button_edit.addEventListener("click",function(){showModDir(this.value)});
+
+        var edit = document.createElement("ion-icon");
+        edit.setAttribute("name","brush");
+
+        button_edit.appendChild(edit);
+
+        tr.appendChild(tdNAme);
+        tr.appendChild(tdLastName);
+        tr.appendChild(tdDate);
+        
+        tr.appendChild(tdDel);
+        tr.appendChild(tdEdit);
+
+        director = directores.next();
+        tbody.appendChild(tr);
+
+        contFila++;
+    }
+
+    //3wschool script de filtro para tablas. 
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
+    return tbody;
+}
+function generarDoc(){
+    hideAll();
+
+    var mainAdmin = document.getElementById("main-mod-admin");
+    mainAdmin.setAttribute("class","d-block "); 
+
+    //borramos todos los elemetos 
+    while(mainAdmin.firstChild){
+        //console.log(mainAdmin.firstChild);
+        mainAdmin.removeChild(mainAdmin.firstChild);
+    }
+
+    var a = document.createElement("a");
+    a.setAttribute("href","#")
+    a.setAttribute("onclick","showAdmin()")
+    var volver = document.createTextNode("volver a administración");
+    a.appendChild(volver);
+
+    mainAdmin.appendChild(a);
+
+    var div = document.createElement("div");
+    div.setAttribute("id","form_act"); 
+    div.setAttribute("class","m-auto text-center");
+
+    crearDoc();
+
 
 }

@@ -300,22 +300,29 @@ main a:hover{
     color: rgba(153, 7, 7, 0.692);
 }
 
+main a.asignar{
+    color: greenyellow;
+}
+
+.green{
+    color: greenyellow;
+}
+
+main a.asignar:hover{
+    color: rgb(92, 150, 5);
+}
+
+
 .modal-content{
     background-color: rgba(71, 49, 65, 0.959);
 }
 
-<<<<<<< HEAD
 /*
-=======
->>>>>>> a31bfd34e6d816cb8da6ec2dcfbd8c46dc4903b0
 #main-mod-admin{
     height: 70vh;
     overflow: auto;
 }
-<<<<<<< HEAD
 */
-=======
->>>>>>> a31bfd34e6d816cb8da6ec2dcfbd8c46dc4903b0
 
 #actions_list div a {
     color: #e61313;
@@ -331,3 +338,4 @@ main a:hover{
     background-color: #000000;
     /* background-image: linear-gradient(141deg, #434457 0%, #69357e 51%, #27184c 75%); */
 }
+

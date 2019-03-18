@@ -102,8 +102,8 @@ NoExistPersonnException.prototype.constructor = NoExistPersonnException;
 
 //ExistCategoryException: el valor existe en el array.
 function ExistCategoryException(param){
-    this.name = "ExistCategoryException";
-    this.message = "el valor " + param + " existe en el array";
+    this.name = "Error!";
+    this.message = "Ese elemento ya está asignado";
 }
 ExistCategoryException.prototype = new MyBaseExceptions();
 ExistCategoryException.prototype.constructor = ExistCategoryException;

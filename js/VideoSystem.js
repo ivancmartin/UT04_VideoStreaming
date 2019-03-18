@@ -337,7 +337,7 @@ var VideoSystem = (function(){
                 //comprobamos que la produccion tenga asociada esa categoria en concreto 
                 var i = 0;
                 var encontrado = false;
-                
+                var fnded = 0;
                 if(sCategory[indexCat].productions.length === 0){
                     throw new EmptyArrayException();
                 }else{
@@ -347,18 +347,21 @@ var VideoSystem = (function(){
                         //console.log(sCategory[indexCat].productions[i].title + " vs " + production.title);
                         if (sCategory[indexCat].productions[i].title === (production.title)){
                             encontrado = true;
+                            fnded = i;
                         }
                         i++;    
                     }
                 }
                 //console.log("**Longitud del array: " + sCategory[indexCat].productions.length);
-                //console.log("encontrado: " + encontrado);
+                console.log(sCategory[indexCat].productions[fnded]);
                 if(encontrado) {
-                    sCategory[indexCat].productions.splice(production,1);
+                    sCategory[indexCat].productions.splice(fnded,1);
                 }else{
                     throw new NoExistCategoryException(production.title);
                 }
 
+                console.log("encontrado: " + encontrado + " en la pscion " + i);
+                
                 //console.log("Longitud del array: " + sCategory[indexCat].productions.length);
                 return sCategory[indexCat].productions.length;
                 
@@ -586,6 +589,7 @@ var VideoSystem = (function(){
                             if(sActors[indexActor].productions[indexPro].production.title === production.title){
                                 arrayTempCast.push({
                                     //production: sActors[indexActor].productions[indexPro].production.title,
+                                    value: sActors[indexActor] ,
                                     name: sActors[indexActor].name ,
                                     surname: sActors[indexActor].lastName1 + " " + sActors[indexActor].lastName2 ,
                                     character: sActors[indexActor].productions[indexPro].character,
@@ -618,10 +622,16 @@ var VideoSystem = (function(){
                 var nextIndex = 0;
 
                 return {
+                    
                     //devuelve el papel que ha realizado en la produccion y la produccion
                     next: function(){
-                        return nextIndex < sDirectors[indexDirector].productions.length ? 
+                        if (sDirectors[indexDirector].productions.length == 'undefined') {
+                            return {production:null, done:false}
+                        }else{
+                            return nextIndex < sDirectors[indexDirector].productions.length ? 
                             {production:sDirectors[indexDirector].productions[nextIndex++], done:false} : {done:true};
+                        }
+                        
                     }
                 }
 

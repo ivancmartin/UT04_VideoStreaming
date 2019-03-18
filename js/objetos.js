@@ -112,6 +112,15 @@ Person.prototype.toString = function(){
     //repasar: mostrar o no valores nulos
     return "Nombre: " + this.name + ", 1º apellido: " + this.lastName1 + ", 2º apellido: " + this.lastName2 + ", fecha de nacimiento: " + this.born + ",ruta foto: " + this.picture; 
 };
+Person.prototype.getObject = function(){
+    return {
+        name: this.name, 
+        lastName1: this.lastName1,
+        lastName2: this.lastName2,
+        born: this.born,
+        picture: this.picture
+    } 
+};
 // objeto persona: fin
 
 // objeto Category: inicio
@@ -171,6 +180,12 @@ Category.prototype = {};
 Category.prototype.constructor = Category;
 Category.prototype.toString = function(){
     return "Nombre: " + this.name + ", Descripcion: " + this.description; 
+};
+Category.prototype.getObject = function(){
+    return {
+        nombre: this.name, 
+        descripcion: this.description
+    } 
 };
 // objeto Category: fin
 
@@ -267,6 +282,14 @@ Resource.prototype.constructor = Resource;
 Resource.prototype.toString = function(){
     return "duracion: " + this.duration + ", link: " + this.link + ", audios: " + this.audios + ", subtitulos: " + this.subtitles; 
 };
+Resource.prototype.getObject = function(){
+    return {
+        duration: this.duration,
+        link: this.link,
+        audios: this.audios,
+        subtitles: this.subtitles
+    }
+};
 // objeto Resource: fin
 
 //clase abstracta Production: inicio
@@ -358,6 +381,15 @@ Production.prototype.constructor = Production;
 Production.prototype.toString = function(){
     return "título: " + this.title + "\nNacionalidad: " + this.nationality + "\npublication: " + this.publication + "\nsinopsis: " + this.synopsis + "\nruta de la imagen: " + this.image;
 };
+Production.prototype.getObject = function(){
+    return {
+        title: this.title,
+        nationality: this.nationality,
+        publication: this.publication,
+        synopsis: this.synopsis,
+        image: this.image
+    } 
+};
 //clase abstracta Production: fin
 
 //clase Movie: inicio
@@ -410,6 +442,30 @@ Movie.prototype.constructor = Movie;
 Movie.prototype.toString = function(){
     return Production.prototype.toString.call(this) + "\nrecurso: " + this.resource + "\nlocalizaciones: " + this.locations;
 };
+Movie.prototype.getObject = function(){
+    
+    return {
+        title: this.title,
+        nationality: this.nationality,
+        publication: this.publication,
+        synopsis: this.synopsis,
+        image: this.image,
+        resource: this.resource.getObject(), 
+        locations: devolverLoca(this.locations)
+    }
+    
+    function devolverLoca(value){
+        for (let i = 0; i < value.length; i++) {
+            console.log(value[i].longitude);
+            if (value[i].latitude === "" || value[i].latitude == undefined) 
+                value[i].latitude = 0;
+            if (value[i].longitude === "" || value[i].longitude == undefined) 
+                value[i].longitude = 0;
+            return new Coordinate(value[i].longitude, value[i].latidude);;
+        }
+    }
+    
+};
 //clase Movie: fin
 
 //clase Movie: serie
@@ -450,6 +506,27 @@ Serie.prototype.toString = function(){
     return Production.prototype.toString.call(this) + "\ntemporadas: " + this.seasons;
 };
 //clase season: serie
+Serie.prototype.getObject = function(){
+    return {
+        title: this.title,
+        nationality: this.nationality,
+        publication: this.publication,
+        synopsis: this.synopsis,
+        image: this.image,
+        seasons: devolverSeasons(this.seasons)
+    } 
+
+    function devolverSeasons(value){
+        //console.log(value);
+        var seasons = [];
+        for (let i = 0; i < value.length; i++) {
+            seasons.push(value[i].getObject());
+        }
+        return seasons ;
+        
+    }
+
+};
 
 //clase season: inicio
 function Season(title,episodes) {
@@ -528,6 +605,24 @@ Season.prototype = {};
 Season.prototype.constructor = Season;
 Season.prototype.toString = function(){
     return "titulo: " + this.title + "\nEpisodios: " + this.episodes;
+};
+Season.prototype.getObject = function(){
+    return {
+        title: this.title,
+        episodes: getEpisodes(this.episodes),
+
+    }
+
+    function getEpisodes(value){
+        var arrayCaps = [];
+        for (let i = 0; i < value.length; i++) {
+            arrayCaps.push(value[i].episode.getObject());
+        }
+        return arrayCaps;
+    }
+
+    
+
 };
 //clase season: fin
 
@@ -645,5 +740,11 @@ Coordinate.prototype = {};
 Coordinate.prototype.constructor = Coordinate;
 Coordinate.prototype.toString = function(){
     return  "\nlatitud: " + this.latitude + " longitud: " + this.longitude ;
+};
+Coordinate.prototype.getObject = function(){
+    return  {
+        latitude: this.latitude,
+        longitude: this.longitude
+    }
 };
 //clase coordinate: fin

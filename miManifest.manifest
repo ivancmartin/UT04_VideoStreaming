@@ -1,0 +1,17 @@
+CACHE MANIFEST
+#text/cache-manifest appcache 
+css/style.css
+ 
+# offline.html will be displayed if the user is offline
+FALLBACK:
+/ /offline.html
+ 
+# All other resources require the user to be online.
+NETWORK:
+*
+ 
+# Additional resources to cache
+CACHE:
+images/bacground.jpg
+images/movie.jpg
+video/Style-retro.mp4

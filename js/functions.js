@@ -3,6 +3,8 @@
 var vSistem = VideoSystem.getInstance();
 
 function initPopulate(){
+    
+    loadDoc();
     //cargamos el usuario
     var usuario1 = new User("prueba","prueba@gmail.com","prueba");
     vSistem.addUser(usuario1);
@@ -18,7 +20,8 @@ function initPopulate(){
     var arrayCat = [categoria1,categoria2,categoria3,categoria4,categoria5,categoria6];
 
     for (let i = 0; i < arrayCat.length; i++) {
-        vSistem.addCategory(arrayCat[i]);
+        console.log("aqui");
+        //introducirElemento(arrayCat[i].getObject(),1);
     }
 
     //cargamos las producciones
@@ -29,13 +32,13 @@ function initPopulate(){
     var localizaciones = [coordenadas1,coordenadas1];
 
     var episodios = [
-        {title: "episodio1 temporada 1", episode:recurso, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} },
-        {title: "episodio2 temporada 1", episode:recurso, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} }
+        {title: "episodio1 temporada 1", episode:recurso, scenarios:coordenadas1 },
+        {title: "episodio2 temporada 1", episode:recurso, scenarios:coordenadas1 }
     ]; 
 
     var episodios2 = [
-        {title: "episodio1 temporada 2", episode:recurso, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} },
-        {title: "episodio2 temporada 2", episode:recurso, scenarios:coordenadas1, toString(){return "\ntitulo: " + this.title + " recurso: " + this.episode + " escenarios: " + this.scenarios} }
+        {title: "episodio1 temporada 2", episode:recurso, scenarios:coordenadas1 },
+        {title: "episodio2 temporada 2", episode:recurso, scenarios:coordenadas1 }
     ]; 
 
     var season1 = new Season("temp 1",episodios);
@@ -56,18 +59,10 @@ function initPopulate(){
     var arrayProductions = [serie1,serie2,serie3,peli1,peli2,peli3];
 
     for (let i = 0; i < arrayProductions.length; i++){
-        vSistem.addProduction(arrayProductions[i]);
+        //introducirElemento(arrayProductions[i].getObject(),4);
     }
 
     //asignamos categorías
-    vSistem.assignCategory(categoria1,serie3);
-    vSistem.assignCategory(categoria2,peli1);
-    vSistem.assignCategory(categoria3,serie2);
-    vSistem.assignCategory(categoria4,peli2);
-    vSistem.assignCategory(categoria5,serie1);
-    vSistem.assignCategory(categoria2,serie1);
-    vSistem.assignCategory(categoria6,peli3);
-
     
     var actor1 = new Person("Brenton","Thwaites","Middleton",fecha,"images/movie.jpg");
     var actor2 = new Person("Anna","Diop","",fecha,"images/movie.jpg");
@@ -92,9 +87,10 @@ function initPopulate(){
 
     var arraActors = [actor1,actor2,actor3,actor4,actor5,actor6,actor7,actor8,actor9,actor10,actor11,actor12,actor13];
     for (let i = 0; i < arraActors.length; i++) {
-        vSistem.addActor(arraActors[i]);
+        //introducirElemento(arraActors[i].getObject(),2);
     }
 
+    /*
     vSistem.assignActor(actor8,serie1,"La prota",false);
     vSistem.assignActor(actor9,serie1,"El poli",true);
 
@@ -113,14 +109,16 @@ function initPopulate(){
 
     vSistem.assignActor(actor12,peli3,"El payaso malo",true);
     vSistem.assignActor(actor13,peli3,"La prota",true);
+    */
 
     var fecha1 = new Date("Jun 27, 1966");
     var fecha2 = new Date("May 14, 1944");
 
     var director1 = new Person("Jeffrey","Jacob","Abrams",fecha1,"images/movie.jpg");
     var  director2 = new Person("George ","Walton","Lucas",fecha2,"images/movie.jpg");
-
+    
     var arrayDirectors = [director1,director2];
+    /*
     for (let i = 0; i < arrayDirectors.length; i++) {
         vSistem.addDirector(arrayDirectors[i]);
         vSistem.assignDirector(arrayDirectors[i],serie1);
@@ -128,9 +126,145 @@ function initPopulate(){
         vSistem.assignDirector(arrayDirectors[i],peli1);
         vSistem.assignDirector(arrayDirectors[i],peli2);
     }
+    */
+    for (let i = 0; i < arrayDirectors.length; i++) {
+        //introducirElemento(arrayDirectors[i].getObject(),3);
+    }
+
+    var request = indexedDB.open("VSystemDB");
+    request.onsuccess = function() {
+        var db = event.target.result;
+        var store = db.transaction(["categorias","directores","actores","producciones",'categoriasAsig']);
+        
+        // Desgraciadamente, todo sigue siendo asíncrono y lo que podría ser
+        // un sencillo y lineal bucle se convierte en callbacks 
+        var DdBb = store.objectStore('actores');
+        DdBb.openCursor().onsuccess = function(event) {
+            var cursor = event.target.result;
+            // cursor será truthy mientras haya elementos que procesar
+            if (cursor) {
+                // En cursor.value tenemos el elemento actual
+                var current = cursor.value;
+                var born = new Date (current.born);
+                var actor = new Person(current.name,current.lastName1,current.lastName2,born,current.picture);
+                //console.log(actor);
+                vSistem.addActor(actor)
+                //console.log(vSistem.addActor(actor));
+                
+                // Pasamos a procesar el siguiente resultado
+                cursor.continue();
+            }
+        };
+
+        var DdBb = store.objectStore('categorias');
+        DdBb.openCursor().onsuccess = function(event) {
+            var cursor = event.target.result;
+            // cursor será truthy mientras haya elementos que procesar
+            if (cursor) {
+                // En cursor.value tenemos el elemento actual
+                var current = cursor.value;
+                var categoria = new Category(current.nombre,current.descripcion);
+                //console.log(categoria);
+                vSistem.addCategory(categoria);
+                // Pasamos a procesar el siguiente resultado
+                cursor.continue();
+            }
+        };
+
+        var DdBb = store.objectStore('directores');
+        DdBb.openCursor().onsuccess = function(event) {
+            var cursor = event.target.result;
+            // cursor será truthy mientras haya elementos que procesar
+            if (cursor) {
+                // En cursor.value tenemos el elemento actual
+                
+                var current = cursor.value;
+                var born = new Date (current.born);
+                var director = new Person(current.name,current.lastName1,current.lastName2,born,current.picture);
+                //console.log(director);
+                console.log(vSistem.addDirector(director));
+                // Pasamos a procesar el siguiente resultado
+                cursor.continue();
+            }
+        };
+
+        var DdBb = store.objectStore('producciones');
+        DdBb.openCursor().onsuccess = function(event) {
+                var cursor = event.target.result;
+                // cursor será truthy mientras haya elementos que procesar
+                if (cursor) {
+                    // En cursor.value tenemos el elemento actual
+                    var current = cursor.value;
+                    if (current.seasons === undefined) {
+                        //console.log(current.seasons === undefined)
+                        //console.log(current)
+                        var publication = new Date (current.born);
+                        var resource = new Resource(Number(current.resource.duration),current.resource.link,current.resource.audios,current.resource.subtitles);
+                        var produccion = new Movie(current.title, current.nationality, publication, current.synopsis,current.image,resource,current.locations);
+                        console.log(vSistem.addProduction(produccion));
+                        //introducirElemento(produccion.getObject(),4);
+                }else{
+                        
+                }
+                cursor.continue();
+            };
+        };
+
+        //asignamos categorías a producciones
+        asignarCatDb(categoria1.name,[serie3.title]);
+        asignarCatDb(categoria2.name,[peli1.title,serie1]);
+        asignarCatDb(categoria3.name,[serie2.title]);
+        asignarCatDb(categoria4.name,[peli2.title]);
+        asignarCatDb(categoria5.name,[serie1.title]);
+        asignarCatDb(categoria6.name,[peli3.title]);
+
+        /*
+        vSistem.assignCategory(categoria1,serie3);
+        vSistem.assignCategory(categoria2,peli1);
+        vSistem.assignCategory(categoria3,serie2);
+        vSistem.assignCategory(categoria4,peli2);
+        vSistem.assignCategory(categoria5,serie1);
+        vSistem.assignCategory(categoria2,serie1);
+        vSistem.assignCategory(categoria6,peli3);*/
+
+    }
+/*
+    var store = db.transaction(["categorias","directores","actores","producciones",'categoriasAsig']);
+    var DdBb = store.objectStore('categoriasAsig');
+        DdBb.openCursor().onsuccess = function(event) {
+            var cursor = event.target.result;
+            var categoria ;
+            var produccion ;
+
+            // cursor será truthy mientras haya elementos que procesar
+            if (cursor) {
+                var current = cursor.value;
+                for (let x = 0; x < current.produccion.length; x++) {
+                    console.log(current.categoria + " " + current.produccion[x]);
+
+                    db.transaction("producciones").objectStore("producciones").get(current.produccion[x]).onsuccess = function(event) {
+                        alert(event.target.result.value);
+                        produccion = event.target.result;
+                    }
+                    console.log(produccion.value)
+
+                    db.transaction("categorias").objectStore("categorias").get(current.categoria).onsuccess = function(event) {
+                        alert(event.target.result.value);
+                        categoria = event.target.result;
+                    };
+                    console.log(categoria.value)
+
+                    vSistem.assignCategory(categoria,produccion)
+                }
+                
+                cursor.continue();
+            };
+    };
+*/
 }
 
 function initSistem(){
+    cargarDB();
     initPopulate();
     createHomePage();
 
@@ -147,6 +281,7 @@ function initSistem(){
         $('#myModal').modal('hide');
     };
 
+    
 }
 
 //muestra la página principal
@@ -691,7 +826,6 @@ function showProductions(elemt,actor,type) {
         production = productions.next();
     }
 }
-
 //muestra todos los actores
 function showActors(){
 
@@ -899,7 +1033,6 @@ function showDirectors(){
 
     mainDir.appendChild(div_directors);
 }
-
 function showDirector(name_director){
     hideAll();
     
@@ -985,7 +1118,6 @@ function showDirector(name_director){
 
     showProductions(mainActor,director_objetiv,"director");
 }
-
 //oculta todos los elementos
 function hideAll(){
     var main = document.getElementById("main");
