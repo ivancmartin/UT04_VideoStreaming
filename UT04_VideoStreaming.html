@@ -54,9 +54,26 @@
         </div>
     </nav>
     <main class="container pt-1 mt-3 ">
+        
+            <div id="contenedor d-flex">
+                <div class="d-flex">
+                    <div class="reloj" id="Horas">00</div>
+                    <div class="reloj" id="Minutos">:00</div>
+                    <div class="reloj" id="Segundos">:00</div>
+                    <div class="reloj" id="Centesimas">:00</div>
+                </div>
+                <div>
+                    <input type="button" class="boton" id="inicio" value="&#9658;" onclick="inicio();">
+                    <input type="button" class="boton" id="parar" value="&#8718;" onclick="parar();" disabled>
+                    <input type="button" class="boton" id="reinicio" value="&#8635;" onclick="reinicio();" disabled>
+                </div>
+                
+            </div>
+        
         <div class="py-2 d-flex justify-content-between">
                 <span id="userName"></span>
-                <a href="#" id="iniciar" class="linkModal" data-toggle="modal" data-target="#myModal">Iniciar sesión</a> 
+                <a href="#" id="iniciar" class="linkModal" data-toggle="modal" data-target="#myModal">Iniciar sesión</a>
+                
         </div>
         
         <div id="main" class="d-inline">
@@ -119,7 +136,7 @@
             </div>
         </div>
     </main>
-    <footer class="page-footeri mt-5 p-4  ">
+    <footer class="page-footeri mt-5 p-4">
         <h4>VideoSystem by iván</h4>
     </footer>
 
@@ -140,6 +157,7 @@
     <script src="./js/formularios.js"></script>
     <script src="./js/indexDB.js"></script>
     <script src="./js/JSON.js"></script>
+    <script src="./js/reloj.js"></script>
     <!-- iconos -->
     <script src="https://unpkg.com/ionicons@4.4.4/dist/ionicons.js"></script>    
     

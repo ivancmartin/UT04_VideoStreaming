@@ -52,11 +52,12 @@ function crearDoc(){
   var actores = [];
   var directores = [];
   var producciones = [];
+  var usuarios = [];
 
   var request = indexedDB.open("VSystemDB");
   request.onsuccess = function() {
       var db = event.target.result;
-      var store = db.transaction(["categorias","directores","actores","producciones"]);
+      var store = db.transaction(["categorias","directores","actores","producciones","usuarios"]);
       
       // Desgraciadamente, todo sigue siendo asíncrono y lo que podría ser
       // un sencillo y lineal bucle se convierte en callbacks 
@@ -107,10 +108,26 @@ function crearDoc(){
           };
       };
 
+      var DdBb = store.objectStore('usuarios');
+      DdBb.openCursor().onsuccess = function(event) {
+              var cursor = event.target.result;
+              // cursor será truthy mientras haya elementos que procesar
+              if (cursor) {
+                  // En cursor.value tenemos el elemento actual
+                  var current = cursor.value;
+                  if (current.seasons === undefined) {
+                    usuarios.push(cursor.value)
+                    cursor.continue();
+              }else{
+                cursor.continue();
+              }
+          };
+      };
+
       store.oncomplete = function (event) {
-        console.log(actores)
         var dbActUsuaio = {
           VideoSystem:{
+            Usuarios: getCookie("username"), 
             Categorias: categorias,
             Actores: actores,
             Directores: directores,
@@ -118,19 +135,14 @@ function crearDoc(){
           }
         }
 
-        const fs = require('fs');
+        
         var request = new XMLHttpRequest();
         var info = JSON.stringify(dbActUsuaio);
 
-        fs.writeFile('../UT04_VideoStreaming/json/prueba2.php', info,'utf8', (err) => {
-          if (err) throw err;
-          console.log('The file has been saved!');
-        });
-
-        request.open("POST","../UT04_VideoStreaming/json/prueba.php", true);
+        request.open("POST","../UT04_VideoStreaming/json/generar.php", true);
         request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-        request.send('info=' + info);
-        //window.location = "../UT04_VideoStreaming/json/prueba.php?info=" + info;
+        request.send('info=' + info + "&" + "user=" + getCookie("username"));
+        //window.location = "../UT04_VideoStreaming/json/generar.php?info=" + info;
 
     }
   }

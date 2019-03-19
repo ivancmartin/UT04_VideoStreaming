@@ -14,7 +14,8 @@ function cargarDB() {
 
     request.onupgradeneeded  = function(event) { 
         var db = event.target.result;
-    
+
+        db.createObjectStore("usuarios", { keyPath: "nombre" });
         db.createObjectStore("categorias", { keyPath: "nombre" });
         db.createObjectStore("actores", { keyPath: "name" });
         db.createObjectStore("directores", { keyPath: "name" });
@@ -31,6 +32,10 @@ function introducirElemento(elemento,tipo) {
         var db = event.target.result;
         switch (tipo){
             //opción 1: categorías
+            case 0:
+                var request = db.transaction("usuarios", "readwrite").objectStore("usuarios").add(elemento);
+                break;
+            //opción 1: categorías
             case 1:
                 var request = db.transaction("categorias", "readwrite").objectStore("categorias").add(elemento);
                 break;
@@ -42,10 +47,11 @@ function introducirElemento(elemento,tipo) {
             case 3:
                 var request = db.transaction("directores", "readwrite").objectStore("directores").add(elemento);
                 break;
-            //opcion 4: peliculas y series
+            //opcion 4: peliculas 
             case 4:
                 var request = db.transaction("producciones", "readwrite").objectStore("producciones").add(elemento);
                 break;
+            //opcion 5: series 
             case 5:
             //console.log(elemento)
                 var request = db.transaction("producciones", "readwrite").objectStore("producciones").add(elemento);

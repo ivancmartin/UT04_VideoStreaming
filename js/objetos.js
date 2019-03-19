@@ -443,7 +443,7 @@ Movie.prototype.toString = function(){
     return Production.prototype.toString.call(this) + "\nrecurso: " + this.resource + "\nlocalizaciones: " + this.locations;
 };
 Movie.prototype.getObject = function(){
-    
+    console.log(this.locations);
     return {
         title: this.title,
         nationality: this.nationality,
@@ -456,12 +456,8 @@ Movie.prototype.getObject = function(){
     
     function devolverLoca(value){
         for (let i = 0; i < value.length; i++) {
-            console.log(value[i].longitude);
-            if (value[i].latitude === "" || value[i].latitude == undefined) 
-                value[i].latitude = 0;
-            if (value[i].longitude === "" || value[i].longitude == undefined) 
-                value[i].longitude = 0;
-            return new Coordinate(value[i].longitude, value[i].latidude);;
+            if (value == undefined) 
+            return new Coordinate(0,0);
         }
     }
     
@@ -638,7 +634,7 @@ function User(name,email,password){
 		throw new InvalidTypeOfException();		
 
     //console.log(email + " " + ( email.length !== 0) + " " + email.length);
-	if (email === 'undefined' || (email.length === 0)){
+	if (email === 'undefined'){
         email = "";
     }else{
         if (/^[a-zA-Z][a-zA-Z0-9_\-]*(\.[a-zA-Z0-9_\-]*)*[a-zA-Z0-9]\@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test (email) !== true)
@@ -694,6 +690,13 @@ User.prototype = {};
 User.prototype.constructor = User;
 User.prototype.toString = function(){
     return  "Nombre: " + this.name + "\nEmail: " + this.email + "\nPassword: " + this.password ;
+};
+User.prototype.getObject = function(){
+    return  {
+        nombre:this.name,
+        Email:this.email,
+        Password:this.password
+    }
 };
 
 //clase user: fin

@@ -7,7 +7,8 @@ function initPopulate(){
     loadDoc();
     //cargamos el usuario
     var usuario1 = new User("prueba","prueba@gmail.com","prueba");
-    vSistem.addUser(usuario1);
+    introducirElemento(usuario1.getObject(),0);
+    //vSistem.addUser(usuario1);
 
     //cargamos las categorías
     var categoria1  = new Category("Acción","Peliculas y series de acción"); 
@@ -131,11 +132,36 @@ function initPopulate(){
         //introducirElemento(arrayDirectors[i].getObject(),3);
     }
 
+    //asignamos categorías a producciones
+    asignarCatDb(categoria1.name,[serie3.title]);
+    asignarCatDb(categoria2.name,[peli1.title,serie1]);
+    asignarCatDb(categoria3.name,[serie2.title]);
+    asignarCatDb(categoria4.name,[peli2.title]);
+    asignarCatDb(categoria5.name,[serie1.title]);
+    asignarCatDb(categoria6.name,[peli3.title]);
+
     var request = indexedDB.open("VSystemDB");
     request.onsuccess = function() {
         var db = event.target.result;
-        var store = db.transaction(["categorias","directores","actores","producciones",'categoriasAsig']);
+        var store = db.transaction(["usuarios","categorias","directores","actores","producciones",'categoriasAsig']);
         
+        var DdBb = store.objectStore('usuarios');
+        DdBb.openCursor().onsuccess = function(event) {
+            var cursor = event.target.result;
+            // cursor será truthy mientras haya elementos que procesar
+            if (cursor) {
+                // En cursor.value tenemos el elemento actual
+                var current = cursor.value;
+                console.log(current.nombre + " " + current.Email + " " + current.Password)
+                var actor = new User(current.nombre,current.Email,current.Password);
+                //console.log(actor);
+                vSistem.addUser(actor)
+                //console.log(vSistem.addActor(actor));
+                
+                // Pasamos a procesar el siguiente resultado
+                cursor.continue();
+            }
+        };
         // Desgraciadamente, todo sigue siendo asíncrono y lo que podría ser
         // un sencillo y lineal bucle se convierte en callbacks 
         var DdBb = store.objectStore('actores');
@@ -204,19 +230,18 @@ function initPopulate(){
                         console.log(vSistem.addProduction(produccion));
                         //introducirElemento(produccion.getObject(),4);
                 }else{
-                        
+                    var current = cursor.value;
+                    var publication = new Date (current.born);
+                    var produccion = new Serie(current.title, current.nationality, publication, current.synopsis,current.image,current.seasons);
+                    console.log(vSistem.addProduction(produccion));
                 }
                 cursor.continue();
             };
         };
 
-        //asignamos categorías a producciones
-        asignarCatDb(categoria1.name,[serie3.title]);
-        asignarCatDb(categoria2.name,[peli1.title,serie1]);
-        asignarCatDb(categoria3.name,[serie2.title]);
-        asignarCatDb(categoria4.name,[peli2.title]);
-        asignarCatDb(categoria5.name,[serie1.title]);
-        asignarCatDb(categoria6.name,[peli3.title]);
+        
+
+        
 
         /*
         vSistem.assignCategory(categoria1,serie3);

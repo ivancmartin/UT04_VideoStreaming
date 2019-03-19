@@ -565,7 +565,7 @@ function eliminarCat(nameCAt){
             }
 
             vSistem.removeCategory(auxCat);
-            borrarElementos("categorias",auxCat);
+            borrarElementos("categorias",auxCat.name);
            
             //console.log((categoria.value.name.localeCompare(nameCAt) === 0));
         }else{
@@ -586,8 +586,6 @@ function eliminarCat(nameCAt){
     msgAdvert.setAttribute("class","green");
     var msgh5 = document.createTextNode("operación realizada correctamente");
     msgAdvert.innerHTML = msgh5.textContent;
-
-    borrarElementos("categorias",nameCAt);
 
     categoriesMenuPopulate();
     rechargeTableCat();
@@ -645,8 +643,8 @@ function showModCat(nameCat){
 
     var form = document.createElement("form");
     form.setAttribute("name","addForm");
-    form.setAttribute("metoh","post");
-    form.setAttribute("onsubmit","modCat("+cont+")");
+    //form.setAttribute("metoh","post");
+    //form.setAttribute("onsubmit","modCat("+cont+")");
 
     //grupo 1
     
@@ -697,8 +695,11 @@ function showModCat(nameCat){
     formGroup2.appendChild(divInfoDesc);
 
     var btnAdd = document.createElement("input");
-    btnAdd.setAttribute("type","submit");
+    btnAdd.setAttribute("type","button");
     btnAdd.setAttribute("value","Modificar");
+    console.log(cont)
+    btnAdd.setAttribute("onclick","modCat("+cont+")");
+    
 
     var advert = document.createElement("div");
     advert.setAttribute("class","d-none");
@@ -836,10 +837,11 @@ function modCat(cont){
         inputDesCAt.setAttribute("class","form-control is-valid mb-2 mr-sm-2");
         divInfoDesc.setAttribute("class","d-none");
     }
-
+    console.log(validacion)
     if (validacion) {
 
         try {
+            console.log(validacion)
             /*revisar*/ 
             //recorremos el iterador y recojemos la categoría seleccionada
             var categorias = vSistem.categories;
@@ -847,14 +849,19 @@ function modCat(cont){
             var encontrado = false;
             var contador = 0; //selecionamos el indice concreto de la categoría
             while (categoria.done !== true && !encontrado){
+                //console.log(categoria.value + " " + cont +  " " + contador)
                 if (contador === cont) { 
                     encontrado = true;
+                    borrarElementos("categorias",categoria.value.name);
                     categoria.value.name = name;
                     categoria.value.description = desc;
+                    //console.log(name,desc);
+                    var categoria = new Category(name,desc);
+                    introducirElemento(categoria.getObject(),1);
                 }else{
                     categoria = categorias.next();
-                    cont++;
                 }
+                contador++;
             }
 
             $('#myModalAdv').modal('show');
@@ -1495,8 +1502,6 @@ function eliminarAct(nameAct){
     var msgh5 = document.createTextNode("operación realizada correctamente");
     msgAdvert.innerHTML = msgh5.textContent;
 
-    borrarElementos("actores",nameAct);
-
     rechargeTableActors();
     showOpAct();
 }
@@ -1872,14 +1877,17 @@ function modAct(nameAct){
             while (actor.done !== true && !encontrado){
                 if (actor.value.name.localeCompare(nameAct) === 0) { 
                     encontrado = true;
-                    
-                    var auxAct = actor.value;
+
+                    borrarElementos("actores",actor.value.name);
                     //console.log(auxAct);
                     actor.value.name = name;
                     actor.value.lastName1 = lastName1;
                     actor.value.lastName2 = lastName2;
                     actor.value.born = new Date(born);
                     if(img !== "") actor.value.picture = img;
+
+                    var actor = new Person(name,lastName1,lastName2, new Date(born),img);
+                    introducirElemento(actor.getObject(),2);
                     
                 }else{
                     actor = actores.next();
@@ -2317,13 +2325,16 @@ function modDir(dir){
                 if (actor.value.name.localeCompare(dir) === 0) { 
                     encontrado = true;
 
-                    var auxAct = actor.value;
+                    borrarElementos("directores",actor.value.name);
                     //console.log(auxAct);
                     actor.value.name = name;
                     actor.value.lastName1 = lastName1;
                     actor.value.lastName2 = lastName2;
                     actor.value.born = new Date(born);
                     if(img !== "") actor.value.picture = img;
+
+                    var actor = new Person(name,lastName1,lastName2, new Date(born),img);
+                    introducirElemento(actor.getObject(),3);
                     
                 }else{
                     actor = actores.next();
@@ -2834,37 +2845,43 @@ function rechargeTableConDir(nameAct){
     var contFila = 0;
     //console.log(actor);
     while (actor.done !== true){
-        var title = actor.production.title;
-        /*
-        var tr = document.createElement("tr");
-    
-        tr.setAttribute("id",contFila);
-        var tdNAme = document.createElement("td");
-        var textName = document.createTextNode(actor.production.title);
+        console.log(actor);
+       
+        if (actor.production === null){
+            actor.done = true;
+        }else{
+            var title = actor.production.title; 
+            /*
+            var tr = document.createElement("tr");
         
-        
-        tdNAme.appendChild(textName);
+            tr.setAttribute("id",contFila);
+            var tdNAme = document.createElement("td");
+            var textName = document.createTextNode(actor.production.title);
+            
+            
+            tdNAme.appendChild(textName);
 
-        var select = document.createElement("td");
-        var button_del = document.createElement("a");
-        button_del.setAttribute("href","#");
-        var texta = document.createTextNode("desasignar");
-        button_del.appendChild(texta);
-        select.appendChild(button_del);
-        button_del.setAttribute("title",actor.production.title);
-        button_del.setAttribute("id",auxAct.name);
-        
-        button_del.addEventListener("click",function(){deassignDirector(this.title,this.id)});
+            var select = document.createElement("td");
+            var button_del = document.createElement("a");
+            button_del.setAttribute("href","#");
+            var texta = document.createTextNode("desasignar");
+            button_del.appendChild(texta);
+            select.appendChild(button_del);
+            button_del.setAttribute("title",actor.production.title);
+            button_del.setAttribute("id",auxAct.name);
+            
+            button_del.addEventListener("click",function(){deassignDirector(this.title,this.id)});
 
-        tr.appendChild(tdNAme);
-        tr.appendChild(select);
+            tr.appendChild(tdNAme);
+            tr.appendChild(select);
 
-        
-        tbody.appendChild(tr);
-*/
-        actor = actores.next();
-        arryP.push(title); 
-        contFila++;
+            
+            tbody.appendChild(tr);
+            */
+            actor = actores.next();
+            arryP.push(title); 
+            contFila++;
+        }
     }
 
     //console.log(arryP);
@@ -4384,29 +4401,16 @@ function eliminarProduct(tituloProduc){
                 categoria = categorias.next();
             }
 
-            //desasignamos actores
-            var actores = vSistem.actors;
-            var actor = actores.next();
-            while (actor.done !== true){
-                var actoresPro = vSistem.getProductionsActor(actor.value);
-                var actorPro = actoresPro.next();
-                while (actorPro.done !== true){
-                    if(tituloProduc.localeCompare(actorPro.production.title) === 0){
-                        //console.log("desasignando: " +  actor.value + " a "+  actorPro.production.title);
-                        console.log(vSistem.desassignActor(actor.value,produccionAdes));
-                    }
-                    actorPro = actoresPro.next();
-                }
-                actor = actores.next();
-            }
-
             //desasignamos directores
             var actores = vSistem.directors;
             var actor = actores.next();
             while (actor.done !== true){
                 var actoresPro = vSistem.getProductionsDirector(actor.value);
                 var actorPro = actoresPro.next();
+                if (actorPro.value === undefined) actorPro.done = true;
+                console.log(actorPro.value);
                 while (actorPro.done !== true){
+                    
                     if(tituloProduc.localeCompare(actorPro.production.title) === 0){
                         //console.log("desasignando: " +  actor.value + " a "+  actorPro.production.title);
                         console.log(vSistem.desassignDirector(actor.value,produccionAdes));
@@ -4422,7 +4426,7 @@ function eliminarProduct(tituloProduc){
     }
 
     borrarElementos("producciones",tituloProduc);
-    createHomePage();
+    //createHomePage();
     showDelPro();
 }
 //recargamos la tabla de actores

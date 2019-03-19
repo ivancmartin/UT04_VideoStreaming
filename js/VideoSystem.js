@@ -625,7 +625,8 @@ var VideoSystem = (function(){
                     
                     //devuelve el papel que ha realizado en la produccion y la produccion
                     next: function(){
-                        if (sDirectors[indexDirector].productions.length == 'undefined') {
+                        console.log(sDirectors[indexDirector].productions)
+                        if (sDirectors[indexDirector].productions === undefined) {
                             return {production:null, done:false}
                         }else{
                             return nextIndex < sDirectors[indexDirector].productions.length ? 
